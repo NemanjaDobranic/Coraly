@@ -6,10 +6,13 @@ import GeometricShape from "../components/GeometricShape";
 import useGetStarted from "../hooks/useGetStarted";
 
 const useStyles = makeStyles((theme?: Theme) => ({
+  root: {
+    width: "50vw",
+    height: "100vh",
+    position: "relative",
+  },
   h1: {
-    position: "absolute",
-    top: "320px",
-    left: "171px",
+    position: "relative",
   },
 }));
 
@@ -18,16 +21,20 @@ const GetStarted: React.FC = () => {
   const { geometricShapes } = useGetStarted()[0];
 
   return (
-    <div>
+    <div className={classes.root}>
       {geometricShapes.map((shape, index) => (
         <GeometricShape key={index} {...shape} />
       ))}
 
+      <div></div>
+
       <Typography
         variant="h1"
-        color="grey.900"
-        maxWidth="619px"
         className={classes.h1}
+        color="grey.900"
+        maxWidth="80%"
+        zIndex="1"
+        top="40%"
       >
         Get started with Coraly now and improve your workflow
       </Typography>
