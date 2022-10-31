@@ -26,6 +26,7 @@ const useGetStarted = () => {
         {
           type: "ellipse",
           data: {
+        
             width: "34%",
             aspectRatio: "2/1",
             inset: "auto auto 10% 0",
@@ -130,6 +131,71 @@ const useGetStarted = () => {
             columns: 17,
             spacing: "10px",
             inset: ["35.6%", "auto", "auto", "18%"],
+          },
+        },
+      ],
+    },
+    {
+      path: "/reset-password",
+      backgroundColor: "#f93e6c1a",
+      width: "61%",
+      heading: {
+        color: theme.palette.grey.A100,
+        inset: "35% auto auto 21.5%",
+      },
+      geometricShapes: [
+        {
+          type: "circle",
+          data: {
+            width: "30%",
+            aspectRatio: "1/1",
+            inset: "auto auto -8% 5%",
+            color: theme.palette.info.main,
+            radius: "50%",
+          },
+        },
+        {
+          type: "ellipse",
+          data: {
+            width: "30%",
+            aspectRatio: "2/1",
+            inset: "auto -9% 9% auto",
+            color: "#CE69FE",
+            radius: " 50vw 50vw 0 0 ",
+            angle: "-30deg",
+          },
+        },
+        {
+          type: "triangle",
+          data: {
+            width: "32%",
+            height: "27%",
+            inset: "8% -10% auto auto",
+            fill: theme.palette.secondary.main,
+            angle: "165deg",
+          },
+        },
+
+        {
+          type: "ellipse",
+          data: {
+            width: "42%",
+            aspectRatio: "3/1",
+            inset: "6% auto auto -12.5%",
+            color: theme.palette.primary.main,
+            radius: "25%/75%",
+            angle: "-15deg",
+          },
+        },
+        {
+          type: "mesh",
+          data: {
+            circleWidth: "0.42vw",
+            color: theme.palette.common.white,
+            total: 272,
+            columns: 17,
+            spacing: "10px",
+            inset: ["38%", "auto", "auto", "55%"],
           },
         },
       ],
