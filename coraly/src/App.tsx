@@ -1,15 +1,9 @@
 import React from "react";
-
-import GetStarted from "./layouts/GetStarted";
-
-
+import { useRoutes } from "react-router-dom";
+import routes from "./config/routes";
 
 const App: React.FC = () => {
-  return (
-    <div className="App">
-      <GetStarted></GetStarted>
-    </div>
-  );
+  return <div className="App">{useRoutes(routes)}</div>;
 };
 
 export default App;

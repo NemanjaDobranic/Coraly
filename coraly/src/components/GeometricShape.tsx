@@ -92,17 +92,12 @@ const MeshShape = styled(Box)<MeshShape>(({ columns, inset, spacing }) => ({
   position: "absolute",
   zIndex: -1,
 
-  [theme.breakpoints.up("xs")]: {
-    gap: `calc(0.2*${spacing})`,
-    inset: inset.map((e, i) => (i === 0 ? `calc(1.5*${e})` : e)).join(" "),
-  },
-
-  [theme.breakpoints.up("md")]: {
+  [theme.breakpoints.down("md")]: {
     gap: `calc(0.53*${spacing})`,
     inset: inset.map((e, i) => (i === 0 ? `calc(1.4*${e})` : e)).join(" "),
   },
 
-  [theme.breakpoints.up("lg")]: {
+  [theme.breakpoints.up("md")]: {
     gap: `calc(0.7*${spacing})`,
     inset: inset.map((e, i) => (i === 0 ? `calc(1.3*${e})` : e)).join(" "),
   },

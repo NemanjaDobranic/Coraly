@@ -1,46 +1,57 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
-import { makeStyles } from "@mui/styles";
-import { Theme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import GeometricShape from "../components/GeometricShape";
 import useGetStarted from "../hooks/useGetStarted";
+import { theme } from "../config/theme";
+import { useLocation } from "react-router-dom";
 
-const useStyles = makeStyles((theme?: Theme) => ({
-  root: {
-    width: "50vw",
-    height: "100vh",
-    position: "relative",
+interface Root {
+  backgroundColor: string;
+  width: string;
+}
+
+const Root = styled("div")<Root>(({ backgroundColor, width }) => ({
+  height: "100vh",
+  marginLeft: "auto",
+  overflow: "hidden",
+  position: "relative",
+  backgroundColor: backgroundColor,
+  zIndex: "-2",
+  [theme.breakpoints.up("xs")]: {
+    width: "100%",
   },
-  h1: {
-    position: "relative",
+  [theme.breakpoints.up("md")]: {
+    width: width,
   },
 }));
 
 const GetStarted: React.FC = () => {
-  const classes = useStyles();
-  const { geometricShapes } = useGetStarted()[0];
+  const location = useLocation();
+  const variant = useGetStarted().find(
+    (variant) => variant.path === location.pathname
+  );
+
+  const { geometricShapes, backgroundColor, width, heading } = variant
+    ? variant
+    : useGetStarted()[0];
 
   return (
-    <div className={classes.root}>
+    <Root backgroundColor={backgroundColor} width={width}>
       {geometricShapes.map((shape, index) => (
         <GeometricShape key={index} {...shape} />
       ))}
-
-      <div></div>
-
       <Typography
         variant="h1"
-        className={classes.h1}
-        color="grey.900"
+        color={heading.color}
         zIndex="1"
-        top="42%"
-        left="20%"
+        sx={{ position: "relative", inset: heading.inset }}
       >
         Get started with Coraly <br />
         now and improve your
         <br /> workflow
       </Typography>
-    </div>
+    </Root>
   );
 };
 
