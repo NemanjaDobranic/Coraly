@@ -32,11 +32,13 @@ const GetStarted: React.FC = () => {
         variant="h1"
         className={classes.h1}
         color="grey.900"
-        maxWidth="80%"
         zIndex="1"
-        top="40%"
+        top="42%"
+        left="20%"
       >
-        Get started with Coraly now and improve your workflow
+        Get started with Coraly <br />
+        now and improve your
+        <br /> workflow
       </Typography>
     </div>
   );

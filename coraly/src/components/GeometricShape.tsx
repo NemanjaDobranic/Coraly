@@ -1,6 +1,8 @@
 import { styled } from "@mui/material/styles";
-import { Grid, SvgIcon } from "@mui/material";
+import { SvgIcon } from "@mui/material";
+import Box from "@mui/material/Box";
 import React from "react";
+import { theme } from "../config/theme";
 
 interface Props {
   type: string;
@@ -39,7 +41,10 @@ interface Mesh {
   total: number;
   columns: number;
   spacing: number;
+  inset: string[];
 }
+
+type MeshShape = Pick<Mesh, "columns" | "inset" | "spacing">;
 
 const CircleShape = styled("div")<Circle>(
   ({ width, color, inset, aspectRatio, radius }) => ({
@@ -81,34 +86,56 @@ const TriangleShape = styled(SvgIcon)<Triangle>(
     },
   })
 );
+const MeshShape = styled(Box)<MeshShape>(({ columns, inset, spacing }) => ({
+  display: "grid",
+  gridTemplateColumns: `repeat(${columns}, min-content)`,
+  position: "absolute",
+  zIndex: -1,
+
+  [theme.breakpoints.up("xs")]: {
+    gap: `calc(0.2*${spacing})`,
+    inset: inset.map((e, i) => (i === 0 ? `calc(1.5*${e})` : e)).join(" "),
+  },
+
+  [theme.breakpoints.up("md")]: {
+    gap: `calc(0.53*${spacing})`,
+    inset: inset.map((e, i) => (i === 0 ? `calc(1.4*${e})` : e)).join(" "),
+  },
+
+  [theme.breakpoints.up("lg")]: {
+    gap: `calc(0.7*${spacing})`,
+    inset: inset.map((e, i) => (i === 0 ? `calc(1.3*${e})` : e)).join(" "),
+  },
+
+  [theme.breakpoints.up("xl")]: {
+    gap: spacing,
+    inset: inset.join(" "),
+  },
+}));
 
 const getMesh: React.FC<Mesh> = (data) => {
-  console.log(data.color);
+  const { columns, spacing, inset, ...rest } = data;
+
   return (
-    <Grid container columns={data.columns} spacing="5px" >
-      {Array(data.total)
+    <MeshShape columns={columns} spacing={spacing} inset={inset}>
+      {Array(rest.total)
         .fill(0)
-        .map((_, index) => {
-          return (
-            <Grid item key={index} xs={1}>
-              <CircleShape
-                sx={{
-                  position: "relative",
-                }}
-                inset="auto"
-                key={index}
-                color={"RED"}
-                aspectRatio="1/1"
-                width={data.circleWidth}
-                radius="50%"
-              />
-            </Grid>
-          );
-        })}
-    </Grid>
+        .map((_, index) => (
+          <CircleShape
+            sx={{
+              position: "relative",
+            }}
+            inset="auto"
+            key={index}
+            color={rest.color}
+            aspectRatio="1/1"
+            width={rest.circleWidth}
+            radius="50%"
+          />
+        ))}
+    </MeshShape>
   );
 };
-
 const GeometricShape: React.FC<Props> = (props) => {
   switch (props.type) {
     case "circle":

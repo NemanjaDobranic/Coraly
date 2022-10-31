@@ -54,11 +54,12 @@ const useGetStarted = () => {
         {
           type: "mesh",
           data: {
-            circleWidth: "8px",
+            circleWidth: "0.42vw",
             color: theme.palette.grey[100].toString(),
             total: 272,
             columns: 17,
             spacing: "10px",
+            inset: ["25%", "auto", "auto", "30%"],
           },
         },
       ],
