@@ -1,4 +1,4 @@
-import { createTheme, PaletteColorOptions, PaletteColor } from "@mui/material";
+import { createTheme, PaletteColor, lighten, darken } from "@mui/material";
 
 declare module "@mui/material/styles" {
   interface Palette {
@@ -58,18 +58,28 @@ const theme = createTheme({
       "300": "#C1C0C7",
       "500": "#9897A1",
       "600": "#83828E",
-      "700": "#464356",
+      "700": "#6F6D7B",
       "800": "#5A5869",
       "900": "#464356",
       A100: "#312E43",
     },
 
     actionSecondary: palette.augmentColor({
-      color: { main: "#04385A", contrastText: "white" },
+      color: {
+        main: "#04385A",
+        light: lighten("#04385A", 0.5),
+        dark: darken("#04385A", 0.5),
+        contrastText: "white",
+      },
     }),
 
     heliotrope: palette.augmentColor({
-      color: { main: "#CE69FE", contrastText: "white" },
+      color: {
+        main: "#CE69FE",
+        light: lighten("#CE69FE", 0.5),
+        dark: darken("#CE69FE", 0.5),
+        contrastText: "white",
+      },
     }),
 
     text: {
@@ -116,12 +126,62 @@ const theme = createTheme({
       fontWeight: 600,
     },
   },
+
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
           borderRadius: "8px",
           padding: "11px 12px",
+        },
+      },
+    },
+
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: "8px",
+          color: "#5A5869",
+          "& .MuiOutlinedInput-notchedOutline": {
+            borderColor: `#C1C0C7`,
+          },
+          "&.Mui-focused": {
+            "& .MuiOutlinedInput-notchedOutline": {
+              border: `2px solid #04385A`,
+            },
+          },
+          "& .MuiInputBase-input": {
+            padding: "12px 16px",
+          },
+        },
+      },
+    },
+
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          color: "#9897A1",
+          top: "-2.5px",
+          left: "1px",
+          "&.Mui-focused": {
+            color: "#04385A",
+          },
+        },
+      },
+    },
+
+    MuiCheckbox: {
+      styleOverrides: {
+        root: {
+          color: "#A5A5AA",
+
+          "&.Mui-checked": {
+            color: "#04385A",
+          },
+
+          "&:hover": {
+            backgroundColor: lighten("#04385A",0.9),
+          },
         },
       },
     },
