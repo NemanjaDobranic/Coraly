@@ -3,7 +3,9 @@ import GetStarted from "../layouts/GetStarted";
 
 const Login: React.FC = () => {
   return (
-   <GetStarted>Hello</GetStarted>
+    <GetStarted>
+      <span>Hello world!</span>
+    </GetStarted>
   );
 };
 

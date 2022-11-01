@@ -5,6 +5,9 @@ import GeometricShape from "../components/GeometricShape";
 import useGetStarted from "../hooks/useGetStarted";
 import { theme } from "../config/theme";
 import { useLocation } from "react-router-dom";
+import Logo from "../assets/images/logo.svg";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 
 type Props = {
   children?: React.ReactNode;
@@ -18,7 +21,7 @@ interface Panel {
 const Root = styled("div")({
   display: "flex",
   gap: "8px",
-  "& :first-child": {
+  "& :first-of-type": {
     flex: 1,
   },
   [theme.breakpoints.up("xs")]: {
@@ -56,7 +59,14 @@ const GetStarted: React.FC<Props> = ({ children }) => {
 
   return (
     <Root>
-      <div>{children}</div>
+      <Grid container alignContent="flex-start" padding="10%" gap="7vw">
+        <Grid item xs={12}>
+          <Box component="img" alt="logo" src={Logo}></Box>
+        </Grid>
+        <Grid item xs={12}>
+          {children}
+        </Grid>
+      </Grid>
       <Panel backgroundColor={backgroundColor} width={width}>
         {geometricShapes.map((shape, index) => (
           <GeometricShape key={index} {...shape} />
