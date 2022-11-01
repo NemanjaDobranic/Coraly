@@ -3,6 +3,8 @@ import { styled } from "@mui/material/styles";
 import GeometricShape from "../components/GeometricShape";
 import { Typography } from "@mui/material";
 import { theme } from "../config/theme";
+import { Grid, Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const Root = styled("div")({
   position: "relative",
@@ -13,19 +15,19 @@ const Root = styled("div")({
 const NotFoundCode = styled(Typography)({
   position: "relative",
   [theme.breakpoints.up("xs")]: {
-    fontSize: "40px",
+    fontSize: "42px",
   },
   [theme.breakpoints.up("sm")]: {
-    fontSize: "40px",
+    fontSize: "42px",
   },
   [theme.breakpoints.up("md")]: {
-    fontSize: "62px",
+    fontSize: "65px",
   },
   [theme.breakpoints.up("lg")]: {
-    fontSize: "84px",
+    fontSize: "86px",
   },
   [theme.breakpoints.up("xl")]: {
-    fontSize: "118px",
+    fontSize: "122px",
   },
   "& span": {
     display: "inline-block",
@@ -42,7 +44,7 @@ const NotFound: React.FC = () => {
         data={{
           width: "30%",
           aspectRatio: "3/1.9",
-          inset: "-60% auto auto 3%",
+          inset: "-20% auto auto 3%",
           color:
             "linear-gradient(134.55deg, rgba(252, 159, 182, 0.2) 5.97%, rgba(255, 255, 255, 0) 75%)",
           radius: "14px",
@@ -58,15 +60,45 @@ const NotFound: React.FC = () => {
       >
         4<span>0</span>4
       </NotFoundCode>
+      <Grid container justifyContent="center" rowSpacing={2} marginTop="16%">
+        <Grid item>
+          <Typography variant="h4" color={theme.palette.grey.A100}>
+            Page not found
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography
+            variant="body1"
+            color={theme.palette.grey[800]}
+            textAlign="center"
+          >
+            The page you are trying to reach is not available. It may have been
+            deleted or its URL
+            <br /> was misspelled.
+          </Typography>
+        </Grid>
+        <Grid item xs={12} container justifyContent="center">
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <Button
+              variant="contained"
+              sx={{ marginX: "auto" }}
+              color="actionSecondary"
+            >
+              <Typography variant="button">Go back</Typography>
+            </Button>
+          </Link>
+        </Grid>
+      </Grid>
+
       <GeometricShape
         type={"ellipse"}
         data={{
           width: "26%",
-          aspectRatio: "1/1",
+          aspectRatio: "1.05/1",
           inset: "0 5% auto auto",
           color:
             "linear-gradient(134.55deg, rgba(252, 159, 182, 0.2) 5.97%, rgba(255, 255, 255, 0) 75%)",
-          radius: "50%/100%",
+          radius: "38%",
           angle: "135deg",
         }}
       />

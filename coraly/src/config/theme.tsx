@@ -1,5 +1,24 @@
-import { createTheme } from "@mui/material";
+import { createTheme, PaletteColorOptions, PaletteColor } from "@mui/material";
 
+declare module "@mui/material/styles" {
+  interface Palette {
+    actionSecondary: PaletteColor;
+    heliotrope: PaletteColor;
+  }
+  interface PaletteOptions {
+    actionSecondary: PaletteColor;
+    heliotrope: PaletteColor;
+  }
+}
+
+declare module "@mui/material/Button" {
+  interface ButtonPropsColorOverrides {
+    actionSecondary: true;
+    heliotrope: true;
+  }
+}
+
+const { palette } = createTheme();
 const theme = createTheme({
   breakpoints: {
     values: {
@@ -45,6 +64,14 @@ const theme = createTheme({
       A100: "#312E43",
     },
 
+    actionSecondary: palette.augmentColor({
+      color: { main: "#04385A", contrastText: "white" },
+    }),
+
+    heliotrope: palette.augmentColor({
+      color: { main: "#CE69FE", contrastText: "white" },
+    }),
+
     text: {
       primary: "#5A5869",
     },
@@ -82,10 +109,21 @@ const theme = createTheme({
     button: {
       fontFamily: "Inter",
       fontWeight: 700,
+      textTransform: "none",
     },
     caption: {
       fontFamily: "Inter",
       fontWeight: 600,
+    },
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: "8px",
+          padding: "11px 12px",
+        },
+      },
     },
   },
 });
