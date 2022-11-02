@@ -59,7 +59,12 @@ const GetStarted: React.FC<Props> = ({ children }) => {
 
   return (
     <Root>
-      <Grid container alignContent="flex-start" padding="10%" gap="5vw">
+      <Grid
+        container
+        alignContent="flex-start"
+        padding="10% 10% 0 10%"
+        gap="5vw"
+      >
         <Grid item xs={12}>
           <Box component="img" alt="logo" src={Logo}></Box>
         </Grid>
