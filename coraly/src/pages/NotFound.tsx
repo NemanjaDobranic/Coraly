@@ -4,7 +4,7 @@ import GeometricShape from "../components/GeometricShape";
 import { Typography } from "@mui/material";
 import { theme } from "../config/theme";
 import { Grid, Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Root = styled("div")({
   position: "relative",
@@ -37,6 +37,8 @@ const NotFoundCode = styled(Typography)({
 });
 
 const NotFound: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <Root>
       <GeometricShape
@@ -78,15 +80,14 @@ const NotFound: React.FC = () => {
           </Typography>
         </Grid>
         <Grid item xs={12} container justifyContent="center">
-          <Link to="/" style={{ textDecoration: "none" }}>
-            <Button
-              variant="contained"
-              sx={{ marginX: "auto" }}
-              color="actionSecondary"
-            >
-              <Typography variant="button">Go back</Typography>
-            </Button>
-          </Link>
+          <Button
+            onClick={() => navigate(-1)}
+            variant="contained"
+            sx={{ marginX: "auto" }}
+            color="actionSecondary"
+          >
+            <Typography variant="button">Go back</Typography>
+          </Button>
         </Grid>
       </Grid>
 

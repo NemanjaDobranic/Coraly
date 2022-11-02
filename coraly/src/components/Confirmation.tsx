@@ -1,22 +1,26 @@
 import React from "react";
-import GetStarted from "../../layouts/GetStarted";
+import GetStarted from "../layouts/GetStarted";
 import { Box, Typography } from "@mui/material";
-import { theme } from "../../config/theme";
-import Done from "../../assets/images/done.svg";
+import { theme } from "../config/theme";
+import Done from "../assets/images/done.svg";
 
-function Confirmation() {
+interface Props {
+  header: React.ReactNode;
+  body: React.ReactNode;
+}
+
+const Confirmation: React.FC<Props> = ({ header, body }) => {
   return (
     <GetStarted>
       <Typography variant="h4" color={theme.palette.grey[900]} marginBottom={1}>
-        Your workspace is ready
+        {header}
       </Typography>
       <Typography
         variant="body1"
         color={theme.palette.grey[700]}
         marginBottom={7}
       >
-        Check your email inbox. <br />
-        We sent you a confirmation email.
+        {body}
       </Typography>
       <Box
         component="img"
@@ -41,6 +45,6 @@ function Confirmation() {
       ></Box>
     </GetStarted>
   );
-}
+};
 
 export default Confirmation;
