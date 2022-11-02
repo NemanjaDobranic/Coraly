@@ -180,7 +180,41 @@ const theme = createTheme({
           },
 
           "&:hover": {
-            backgroundColor: lighten("#04385A",0.9),
+            backgroundColor: lighten("#04385A", 0.9),
+          },
+        },
+      },
+    },
+
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          color: "#2CCFBC",
+          fontFamily: "Inter",
+          fontWeight: 600,
+          textDecoration: "none",
+
+          "@media (min-width: 0px)": {
+            fontSize: "5px",
+            lineHeight: "7px",
+          },
+          "@media (min-width: 768px)": {
+            fontSize: "8px",
+            lineHeight: "11px",
+          },
+          "@media (min-width: 1024px)": {
+            fontSize: "10px",
+            lineHeight: "15px",
+          },
+          "@media (min-width: 1440px)": {
+            fontSize: "14px",
+            lineHeight: "21px",
+          },
+
+          "&:hover": {
+            color: darken("#2CCFBC", 0.1),
+            transition: "250ms",
+            cursor: "pointer",
           },
         },
       },

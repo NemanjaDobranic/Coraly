@@ -4,6 +4,8 @@ import { Typography, TextField } from "@mui/material";
 import { theme } from "../config/theme";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import { Grid, Button } from "@mui/material";
+import CoralyLink from "../components/CoralyLink";
 
 const Login: React.FC = () => {
   return (
@@ -31,11 +33,33 @@ const Login: React.FC = () => {
           variant="outlined"
           type="password"
           fullWidth
+          sx={{ marginBottom: "18px" }}
         />
-        <FormControlLabel
-          control={<Checkbox TouchRippleProps={{ color: "green" }} />}
-          label="Remember me"
-        />
+
+        <Grid container alignItems="center" marginBottom={4.25}>
+          <Grid item>
+            <FormControlLabel
+              control={<Checkbox TouchRippleProps={{ color: "green" }} />}
+              label="Remember me"
+            />
+          </Grid>
+          <Grid item>
+            <CoralyLink to="/reset-password">Forgot password</CoralyLink>
+          </Grid>
+        </Grid>
+
+        <Button
+          variant="contained"
+          sx={{ marginBottom: "2rem" }}
+          color="actionSecondary"
+          fullWidth
+        >
+          <Typography variant="button">Login</Typography>
+        </Button>
+
+        <Typography variant="body1">
+          Don’t you have an account? <CoralyLink to="/signup">Sign up now</CoralyLink>
+        </Typography>
       </form>
     </GetStarted>
   );
