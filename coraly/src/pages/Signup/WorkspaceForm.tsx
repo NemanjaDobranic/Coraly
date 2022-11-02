@@ -46,7 +46,7 @@ const WorkspaceForm: React.FC = () => {
           control={<Checkbox />}
           label={
             <Typography variant="body1">
-              Agree wit <CoralyLink to="">Terms and Conditions</CoralyLink>,
+              Agree with <CoralyLink to="">Terms and Conditions</CoralyLink>,
               <CoralyLink to="">Privacy Policy</CoralyLink> and <br />
               <CoralyLink to=""> Cookie Policy</CoralyLink>
             </Typography>

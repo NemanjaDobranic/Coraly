@@ -36,7 +36,7 @@ const theme = createTheme({
     secondary: {
       main: "#2CCFBC",
       light: "#00C3F9",
-      contrastText:'white'
+      contrastText: "white",
     },
     success: {
       main: "#34D182",
@@ -175,7 +175,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           color: "#A5A5AA",
-          marginRight:'5px',
+          marginRight: "5px",
 
           "&.Mui-checked": {
             color: "#04385A",
@@ -234,14 +234,6 @@ const theme = createTheme({
 
 theme.typography.h1 = {
   [theme.breakpoints.up("xs")]: {
-    fontSize: "16px",
-    lineHeight: "24px",
-  },
-  [theme.breakpoints.up("sm")]: {
-    fontSize: "16px",
-    lineHeight: "24px",
-  },
-  [theme.breakpoints.up("md")]: {
     fontSize: "25.6px",
     lineHeight: "38.4px",
   },
@@ -258,17 +250,10 @@ theme.typography.h1 = {
 
 theme.typography.h2 = {
   [theme.breakpoints.up("xs")]: {
-    fontSize: "12px",
-    lineHeight: "15px",
-  },
-  [theme.breakpoints.up("sm")]: {
-    fontSize: "12px",
-    lineHeight: "15px",
-  },
-  [theme.breakpoints.up("md")]: {
     fontSize: "19.2px",
     lineHeight: "24px",
   },
+
   [theme.breakpoints.up("lg")]: {
     fontSize: "25.6px",
     lineHeight: "32px",
@@ -282,14 +267,6 @@ theme.typography.h2 = {
 
 theme.typography.h4 = {
   [theme.breakpoints.up("xs")]: {
-    fontSize: "8px",
-    lineHeight: "12px",
-  },
-  [theme.breakpoints.up("sm")]: {
-    fontSize: "8px",
-    lineHeight: "12px",
-  },
-  [theme.breakpoints.up("md")]: {
     fontSize: "12.8px",
     lineHeight: "19.2px",
   },
@@ -306,17 +283,10 @@ theme.typography.h4 = {
 
 theme.typography.h5 = {
   [theme.breakpoints.up("xs")]: {
-    fontSize: "7px",
-    lineHeight: "12px",
-  },
-  [theme.breakpoints.up("sm")]: {
-    fontSize: "7px",
-    lineHeight: "12px",
-  },
-  [theme.breakpoints.up("md")]: {
     fontSize: "11px",
     lineHeight: "19.2px",
   },
+
   [theme.breakpoints.up("lg")]: {
     fontSize: "14.5px",
     lineHeight: "25.6px",
@@ -330,14 +300,6 @@ theme.typography.h5 = {
 
 theme.typography.h6 = {
   [theme.breakpoints.up("xs")]: {
-    fontSize: "6px",
-    lineHeight: "9px",
-  },
-  [theme.breakpoints.up("sm")]: {
-    fontSize: "6px",
-    lineHeight: "9px",
-  },
-  [theme.breakpoints.up("md")]: {
     fontSize: "10px",
     lineHeight: "14.5px",
   },
@@ -354,14 +316,6 @@ theme.typography.h6 = {
 
 theme.typography.body1 = {
   [theme.breakpoints.up("xs")]: {
-    fontSize: "5px",
-    lineHeight: "6px",
-  },
-  [theme.breakpoints.up("sm")]: {
-    fontSize: "5px",
-    lineHeight: "6px",
-  },
-  [theme.breakpoints.up("md")]: {
     fontSize: "7.5px",
     lineHeight: "10px",
   },
@@ -378,14 +332,6 @@ theme.typography.body1 = {
 
 theme.typography.body2 = {
   [theme.breakpoints.up("xs")]: {
-    fontSize: "4px",
-    lineHeight: "6px",
-  },
-  [theme.breakpoints.up("sm")]: {
-    fontSize: "4px",
-    lineHeight: "6px",
-  },
-  [theme.breakpoints.up("md")]: {
     fontSize: "6.5px",
     lineHeight: "10px",
   },
@@ -402,14 +348,6 @@ theme.typography.body2 = {
 
 theme.typography.button = {
   [theme.breakpoints.up("xs")]: {
-    fontSize: "5px",
-    lineHeight: "6px",
-  },
-  [theme.breakpoints.up("sm")]: {
-    fontSize: "5px",
-    lineHeight: "6px",
-  },
-  [theme.breakpoints.up("md")]: {
     fontSize: "7.5px",
     lineHeight: "10px",
   },
@@ -426,14 +364,6 @@ theme.typography.button = {
 
 theme.typography.caption = {
   [theme.breakpoints.up("xs")]: {
-    fontSize: "6px",
-    lineHeight: "8px",
-  },
-  [theme.breakpoints.up("sm")]: {
-    fontSize: "6px",
-    lineHeight: "8px",
-  },
-  [theme.breakpoints.up("md")]: {
     fontSize: "8.5px",
     lineHeight: "13px",
   },
