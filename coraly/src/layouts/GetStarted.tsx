@@ -49,8 +49,8 @@ const Panel = styled("div")<Panel>(({ backgroundColor, width }) => ({
 
 const GetStarted: React.FC<Props> = ({ children }) => {
   const location = useLocation();
-  const variant = useGetStarted().find(
-    (variant) => variant.path === location.pathname
+  const variant = useGetStarted().find((variant) =>
+    location.pathname.includes(variant.path)
   );
 
   const { geometricShapes, backgroundColor, width, heading } = variant

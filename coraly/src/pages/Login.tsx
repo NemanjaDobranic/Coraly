@@ -38,10 +38,7 @@ const Login: React.FC = () => {
 
         <Grid container alignItems="center" marginBottom={4.25}>
           <Grid item>
-            <FormControlLabel
-              control={<Checkbox TouchRippleProps={{ color: "green" }} />}
-              label="Remember me"
-            />
+            <FormControlLabel control={<Checkbox />} label="Remember me" />
           </Grid>
           <Grid item>
             <CoralyLink to="/reset-password">Forgot password</CoralyLink>
@@ -58,7 +55,8 @@ const Login: React.FC = () => {
         </Button>
 
         <Typography variant="body1">
-          Don’t you have an account? <CoralyLink to="/signup">Sign up now</CoralyLink>
+          Don’t you have an account?{" "}
+          <CoralyLink to="/signup">Sign up now</CoralyLink>
         </Typography>
       </form>
     </GetStarted>

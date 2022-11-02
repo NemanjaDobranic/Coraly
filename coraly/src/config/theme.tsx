@@ -36,6 +36,7 @@ const theme = createTheme({
     secondary: {
       main: "#2CCFBC",
       light: "#00C3F9",
+      contrastText:'white'
     },
     success: {
       main: "#34D182",
@@ -174,6 +175,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           color: "#A5A5AA",
+          marginRight:'5px',
 
           "&.Mui-checked": {
             color: "#04385A",
@@ -216,6 +218,14 @@ const theme = createTheme({
             transition: "250ms",
             cursor: "pointer",
           },
+        },
+      },
+    },
+
+    MuiFormControlLabel: {
+      styleOverrides: {
+        root: {
+          margin: 0,
         },
       },
     },
