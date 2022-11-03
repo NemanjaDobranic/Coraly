@@ -62,7 +62,7 @@ const GetStarted: React.FC<Props> = ({ children }) => {
       <Grid
         container
         alignContent="flex-start"
-        padding="10% 10% 0 10%"
+        padding="10%"
         gap="5vw"
       >
         <Grid item xs={12}>
