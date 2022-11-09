@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import GetStarted from "../layouts/GetStarted";
 import { Typography, TextField } from "@mui/material";
 import { theme } from "../config/theme";
@@ -6,8 +6,43 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { Grid, Button } from "@mui/material";
 import CoralyLink from "../components/CoralyLink";
+import validate from "../helpers/functions/validate";
+import Fade from "@mui/material/Fade";
+
+interface ILogin {
+  email: string;
+  password: string;
+}
 
 const Login: React.FC = () => {
+  const initialValues = { email: "", password: "" };
+  const [formValues, setFormValues] = useState<ILogin>(initialValues);
+  const [formErrors, setFormErrors] = useState<Partial<ILogin>>({});
+  const [isSubmit, setIsSubmit] = useState<boolean>(false);
+
+  useEffect(() => {
+    console.log(formErrors);
+    if (Object.keys(formErrors).length === 0 && isSubmit) {
+      console.log(formValues);
+    }
+  }, [formErrors]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
+
+    const validationResult = validate({ [name]: value })[name as keyof ILogin];
+    validationResult !== undefined
+      ? setFormErrors({ ...formErrors, ...{ [name]: validationResult } })
+      : delete formErrors[name as keyof ILogin];
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormErrors(validate(formValues));
+    setIsSubmit(true);
+  };
+
   return (
     <GetStarted>
       <Typography variant="h4" color={theme.palette.grey[900]} marginBottom={1}>
@@ -20,20 +55,38 @@ const Login: React.FC = () => {
       >
         Thanks to come back on Coraly
       </Typography>
-      <form>
+      <form noValidate={true} onSubmit={handleSubmit}>
         <TextField
           label="Email"
           variant="outlined"
           type="email"
+          name="email"
           fullWidth
           sx={{ marginBottom: "24px" }}
+          value={formValues.email}
+          onChange={handleChange}
+          error={!!formErrors.email}
+          helperText={
+            <Fade in={!!formErrors.email}>
+              {<span>{formErrors.email}</span>}
+            </Fade>
+          }
         />
         <TextField
           label="Password"
           variant="outlined"
           type="password"
+          name="password"
           fullWidth
           sx={{ marginBottom: "18px" }}
+          value={formValues.password}
+          onChange={handleChange}
+          error={!!formErrors.password}
+          helperText={
+            <Fade in={!!formErrors.password}>
+              {<span>{formErrors.password}</span>}
+            </Fade>
+          }
         />
 
         <Grid container alignItems="center" marginBottom={4.25}>
@@ -49,6 +102,7 @@ const Login: React.FC = () => {
           variant="contained"
           sx={{ marginBottom: "2rem" }}
           color="actionSecondary"
+          type="submit"
           fullWidth
         >
           <Typography variant="button">Login</Typography>

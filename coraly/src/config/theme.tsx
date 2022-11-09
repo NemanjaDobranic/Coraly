@@ -229,6 +229,46 @@ const theme = createTheme({
         },
       },
     },
+
+    MuiFormControl: {
+      styleOverrides: {
+        root: {
+          marginBottom: "1.5rem",
+          label: {
+            margin: 0,
+          },
+        },
+      },
+    },
+
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          color: "#FF4339",
+          "@media (min-width: 0)": {
+            fontSize: "10px",
+            lineHeight: "14px",
+          },
+          "@media (min-width: 1440px)": {
+            fontSize: "12px",
+            lineHeight: "16px",
+          },
+          margin: "0.5rem  0.75rem 0 0.75rem",
+
+          "&.Mui-error": {
+            "@media (min-width: 0)": {
+              fontSize: "10px",
+              lineHeight: "14px",
+            },
+            "@media (min-width: 1440px)": {
+              fontSize: "12px",
+              lineHeight: "16px",
+            },
+            margin: "0.5rem  0.75rem 0 0.75rem",
+          },
+        },
+      },
+    },
   },
 });
 
