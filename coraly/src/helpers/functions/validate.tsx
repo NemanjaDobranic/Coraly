@@ -17,6 +17,7 @@ const regExps = {
 
 const validate = (values: any) => {
   const errors: IValues = {};
+
   if (values.name !== undefined) {
     if (!values.name) {
       errors.name = "Name is required!";
@@ -61,6 +62,13 @@ const validate = (values: any) => {
     }
   }
 
+  if (
+    values.repeatPassword !== undefined &&
+    values.password !== values.repeatPassword
+  ) {
+    errors.repeatPassword = "Passwords do not match!";
+  }
+
   if (values.workspace !== undefined) {
     if (!values.workspace) {
       errors.workspace = "Workspace is required!";
@@ -74,22 +82,16 @@ const validate = (values: any) => {
     }
   }
 
-  if (!values.agreed) {
+  if (values.agreed !== undefined && !values.agreed) {
     errors.agreed = true;
   } else {
     delete errors.agreed;
   }
 
-  if (!values.authorized) {
+  if (values.authorized !== undefined && !values.authorized) {
     errors.authorized = true;
   } else {
     delete errors.authorized;
-  }
-
-  if (values.repeatPassword !== undefined) {
-    if (values.password !== values.repeatPassword) {
-      errors.repeatPassword = "Passwords do not match";
-    }
   }
 
   return errors;

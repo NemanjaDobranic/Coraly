@@ -21,7 +21,6 @@ const Login: React.FC = () => {
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       console.log(formValues);
     }
@@ -55,7 +54,7 @@ const Login: React.FC = () => {
       >
         Thanks to come back on Coraly
       </Typography>
-      <form noValidate={true} onSubmit={handleSubmit}>
+      <form noValidate onSubmit={handleSubmit}>
         <TextField
           label="Email"
           variant="outlined"

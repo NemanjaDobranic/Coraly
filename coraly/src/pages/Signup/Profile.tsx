@@ -21,7 +21,9 @@ function Profile() {
   };
 
   const [formValues, setFormValues] = useState<IProfile>(initialValues);
-  const [formErrors, setFormErrors] = useState<Partial<IProfile>>({} as IProfile);
+  const [formErrors, setFormErrors] = useState<Partial<IProfile>>(
+    {} as IProfile
+  );
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
   useEffect(() => {
@@ -34,14 +36,13 @@ function Profile() {
     const { name, value } = e.target;
 
     setFormValues({ ...formValues, [name]: value });
-    const validationResult = validate({ [name]: value })[
+    const validationResult = validate({ ...formValues, [name]: value })[
       name as keyof IProfile
     ];
+
     validationResult !== undefined
       ? setFormErrors({ ...formErrors, ...{ [name]: validationResult } })
       : delete formErrors[name as keyof IProfile];
-
-    console.log(validationResult);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -63,7 +64,7 @@ function Profile() {
         Insert all your info to proceed with your workspace
       </Typography>
 
-      <form onSubmit={handleSubmit}>
+      <form noValidate onSubmit={handleSubmit}>
         <TextField
           label="Name"
           variant="outlined"
@@ -121,7 +122,9 @@ function Profile() {
           onChange={handleChange}
           error={!!formErrors.repeatPassword}
           helperText={
-            <Fade in={!!formErrors.repeatPassword}>{<span>Meow</span>}</Fade>
+            <Fade in={!!formErrors.repeatPassword}>
+              {<span>{formErrors.repeatPassword}</span>}
+            </Fade>
           }
         />
 
