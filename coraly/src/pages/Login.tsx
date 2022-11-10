@@ -8,6 +8,7 @@ import { Grid, Button } from "@mui/material";
 import CoralyLink from "../components/CoralyLink";
 import validate from "../helpers/functions/validate";
 import Fade from "@mui/material/Fade";
+import useApi, { HttpMethods } from "../hooks/useApi";
 
 interface ILogin {
   email: string;
@@ -20,11 +21,19 @@ const Login: React.FC = () => {
   const [formErrors, setFormErrors] = useState<Partial<ILogin>>({});
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
 
+  const [{ loading, response }] = useApi({
+    url: "http://localhost:4000/users",
+    options: {
+      method: HttpMethods.GET,
+    },
+  });
+
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       console.log(formValues);
     }
-  }, [formErrors]);
+
+  }, [formErrors,response]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -36,7 +45,7 @@ const Login: React.FC = () => {
       : delete formErrors[name as keyof ILogin];
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormErrors(validate(formValues));
     setIsSubmit(true);
