@@ -1,0 +1,99 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Thomas",
+      "surname": "Smith",
+      "email": "thomas@mail.com",
+      "password": "thomas123"
+    },
+    {
+      "id": 2,
+      "name": "John",
+      "surname": "Evans",
+      "email": "john@mail.com",
+      "password": "john123"
+    },
+    {
+      "id": 3,
+      "name": "Maya",
+      "surname": "Williams",
+      "email": "maya@mail.com",
+      "password": "maya123"
+    }
+  ],
+
+  "workspaces": [
+    {
+      "id": 1,
+      "userId": 2,
+      "name": "lastingdynamics"
+    }
+  ],
+
+  "processes": [
+    {
+      "id": 1,
+      "workspaceId": 1,
+      "name": "Process 1",
+      "color": "#47BDFF",
+      "isPrivate": false
+    },
+    {
+      "id": 2,
+      "workspaceId": 1,
+      "name": "Process 2",
+      "color": "#FF47B5",
+      "isPrivate": true
+    },
+    {
+      "id": 3,
+      "workspaceId": 1,
+      "name": "Process 3",
+      "color": "#FF9F47",
+      "isPrivate": true
+    },
+    {
+      "id": 4,
+      "workspaceId": 1,
+      "name": "Process 4",
+      "color": "#6C47FF",
+      "isPrivate": false
+    },
+    {
+      "id": 5,
+      "workspaceId": 1,
+      "name": "Process 5",
+      "color": "#2EF1CE",
+      "isPrivate": false
+    },
+    {
+      "id": 6,
+      "workspaceId": 1,
+      "name": "Process 6",
+      "color": "#F7D524",
+      "isPrivate": false
+    },
+    {
+      "id": 7,
+      "workspaceId": 1,
+      "name": "Process 7",
+      "color": "#E547FF",
+      "isPrivate": false
+    },
+    {
+      "id": 8,
+      "workspaceId": 1,
+      "name": "Process 8",
+      "color": "#F7D524",
+      "isPrivate": false
+    },
+    {
+      "id": 9,
+      "workspaceId": 1,
+      "name": "Process 9",
+      "color": "#E547FF",
+      "isPrivate": false
+    }
+  ]
+}
