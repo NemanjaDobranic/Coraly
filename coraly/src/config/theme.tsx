@@ -269,6 +269,38 @@ const theme = createTheme({
         },
       },
     },
+
+    MuiAlert: {
+      styleOverrides: {
+        root: {
+          alignItems: "center",
+          padding: "1rem",
+          borderRadius: ".5rem",
+          "& .MuiAlert-icon": {
+            flex: 0,
+            padding: 0,
+          },
+          "& .MuiAlert-message": {
+            padding: 0,
+          },
+          "& .MuiAlert-action": {
+            padding: 0,
+            margin: "auto 0 0 auto",
+            "& :first-of-type": {
+              padding: 0,
+            },
+          },
+        },
+      },
+    },
+
+    MuiAlertTitle: {
+      styleOverrides: {
+        root: {
+          margin: 0,
+        },
+      },
+    },
   },
 });
 

@@ -21,6 +21,7 @@ interface Panel {
 const Root = styled("div")({
   display: "flex",
   gap: "8px",
+  height: "100%",
   "& :first-of-type": {
     flex: 1,
   },
@@ -33,7 +34,7 @@ const Root = styled("div")({
 });
 
 const Panel = styled("div")<Panel>(({ backgroundColor, width }) => ({
-  height: "100vh",
+
   marginLeft: "auto",
   overflow: "hidden",
   position: "relative",
@@ -41,9 +42,11 @@ const Panel = styled("div")<Panel>(({ backgroundColor, width }) => ({
   zIndex: "-2",
   [theme.breakpoints.up("xs")]: {
     width: "100%",
+    height: "100vh",
   },
   [theme.breakpoints.up("md")]: {
     width: width,
+    height: "auto",
   },
 }));
 
@@ -59,12 +62,7 @@ const GetStarted: React.FC<Props> = ({ children }) => {
 
   return (
     <Root>
-      <Grid
-        container
-        alignContent="flex-start"
-        padding="10% 10% 0 10%;"
-        gap="5vw"
-      >
+      <Grid container alignContent="flex-start" padding="7%" gap="5vw">
         <Grid item xs={12}>
           <Box component="img" alt="logo" src={Logo}></Box>
         </Grid>

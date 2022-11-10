@@ -1,5 +1,4 @@
 import React from "react";
-import GetStarted from "../layouts/GetStarted";
 import NotFound from "../pages/NotFound";
 import { Navigate } from "react-router-dom";
 import Login from "../pages/Login";

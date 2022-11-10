@@ -3,7 +3,7 @@ import { useState, useCallback, useRef, useEffect } from "react";
 interface IApi {
   error?: string | null;
   loading?: boolean;
-  response?: JSON | string | number | null;
+  response?: object | string | number | null;
 }
 
 export enum HttpMethods {
@@ -15,7 +15,7 @@ export enum HttpMethods {
 }
 
 interface IApiArgs {
-  url: string;
+  path: string;
   options: {
     method: HttpMethods;
     headers?: {
@@ -26,9 +26,10 @@ interface IApiArgs {
 }
 
 const useApi = (
-  { url, options }: IApiArgs,
+  { path, options }: IApiArgs,
   executeOnMount = false
 ): [IApi, () => Promise<Response>] => {
+  const baseUrl = "http://localhost:4000";
   const initialState: IApi = {
     error: null,
     loading: false,
@@ -46,8 +47,9 @@ const useApi = (
 
   const executeApiCall = useCallback(async () => {
     try {
+      console.log("path", path);
       setState({ error: null, loading: true });
-      const response = await fetch(url, options);
+      const response = await fetch(baseUrl + path, options);
 
       if (response.ok) {
         const data = await response.json();
@@ -61,7 +63,7 @@ const useApi = (
       const typedErr = e as Error;
       throw new Error(typedErr.message);
     }
-  }, []);
+  }, [path, options.body]);
 
   useEffect(
     () => () => {

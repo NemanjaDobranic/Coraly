@@ -20,9 +20,20 @@
       "surname": "Williams",
       "email": "maya@mail.com",
       "password": "maya123"
+    },
+    {
+      "id": 4,
+      "name": "Thomas",
+      "surname": "Smith",
+      "email": "thomas@mail.com",
+      "password": "thomas321"
+    },
+    {
+      "email": "dobranicnemanja@outlook.com",
+      "password": "$2a$10$jA0XhDImCVpmOu4uJb6TPeEUIKZTeur1/2IV8lJ49L5RiyuX5PIIS",
+      "id": 5
     }
   ],
-
   "workspaces": [
     {
       "id": 1,
@@ -30,7 +41,6 @@
       "name": "lastingdynamics"
     }
   ],
-
   "processes": [
     {
       "id": 1,

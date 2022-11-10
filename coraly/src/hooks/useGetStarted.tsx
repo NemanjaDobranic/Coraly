@@ -26,8 +26,7 @@ const useGetStarted = () => {
         {
           type: "ellipse",
           data: {
-        
-            width: "34%",
+            width: "30%",
             aspectRatio: "2/1",
             inset: "auto auto 10% 0",
             color: theme.palette.heliotrope.main,

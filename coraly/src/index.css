@@ -13,3 +13,19 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+#root {
+  flex: 1;
+  position: relative;
+}
+
+.App {
+  position: absolute;
+  inset: 0;
+}
+
+@media (max-width: 768px) {
+  .App {
+    position: relative;
+  }
+}

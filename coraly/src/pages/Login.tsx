@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import GetStarted from "../layouts/GetStarted";
-import { Typography, TextField } from "@mui/material";
+import { Typography, TextField, IconButton, Container } from "@mui/material";
 import { theme } from "../config/theme";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -9,10 +9,21 @@ import CoralyLink from "../components/CoralyLink";
 import validate from "../helpers/functions/validate";
 import Fade from "@mui/material/Fade";
 import useApi, { HttpMethods } from "../hooks/useApi";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
+import CloseIcon from "@mui/icons-material/Close";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+import Zoom from "@mui/material/Zoom";
 
 interface ILogin {
   email: string;
   password: string;
+}
+
+interface IUser extends ILogin {
+  id: number;
+  name: string;
+  surname: string;
 }
 
 const Login: React.FC = () => {
@@ -20,20 +31,47 @@ const Login: React.FC = () => {
   const [formValues, setFormValues] = useState<ILogin>(initialValues);
   const [formErrors, setFormErrors] = useState<Partial<ILogin>>({});
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
+  const [message, setMessage] = useState("");
 
-  const [{ loading, response }] = useApi({
-    url: "http://localhost:4000/users",
+  const [{ loading, response, error }, fetchUsers] = useApi({
+    path: `/login`,
     options: {
-      method: HttpMethods.GET,
+      method: HttpMethods.POST,
+      body: JSON.stringify({
+        email: formValues.email,
+        password: formValues.password,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
     },
   });
 
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(formValues);
+      fetchUsers();
+    }
+  }, [formErrors]);
+
+  useEffect(() => {
+    console.log(response);
+    if (response) {
+      const users = response as IUser[];
+      if (users.length > 0) {
+        const user = users.filter(
+          (user) => user.password === formValues.password
+        );
+        setMessage("hiii");
+        //neipsrvna sifra
+      } else {
+        //korisnik nije pronadjen
+      }
     }
 
-  }, [formErrors,response]);
+    if (error) {
+      setMessage(error);
+    }
+  }, [response, error]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -121,6 +159,35 @@ const Login: React.FC = () => {
           <CoralyLink to="/signup">Sign up now</CoralyLink>
         </Typography>
       </form>
+
+      <Zoom in={!!message} timeout={500}>
+        <Alert
+          severity={error ? "error" : "success"}
+          icon={<ErrorOutlineIcon color={error ? "error" : "success"} />}
+          sx={{
+            [theme.breakpoints.down("md")]: {
+              marginTop: "10%",
+            },
+            [theme.breakpoints.up("md")]: {
+              bottom: "-4.5vw",
+              position: "relative",
+              left: "-6vw",
+            },
+          }}
+          action={
+            <IconButton
+              aria-label="close"
+              color={error ? "error" : "success"}
+              size="small"
+              onClick={() => setMessage("")}
+            >
+              <CloseIcon />
+            </IconButton>
+          }
+        >
+          <AlertTitle color={error ? "error" : "success"}>{message}</AlertTitle>
+        </Alert>
+      </Zoom>
     </GetStarted>
   );
 };
