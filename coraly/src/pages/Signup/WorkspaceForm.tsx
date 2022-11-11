@@ -9,8 +9,10 @@ import validate from "../../helpers/functions/validate";
 import Fade from "@mui/material/Fade";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
+import { useSelector, useDispatch } from "react-redux";
+import { createWorkspace } from "../../redux";
 
-interface IWorkspaceForm {
+export interface IWorkspaceForm {
   workspace: string;
   email: string;
   agreed: boolean;
@@ -27,24 +29,29 @@ const WorkspaceForm: React.FC = () => {
   const [formValues, setFormValues] = useState<IWorkspaceForm>(initialValues);
   const [formErrors, setFormErrors] = useState<Partial<IWorkspaceForm>>({});
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(formValues);
+      dispatch(createWorkspace(formValues));
     }
   }, [formErrors]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     let validationResult;
-    
+
     if (type !== "checkbox") {
       setFormValues({ ...formValues, [name]: value });
 
-      validationResult = validate({ [name]: value })[name as keyof IWorkspaceForm];
+      validationResult = validate({ [name]: value })[
+        name as keyof IWorkspaceForm
+      ];
     } else {
       setFormValues({ ...formValues, [name]: checked });
-      validationResult = validate({ [name]: checked })[name as keyof IWorkspaceForm];
+      validationResult = validate({ [name]: checked })[
+        name as keyof IWorkspaceForm
+      ];
     }
 
     validationResult !== undefined
@@ -72,7 +79,7 @@ const WorkspaceForm: React.FC = () => {
         place
       </Typography>
 
-      <form  noValidate={true} onSubmit={handleSubmit}>
+      <form noValidate={true} onSubmit={handleSubmit}>
         <TextField
           label="Workspace Name"
           variant="outlined"
