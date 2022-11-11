@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import GetStarted from "../layouts/GetStarted";
 import { Typography, TextField, IconButton, Container } from "@mui/material";
 import { theme } from "../config/theme";
@@ -31,7 +31,8 @@ const Login: React.FC = () => {
   const [formValues, setFormValues] = useState<ILogin>(initialValues);
   const [formErrors, setFormErrors] = useState<Partial<ILogin>>({});
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
-  const [message, setMessage] = useState("");
+  const remembered = useRef(false);
+  const [showAlert, setShowAlert] = useState(false);
 
   const [{ loading, response, error }, fetchUsers] = useApi({
     path: `/login`,
@@ -54,22 +55,16 @@ const Login: React.FC = () => {
   }, [formErrors]);
 
   useEffect(() => {
-    console.log(response);
     if (response) {
-      const users = response as IUser[];
-      if (users.length > 0) {
-        const user = users.filter(
-          (user) => user.password === formValues.password
-        );
-        setMessage("hiii");
-        //neipsrvna sifra
-      } else {
-        //korisnik nije pronadjen
+      setShowAlert(true);
+      const user = response as IUser;
+      if (remembered) {
+        localStorage.setItem("user", JSON.stringify(user));
       }
     }
 
     if (error) {
-      setMessage(error);
+      setShowAlert(true);
     }
   }, [response, error]);
 
@@ -86,6 +81,7 @@ const Login: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormErrors(validate(formValues));
+    setShowAlert(false);
     setIsSubmit(true);
   };
 
@@ -137,7 +133,14 @@ const Login: React.FC = () => {
 
         <Grid container alignItems="center" marginBottom={4.25}>
           <Grid item>
-            <FormControlLabel control={<Checkbox />} label="Remember me" />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onClick={() => (remembered.current = !remembered.current)}
+                />
+              }
+              label="Remember me"
+            />
           </Grid>
           <Grid item>
             <CoralyLink to="/reset-password">Forgot password</CoralyLink>
@@ -155,39 +158,43 @@ const Login: React.FC = () => {
         </Button>
 
         <Typography variant="body1">
-          Don’t you have an account?{" "}
+          Don't you have an account?{" "}
           <CoralyLink to="/signup">Sign up now</CoralyLink>
         </Typography>
       </form>
 
-      <Zoom in={!!message} timeout={500}>
-        <Alert
-          severity={error ? "error" : "success"}
-          icon={<ErrorOutlineIcon color={error ? "error" : "success"} />}
-          sx={{
-            [theme.breakpoints.down("md")]: {
-              marginTop: "10%",
-            },
-            [theme.breakpoints.up("md")]: {
-              bottom: "-4.5vw",
-              position: "relative",
-              left: "-6vw",
-            },
-          }}
-          action={
-            <IconButton
-              aria-label="close"
-              color={error ? "error" : "success"}
-              size="small"
-              onClick={() => setMessage("")}
-            >
-              <CloseIcon />
-            </IconButton>
-          }
-        >
-          <AlertTitle color={error ? "error" : "success"}>{message}</AlertTitle>
-        </Alert>
-      </Zoom>
+      {showAlert && (
+        <Zoom in={showAlert} timeout={500}>
+          <Alert
+            severity={error ? "error" : "success"}
+            icon={<ErrorOutlineIcon color={error ? "error" : "success"} />}
+            sx={{
+              [theme.breakpoints.down("md")]: {
+                marginTop: "10%",
+              },
+              [theme.breakpoints.up("md")]: {
+                bottom: "-4.5vw",
+                position: "relative",
+                left: "-6vw",
+              },
+            }}
+            action={
+              <IconButton
+                aria-label="close"
+                color={error ? "error" : "success"}
+                size="small"
+                onClick={() => setShowAlert(false)}
+              >
+                <CloseIcon />
+              </IconButton>
+            }
+          >
+            <AlertTitle color={error ? "error" : "success"}>
+              {error ? error.message : "Succcess honey"}
+            </AlertTitle>
+          </Alert>
+        </Zoom>
+      )}
     </GetStarted>
   );
 };

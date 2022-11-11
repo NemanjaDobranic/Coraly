@@ -1,7 +1,7 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 
 interface IApi {
-  error?: string | null;
+  error?: { statusText: string; message: string } | null;
   loading?: boolean;
   response?: object | string | number | null;
 }
@@ -47,20 +47,23 @@ const useApi = (
 
   const executeApiCall = useCallback(async () => {
     try {
-      console.log("path", path);
       setState({ error: null, loading: true });
       const response = await fetch(baseUrl + path, options);
 
+      const data = await response.json();
       if (response.ok) {
-        const data = await response.json();
         setState({ loading: false, response: data });
       } else {
-        setState({ loading: false, error: response.statusText });
+        setState({
+          loading: false,
+          error: { statusText: response.statusText, message: data },
+        });
       }
 
       return response;
     } catch (e) {
       const typedErr = e as Error;
+      console.log(typedErr);
       throw new Error(typedErr.message);
     }
   }, [path, options.body]);
