@@ -1,15 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
 import GetStarted from "../layouts/GetStarted";
 import { Box, Typography } from "@mui/material";
 import { theme } from "../config/theme";
 import Done from "../assets/images/done.svg";
+import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { confirmSignupEmail } from "../redux";
+import { confirmPasswordEmail } from "../redux";
+
+export enum ConfirmationEnum {
+  SIGNUP,
+  RESET_PASSWORD,
+}
 
 interface Props {
   header: React.ReactNode;
   body: React.ReactNode;
+  type: ConfirmationEnum;
 }
 
-const Confirmation: React.FC<Props> = ({ header, body }) => {
+const Confirmation: React.FC<Props> = ({ header, body, type }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (type === ConfirmationEnum.SIGNUP) {
+        navigate("/signup/step2");
+        dispatch(confirmSignupEmail(true));
+      }
+      if (type === ConfirmationEnum.RESET_PASSWORD) {
+        navigate("/reset-password/confirmation");
+        dispatch(confirmPasswordEmail(true));
+      }
+    }, 3000);
+  }, []);
+
   return (
     <GetStarted>
       <Typography variant="h4" color={theme.palette.grey[900]} marginBottom={1}>

@@ -9,8 +9,9 @@ import validate from "../../helpers/functions/validate";
 import Fade from "@mui/material/Fade";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createWorkspace } from "../../redux";
+import { useNavigate } from "react-router";
 
 export interface IWorkspaceForm {
   workspace: string;
@@ -30,10 +31,12 @@ const WorkspaceForm: React.FC = () => {
   const [formErrors, setFormErrors] = useState<Partial<IWorkspaceForm>>({});
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       dispatch(createWorkspace(formValues));
+      navigate("/signup/email-sent");
     }
   }, [formErrors]);
 

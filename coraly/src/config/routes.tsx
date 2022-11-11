@@ -5,9 +5,12 @@ import Login from "../pages/Login";
 import WorkspaceForm from "../pages/signup/WorkspaceForm";
 import Profile from "../pages/signup/Profile";
 import ResetPassword from "../pages/reset-password/ResetPassword";
-import Confirmation from "../components/Confirmation";
+import Confirmation, { ConfirmationEnum } from "../components/Confirmation";
 import ConfirmPassword from "../pages/reset-password/ConfirmPassword";
-import SignupRoute, { SignupEnum } from "../components/routes/SignupRoute";
+import SignupGuard, { SignupEnum } from "../components/guards/SignupGuard";
+import ResetPasswordGuard, {
+  ResetPasswordEnum,
+} from "../components/guards/ResetPasswordGuard";
 
 //login logiku implementirati za naviagte ako je korisnik ulogovan
 const routes = [
@@ -18,15 +21,15 @@ const routes = [
   {
     path: "/signup/step1",
     element: (
-      <SignupRoute type={SignupEnum.STEP_ONE}>
+      <SignupGuard type={SignupEnum.WORKSPACE}>
         <WorkspaceForm />
-      </SignupRoute>
+      </SignupGuard>
     ),
   },
   {
     path: "/signup/email-sent",
     element: (
-      <SignupRoute type={SignupEnum.CONFIRMATION}>
+      <SignupGuard type={SignupEnum.CONFIRMATION}>
         <Confirmation
           header="Your workspace is ready"
           body={
@@ -36,35 +39,53 @@ const routes = [
               We sent you a confirmation email.
             </span>
           }
+          type={ConfirmationEnum.SIGNUP}
         />
-      </SignupRoute>
+      </SignupGuard>
     ),
   },
   {
     path: "/signup/step2",
     element: (
-      <SignupRoute type={SignupEnum.STEP_TWO}>
+      <SignupGuard type={SignupEnum.PROFILE}>
         <Profile />
-      </SignupRoute>
+      </SignupGuard>
     ),
   },
-  { path: "/reset-password", element: <ResetPassword /> },
+  {
+    path: "/reset-password",
+    element: (
+      <ResetPasswordGuard type={ResetPasswordEnum.RESET_PASSWORD}>
+        <ResetPassword />
+      </ResetPasswordGuard>
+    ),
+  },
   {
     path: "/reset-password/email-sent",
     element: (
-      <Confirmation
-        header="Email was sent!"
-        body={
-          <span>
-            Check your email inbox. <br />
-            We sent you an email to edit your password. If you didn’t received
-            the email, please check your SPAM inbox
-          </span>
-        }
-      />
+      <ResetPasswordGuard type={ResetPasswordEnum.RECEIVED_EMAIL}>
+        <Confirmation
+          header="Email was sent!"
+          body={
+            <span>
+              Check your email inbox. <br />
+              We sent you an email to edit your password. If you didn’t received
+              the email, please check your SPAM inbox
+            </span>
+          }
+          type={ConfirmationEnum.RESET_PASSWORD}
+        />
+      </ResetPasswordGuard>
     ),
   },
-  { path: "/reset-password/confirmation", element: <ConfirmPassword /> },
+  {
+    path: "/reset-password/confirmation",
+    element: (
+      <ResetPasswordGuard type={ResetPasswordEnum.CONFIRM_PASSWORD}>
+        <ConfirmPassword />
+      </ResetPasswordGuard>
+    ),
+  },
 ];
 
 export default routes;

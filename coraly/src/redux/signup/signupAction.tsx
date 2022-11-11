@@ -7,3 +7,10 @@ export const createWorkspace = (workspaceForm: IWorkspaceForm) => {
     payload: workspaceForm,
   };
 };
+
+export const confirmEmail = (confirmed: boolean ) => {
+  return {
+    type: CONFIRMATION,
+    payload: confirmed,
+  };
+};

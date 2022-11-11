@@ -5,6 +5,9 @@ import { theme } from "../../config/theme";
 import CoralyLink from "../../components/CoralyLink";
 import Fade from "@mui/material/Fade";
 import validate from "../../helpers/functions/validate";
+import { useDispatch } from "react-redux";
+import { resetPassword } from "../../redux";
+import { useNavigate } from "react-router";
 
 interface IResetPassword {
   email: string;
@@ -15,12 +18,15 @@ const ResetPassword: React.FC = () => {
   const [form, setForm] = useState<IResetPassword>(initialValues);
   const [formError, setFormError] = useState<Partial<IResetPassword>>({});
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (Object.keys(formError).length === 0 && isSubmit) {
-      console.log(form);
+      dispatch(resetPassword(form.email));
+      navigate("/reset-password/email-sent");
     }
-  }, [form]);
+  }, [form.email,isSubmit]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
