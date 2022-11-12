@@ -1,5 +1,5 @@
 import { Zoom, Alert, IconButton, AlertTitle, AlertColor } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { theme } from "../config/theme";
 import CloseIcon from "@mui/icons-material/Close";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
@@ -8,10 +8,19 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 export interface ICoralyAlert {
   message: string;
   color: AlertColor | undefined;
-  showAlert?: (isVisible: boolean) => boolean ;
 }
 
-const CoralyAlert: React.FC<ICoralyAlert> = ({ message, color, showAlert }) => {
+interface ICoralyAlertProps {
+  message: string;
+  color: AlertColor | undefined;
+  changeVisibility: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const CoralyAlert: React.FC<ICoralyAlertProps> = ({
+  message,
+  color,
+  changeVisibility,
+}) => {
   return (
     <Zoom in timeout={500}>
       <Alert
@@ -35,9 +44,7 @@ const CoralyAlert: React.FC<ICoralyAlert> = ({ message, color, showAlert }) => {
             aria-label="close"
             color={color}
             size="small"
-            onClick={() => {
-              showAlert(false);
-            }}
+            onClick={() => changeVisibility(false)}
           >
             <CloseIcon />
           </IconButton>

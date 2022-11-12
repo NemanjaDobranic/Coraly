@@ -28,12 +28,11 @@ const Login: React.FC = () => {
   const [formErrors, setFormErrors] = useState<Partial<ILogin>>({});
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
   const remembered = useRef(false);
-  const [showAlert, setShowAlert] = useState(false);
   const [alert, setAlert] = useState<ICoralyAlert>({
     color: undefined,
     message: "",
-    showAlert: (showAlert) => showAlert,
   });
+  const [showAlert, setShowAlert] = useState(false);
 
   const [{ loading, response, error }, fetchUsers] = useApi({
     path: `/login`,
@@ -60,8 +59,8 @@ const Login: React.FC = () => {
       setAlert({
         color: "success",
         message: "User successfully authenticated",
-        showAlert: (true),
       });
+      setShowAlert(true);
       const user = response as IUser;
       if (remembered) {
         localStorage.setItem("user", JSON.stringify(user));
@@ -70,6 +69,7 @@ const Login: React.FC = () => {
 
     if (error) {
       setAlert({ color: "error", message: error.message });
+      setShowAlert(true);
     }
   }, [response, error]);
 
@@ -167,12 +167,12 @@ const Login: React.FC = () => {
         </Typography>
       </form>
 
-      <CoralyAlert
-        {...alert}
-        showAlert={(value) => {
-          console.log(value);
-        }}
-      />
+      {showAlert && (
+        <CoralyAlert
+          {...alert}
+          changeVisibility={(isVisible) => setShowAlert(isVisible)}
+        />
+      )}
     </GetStarted>
   );
 };
