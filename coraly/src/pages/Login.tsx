@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import GetStarted from "../layouts/GetStarted";
-import { Typography, TextField, IconButton, Container } from "@mui/material";
+import { Typography, TextField } from "@mui/material";
 import { theme } from "../config/theme";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -9,11 +9,7 @@ import CoralyLink from "../components/CoralyLink";
 import validate from "../helpers/functions/validate";
 import Fade from "@mui/material/Fade";
 import useApi, { HttpMethods } from "../hooks/useApi";
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
-import CloseIcon from "@mui/icons-material/Close";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
-import Zoom from "@mui/material/Zoom";
+import CoralyAlert, { ICoralyAlert } from "../components/CoralyAlert";
 
 interface ILogin {
   email: string;
@@ -33,6 +29,11 @@ const Login: React.FC = () => {
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
   const remembered = useRef(false);
   const [showAlert, setShowAlert] = useState(false);
+  const [alert, setAlert] = useState<ICoralyAlert>({
+    color: undefined,
+    message: "",
+    showAlert: (showAlert) => showAlert,
+  });
 
   const [{ loading, response, error }, fetchUsers] = useApi({
     path: `/login`,
@@ -56,7 +57,11 @@ const Login: React.FC = () => {
 
   useEffect(() => {
     if (response) {
-      setShowAlert(true);
+      setAlert({
+        color: "success",
+        message: "User successfully authenticated",
+        showAlert: (true),
+      });
       const user = response as IUser;
       if (remembered) {
         localStorage.setItem("user", JSON.stringify(user));
@@ -64,7 +69,7 @@ const Login: React.FC = () => {
     }
 
     if (error) {
-      setShowAlert(true);
+      setAlert({ color: "error", message: error.message });
     }
   }, [response, error]);
 
@@ -81,7 +86,6 @@ const Login: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormErrors(validate(formValues));
-    setShowAlert(false);
     setIsSubmit(true);
   };
 
@@ -163,38 +167,12 @@ const Login: React.FC = () => {
         </Typography>
       </form>
 
-      {showAlert && (
-        <Zoom in={showAlert} timeout={500}>
-          <Alert
-            severity={error ? "error" : "success"}
-            icon={<ErrorOutlineIcon color={error ? "error" : "success"} />}
-            sx={{
-              [theme.breakpoints.down("md")]: {
-                marginTop: "10%",
-              },
-              [theme.breakpoints.up("md")]: {
-                bottom: "-4.5vw",
-                position: "relative",
-                left: "-6vw",
-              },
-            }}
-            action={
-              <IconButton
-                aria-label="close"
-                color={error ? "error" : "success"}
-                size="small"
-                onClick={() => setShowAlert(false)}
-              >
-                <CloseIcon />
-              </IconButton>
-            }
-          >
-            <AlertTitle color={error ? "error" : "success"}>
-              {error ? error.message : "Succcess honey"}
-            </AlertTitle>
-          </Alert>
-        </Zoom>
-      )}
+      <CoralyAlert
+        {...alert}
+        showAlert={(value) => {
+          console.log(value);
+        }}
+      />
     </GetStarted>
   );
 };

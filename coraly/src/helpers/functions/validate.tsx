@@ -11,7 +11,7 @@ interface IValues {
 
 const regExps = {
   email: new RegExp("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$"),
-  workspace: new RegExp("^[a-z][a-zA-Z0-9-_.]+$"),
+  workspace: new RegExp("^[a-zA-Z][a-zA-Z0-9-_.]+$"),
   naming: new RegExp("^[A-Z][a-z]+$"),
 };
 

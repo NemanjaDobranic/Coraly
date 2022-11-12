@@ -4,6 +4,9 @@ import { Typography, TextField, Button } from "@mui/material";
 import { theme } from "../../config/theme";
 import Fade from "@mui/material/Fade";
 import validate from "../../helpers/functions/validate";
+import { useSelector } from "react-redux";
+import { IRootState } from "../../redux/rootReducer";
+import useApi, { HttpMethods } from "../../hooks/useApi";
 
 interface IProfile {
   name: string;
@@ -25,12 +28,40 @@ function Profile() {
     {} as IProfile
   );
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
+  const { workspace, email } = useSelector((state: IRootState) => state.signup);
+
+  const [{ loading, response, error }, createUserAndWorkspace] = useApi({
+    path: `/users`,
+    options: {
+      method: HttpMethods.POST,
+      body: JSON.stringify({
+        name: formValues.name,
+        surname: formValues.surname,
+        email: email,
+        password: formValues.password,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    },
+  });
 
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(formValues);
+      createUserAndWorkspace();
     }
   }, [formErrors]);
+
+  useEffect(() => {
+    if (response) {
+      console.log(response)
+     
+    }
+
+    if (error) {
+      console.log(error)
+    }
+  }, [response, error]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
