@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import GetStarted from "../../layouts/GetStarted";
-import { Typography, TextField, Button } from "@mui/material";
+import { Typography, TextField, Button, Link } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { theme } from "../../config/theme";
@@ -12,6 +12,7 @@ import FormControl from "@mui/material/FormControl";
 import { useDispatch } from "react-redux";
 import { createWorkspace } from "../../redux";
 import { useNavigate } from "react-router";
+import { cookiePolicy, privacyPolicy, terms } from "../../config/links";
 
 export interface IWorkspaceForm {
   workspace: string;
@@ -132,9 +133,19 @@ const WorkspaceForm: React.FC = () => {
             }
             label={
               <Typography variant="body1">
-                Agree with <CoralyLink to="">Terms and Conditions</CoralyLink>,
-                <CoralyLink to="">Privacy Policy</CoralyLink> and <br />
-                <CoralyLink to=""> Cookie Policy</CoralyLink>
+                Agree with{" "}
+                <Link href={terms} target="_blank">
+                  Terms and Conditions
+                </Link>
+                ,&nbsp;
+                <Link href={privacyPolicy} target="_blank">
+                  Privacy Policy
+                </Link>{" "}
+                and <br />
+                <Link href={cookiePolicy} target="_blank">
+                  {" "}
+                  Cookie Policy
+                </Link>
               </Typography>
             }
           />

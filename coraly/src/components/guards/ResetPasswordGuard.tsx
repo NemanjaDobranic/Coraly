@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router";
 import { IRootState } from "../../redux/rootReducer";
@@ -7,6 +7,7 @@ import { resetPassword } from "../../redux";
 import { resetPasswordKey } from "../../config/localStorageKeys";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { IResetPasswordState } from "../../redux/reset-password/resetPasswordReducer";
+import { confirmPasswordEmail } from "../../redux";
 
 export enum ResetPasswordEnum {
   RESET_PASSWORD = "RESET_PASSWORD",
@@ -23,24 +24,41 @@ const ResetPasswordGuard: React.FC<IPros> = ({ type, children }) => {
   const { email, received, confirmed } = useSelector(
     (state: IRootState) => state.resetPassword
   );
-  const [passwordStorage] = useLocalStorage(resetPasswordKey);
-
+  const [passwordStorage] =
+    useLocalStorage(resetPasswordKey);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (passwordStorage) {
+      if (passwordStorage.email) {
+        dispatch(resetPassword(passwordStorage.email));
+      }
+      if (passwordStorage.received) {
+        dispatch(confirmPasswordEmail(passwordStorage.received));
+      }
+    }
+  }, [passwordStorage]);
+
   switch (type) {
     case "RESET_PASSWORD":
       return children;
 
     case "RECEIVED_EMAIL": {
-      if (email) {
+      if (received || passwordStorage) {
+        return <Navigate to="/reset-password/confirmation" />;
+      }
+
+      if (email || passwordStorage.email) {
         return children;
-      } else if (passwordStorage.email) {
-        dispatch(resetPassword(passwordStorage.email));
-        return <Navigate to="/reset-password/email-sent" />;
       } else return <Navigate to="/reset-password" />;
     }
 
     case "CONFIRM_PASSWORD":
-      return received ? children : <Navigate to="/reset-password/email-sent" />;
+      return received || passwordStorage.received ? (
+        children
+      ) : (
+        <Navigate to="/reset-password/email-sent" />
+      );
 
     default:
       return <Navigate to="/" />;

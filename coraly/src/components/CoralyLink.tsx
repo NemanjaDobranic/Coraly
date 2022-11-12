@@ -1,15 +1,16 @@
 import React from "react";
 import { Link } from "@mui/material";
-import { Link as ReactLink } from "react-router-dom";
+import { Link as ReactLink, To } from "react-router-dom";
 
 interface Props {
-  to: string;
+  to: To;
   children: string;
+  target?: React.HTMLAttributeAnchorTarget;
 }
 
-const CoralyLink: React.FC<Props> = ({ to, children }) => {
+const CoralyLink: React.FC<Props> = ({ to, children, target }) => {
   return (
-    <ReactLink to={to} style={{ textDecoration: "none" }}>
+    <ReactLink to={to} target={target} style={{ textDecoration: "none" }}>
       <Link component="span">{children}</Link>
     </ReactLink>
   );

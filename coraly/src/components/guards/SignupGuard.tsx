@@ -24,7 +24,7 @@ const SignupGuard: React.FC<IPros> = ({ type, children }) => {
   const { workspace, email, agreed, authorized, confirmed } = useSelector(
     (state: IRootState) => state.signup
   );
-  const [signup] = useLocalStorage(signupKey);
+  const [signup, setSignupStorage] = useLocalStorage(signupKey);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,6 +36,7 @@ const SignupGuard: React.FC<IPros> = ({ type, children }) => {
 
   switch (type) {
     case "WORKSPACE":
+      setSignupStorage(null);
       return children;
 
     case "CONFIRMATION": {
@@ -43,17 +44,13 @@ const SignupGuard: React.FC<IPros> = ({ type, children }) => {
         return <Navigate to="/signup/step2" />;
       }
 
-      if (workspace && email && agreed && authorized) {
-        return children;
-      } else if (signup) {
+      if ((workspace && email && agreed && authorized) || signup) {
         return children;
       } else return <Navigate to="/signup/step1" />;
     }
 
     case "PROFILE":
-      if (confirmed) {
-        return children;
-      } else if (signup) {
+      if (confirmed || signup) {
         return children;
       } else return <Navigate to="/signup/email-sent" />;
     default:
