@@ -24,7 +24,7 @@ const ResetPasswordGuard: React.FC<IPros> = ({ type, children }) => {
   const { email, received, confirmed } = useSelector(
     (state: IRootState) => state.resetPassword
   );
-  const [passwordStorage] =
+  const [passwordStorage, setPasswordStorage] =
     useLocalStorage(resetPasswordKey);
   const dispatch = useDispatch();
 
@@ -41,6 +41,7 @@ const ResetPasswordGuard: React.FC<IPros> = ({ type, children }) => {
 
   switch (type) {
     case "RESET_PASSWORD":
+      setPasswordStorage(null);
       return children;
 
     case "RECEIVED_EMAIL": {
@@ -48,13 +49,13 @@ const ResetPasswordGuard: React.FC<IPros> = ({ type, children }) => {
         return <Navigate to="/reset-password/confirmation" />;
       }
 
-      if (email || passwordStorage.email) {
+      if (email || passwordStorage) {
         return children;
       } else return <Navigate to="/reset-password" />;
     }
 
     case "CONFIRM_PASSWORD":
-      return received || passwordStorage.received ? (
+      return received || passwordStorage ? (
         children
       ) : (
         <Navigate to="/reset-password/email-sent" />

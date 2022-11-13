@@ -30,9 +30,9 @@
     },
     {
       "email": "dobranicnemanja2014@gmail.com",
-      "password": "$2a$10$p5bX2bvS2nKuKrrBlKi8q.QeGjMOyzAQuaSmjiQIwi0TG9eEYh6YC",
-      "name": "Jovana",
-      "surname": "Markovic",
+      "password": "$2a$10$LsJ8Ct3DfjONpW44.bz7.ufQRmRWB70yI02MALiZHeXrUlsRNmYFe",
+      "name": "Nemanja",
+      "surname": "Dobranice",
       "id": 5
     }
   ],
@@ -43,7 +43,7 @@
       "name": "lastingdynamics"
     },
     {
-      "name": "Workspace",
+      "name": "Workspace1",
       "userId": 5,
       "id": 2
     }

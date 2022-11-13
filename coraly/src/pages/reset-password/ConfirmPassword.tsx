@@ -4,6 +4,12 @@ import { Typography, TextField, Button } from "@mui/material";
 import { theme } from "../../config/theme";
 import validate from "../../helpers/functions/validate";
 import Fade from "@mui/material/Fade";
+import CoralyAlert, { ICoralyAlert } from "../../components/CoralyAlert";
+import useApi, { HttpMethods } from "../../hooks/useApi";
+import { useSelector } from "react-redux";
+import { IRootState } from "../../redux/rootReducer";
+import { useNavigate } from "react-router-dom";
+import { resetPasswordKey } from "../../config/localStorageKeys";
 
 interface IConfirmPassword {
   password: string;
@@ -15,12 +21,72 @@ function ConfirmPassword() {
   const [formValues, setFormValues] = useState<IConfirmPassword>(initialValues);
   const [formErrors, setFormErrors] = useState<Partial<IConfirmPassword>>({});
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
+  const [alert, setAlert] = useState<ICoralyAlert>({
+    color: undefined,
+    message: "",
+  });
+  const [showAlert, setShowAlert] = useState(false);
+  const { email } = useSelector((state: IRootState) => state.resetPassword);
+  const [{ loading, response, error }, executeApiCall] = useApi({
+    path: `/users?email=${email}`,
+    options: {
+      method: HttpMethods.GET,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    },
+  });
+  const [isPatched, setIsPatched] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (email) {
+      executeApiCall();
+    }
+  }, [email]);
 
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(formValues);
+      const userId = response[0].id;
+      executeApiCall(`/users/${userId}`, {
+        method: HttpMethods.PATCH,
+        body: JSON.stringify({
+          password: formValues.password,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then(() => setIsPatched(true));
     }
   }, [formErrors]);
+
+  useEffect(() => {
+    if (isPatched) {
+      if (error) {
+        console.log(error);
+        setAlert({
+          color: "error",
+          message:
+            error.message.length > 0 ? error.message : "An error has occured!",
+        });
+        setShowAlert(true);
+        return;
+      }
+
+      if (response) {
+        setAlert({
+          color: "success",
+          message: "Password successfully updated",
+        });
+        setShowAlert(true);
+
+        setTimeout(() => {
+          localStorage.removeItem(resetPasswordKey);
+          navigate("/login");
+        }, 2500);
+      }
+    }
+  }, [isPatched]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -97,6 +163,13 @@ function ConfirmPassword() {
           <Typography variant="button">Reset Password</Typography>
         </Button>
       </form>
+
+      {showAlert && (
+        <CoralyAlert
+          {...alert}
+          changeVisibility={(isVisible) => setShowAlert(isVisible)}
+        />
+      )}
     </GetStarted>
   );
 }

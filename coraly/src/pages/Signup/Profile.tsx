@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { IRootState } from "../../redux/rootReducer";
 import useApi, { HttpMethods } from "../../hooks/useApi";
 import CoralyAlert, { ICoralyAlert } from "../../components/CoralyAlert";
+import { useNavigate } from "react-router-dom";
 
 interface IProfile {
   name: string;
@@ -35,6 +36,7 @@ function Profile() {
     message: "",
   });
   const [showAlert, setShowAlert] = useState(false);
+  const navigate = useNavigate();
 
   const [{ loading, response, error }, executeApiCall] = useApi({
     path: `/users`,
@@ -81,6 +83,10 @@ function Profile() {
         message: "Workspace and profile are successfully created",
       });
       setShowAlert(true);
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 2500);
     }
 
     if (error) {
