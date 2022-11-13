@@ -11,6 +11,7 @@ import SignupGuard, { SignupEnum } from "../components/guards/SignupGuard";
 import ResetPasswordGuard, {
   ResetPasswordEnum,
 } from "../components/guards/ResetPasswordGuard";
+import Board from "../layouts/Board";
 
 //login logiku implementirati za naviagte ako je korisnik ulogovan
 const routes = [
@@ -85,6 +86,10 @@ const routes = [
         <ConfirmPassword />
       </ResetPasswordGuard>
     ),
+  },
+  {
+    path: "/board",
+    element: <Board />,
   },
 ];
 
