@@ -7,6 +7,7 @@ import validate from "../../helpers/functions/validate";
 import { useSelector } from "react-redux";
 import { IRootState } from "../../redux/rootReducer";
 import useApi, { HttpMethods } from "../../hooks/useApi";
+import CoralyAlert, { ICoralyAlert } from "../../components/CoralyAlert";
 
 interface IProfile {
   name: string;
@@ -29,8 +30,13 @@ function Profile() {
   );
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
   const { workspace, email } = useSelector((state: IRootState) => state.signup);
+  const [alert, setAlert] = useState<ICoralyAlert>({
+    color: undefined,
+    message: "",
+  });
+  const [showAlert, setShowAlert] = useState(false);
 
-  const [{ loading, response, error }, createUserAndWorkspace] = useApi({
+  const [{ loading, response, error }, executeApiCall] = useApi({
     path: `/users`,
     options: {
       method: HttpMethods.POST,
@@ -48,18 +54,39 @@ function Profile() {
 
   useEffect(() => {
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      createUserAndWorkspace();
+      executeApiCall();
     }
   }, [formErrors]);
 
   useEffect(() => {
     if (response) {
-      console.log(response)
-     
+      const user = response.user;
+      if (user) {
+        const userId = user.id;
+        executeApiCall("/workspaces", {
+          method: HttpMethods.POST,
+          body: JSON.stringify({
+            name: workspace,
+            userId: userId,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        return;
+      }
+
+      setAlert({
+        color: "success",
+        message: "Workspace and profile are successfully created",
+      });
+      setShowAlert(true);
     }
 
     if (error) {
-      console.log(error)
+      console.log(error);
+      setAlert({ color: "error", message: error.message });
+      setShowAlert(true);
     }
   }, [response, error]);
 
@@ -169,6 +196,13 @@ function Profile() {
           <Typography variant="button">Complete now</Typography>
         </Button>
       </form>
+
+      {showAlert && (
+        <CoralyAlert
+          {...alert}
+          changeVisibility={(isVisible) => setShowAlert(isVisible)}
+        />
+      )}
     </GetStarted>
   );
 }

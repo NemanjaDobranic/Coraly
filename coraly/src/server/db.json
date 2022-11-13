@@ -29,8 +29,10 @@
       "password": "$2a$10$jA0XhDImCVpmOu4uJb6TPeEUIKZTeur1/2IV8lJ49L5RiyuX5PIIS"
     },
     {
-      "email": "dobranicnemanja@outlook.com",
-      "password": "$2a$10$jA0XhDImCVpmOu4uJb6TPeEUIKZTeur1/2IV8lJ49L5RiyuX5PIIS",
+      "email": "dobranicnemanja2014@gmail.com",
+      "password": "$2a$10$p5bX2bvS2nKuKrrBlKi8q.QeGjMOyzAQuaSmjiQIwi0TG9eEYh6YC",
+      "name": "Jovana",
+      "surname": "Markovic",
       "id": 5
     }
   ],
@@ -39,6 +41,11 @@
       "id": 1,
       "userId": 2,
       "name": "lastingdynamics"
+    },
+    {
+      "name": "Workspace",
+      "userId": 5,
+      "id": 2
     }
   ],
   "processes": [
