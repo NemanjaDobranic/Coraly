@@ -1,13 +1,12 @@
 import * as React from "react";
 import { styled, useTheme, Theme, CSSObject } from "@mui/material/styles";
-import Box from "@mui/material/Box";
+import Box, { BoxProps } from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -16,9 +15,11 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-import { theme } from "../config/theme";
+import { theme } from "../../config/theme";
+import { drawerIcons } from "./DrawerIcons";
+import Logo from "../../assets/images/logo.svg";
+import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
+import { PaletteColor } from "@mui/material";
 
 const drawerWidth = 240;
 
@@ -46,9 +47,45 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "flex-end",
-  padding: theme.spacing(0, 1),
+  padding: theme.spacing(0, 1.25),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
+}));
+
+interface AvatarProps {
+  paint?: PaletteColor;
+  margin?: string;
+}
+
+const Avatar = styled("div")<AvatarProps>(
+  ({ paint = theme.palette.primary, margin = "0" }) => ({
+    color: theme.palette.common.white,
+    fontWeight: "bold",
+    width: "40px",
+    height: "40px",
+    textAlign: "center",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    background: paint.light,
+    border: "1px solid " + paint.main,
+    borderRadius: "8px",
+    margin: margin,
+  })
+);
+
+const Shortcut = styled("div")(() => ({
+  width: "26px",
+  height: "26px",
+  color: theme.palette.grey[900],
+  fontWeight: "600",
+  transform: "perspective(26px) rotateX(10deg)",
+  border: "1px solid " + theme.palette.grey[300],
+  borderRadius: "2px",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  boxShadow: "0px 1px 0px rgba(0, 0, 0, 0.35)",
 }));
 
 interface AppBarProps extends MuiAppBarProps {
@@ -59,12 +96,19 @@ const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })<AppBarProps>(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
+  background: theme.palette.common.white,
+  color: theme.palette.grey.A100,
   marginLeft: `calc(100% - ${drawerWidth / 4}px)`,
   width: `calc(100% - ${drawerWidth / 4}px)`,
   transition: theme.transitions.create(["width", "margin"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
+
+  "& .MuiToolbar-root": {
+    gap: "24px",
+  },
+
   ...(open && {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
@@ -94,6 +138,21 @@ const Drawer = styled(MuiDrawer, {
 
 const DrawerList = styled(List)({
   color: theme.palette.grey[100],
+
+  "& .MuiListItem-root": {
+    color: theme.palette.grey[100],
+
+    "& .MuiListItemIcon-root": {
+      color: theme.palette.grey[100],
+    },
+
+    "& :hover": {
+      color: theme.palette.primary.main,
+      "& .MuiListItemIcon-root": {
+        color: theme.palette.primary.main,
+      },
+    },
+  },
 });
 
 export default function CoralyDrawer() {
@@ -114,8 +173,13 @@ export default function CoralyDrawer() {
       <AppBar position="fixed" open={open}>
         <Toolbar>
           <Typography variant="h6" noWrap component="div">
-            Ovdje ce ici procesi
+            Process
           </Typography>
+          <NotificationsNoneOutlinedIcon
+            style={{ color: theme.palette.grey[700], marginLeft: "auto" }}
+          />
+          <Shortcut>A</Shortcut>
+          <Avatar paint={theme.palette.secondary}>FN</Avatar>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -129,18 +193,19 @@ export default function CoralyDrawer() {
               {theme.direction === "rtl" ? (
                 <ChevronRightIcon style={{ color: theme.palette.grey[100] }} />
               ) : (
-                <ChevronLeftIcon style={{ color: theme.palette.grey[100] }}/>
+                <ChevronLeftIcon style={{ color: theme.palette.grey[100] }} />
               )}
             </IconButton>
           )}
         </DrawerHeader>
-        <Divider />
+        <Avatar margin="20px auto 0 auto">LD</Avatar>
         <DrawerList>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+          {drawerIcons.map(({ id, icon, text, relativePath }) => (
             <ListItem key={text} disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 sx={{
                   minHeight: 48,
+                  padding: 1.5,
                   justifyContent: open ? "initial" : "center",
                   px: 2.5,
                 }}
@@ -152,11 +217,7 @@ export default function CoralyDrawer() {
                     justifyContent: "center",
                   }}
                 >
-                  {index % 2 === 0 ? (
-                    <InboxIcon style={{ color: theme.palette.grey[100] }} />
-                  ) : (
-                    <MailIcon style={{ color: theme.palette.grey[100] }} />
-                  )}
+                  {icon}
                 </ListItemIcon>
                 <ListItemText
                   color="white"
@@ -167,6 +228,14 @@ export default function CoralyDrawer() {
             </ListItem>
           ))}
         </DrawerList>
+        <Box
+          component="img"
+          margin="auto auto 20px auto"
+          alt="logo"
+          width={30}
+          height={26}
+          src={Logo}
+        ></Box>
       </Drawer>
     </Box>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import CoralyDrawer from "../components/CoralyDrawer";
+import CoralyDrawer from "../components/drawer/CoralyDrawer";
 
 const Board = () => {
   return (
