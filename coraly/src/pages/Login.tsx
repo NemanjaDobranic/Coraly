@@ -10,6 +10,7 @@ import validate from "../helpers/functions/validate";
 import Fade from "@mui/material/Fade";
 import useApi, { HttpMethods } from "../hooks/useApi";
 import CoralyAlert, { ICoralyAlert } from "../components/CoralyAlert";
+import { useNavigate } from "react-router";
 
 interface ILogin {
   email: string;
@@ -28,6 +29,7 @@ const Login: React.FC = () => {
   const [formErrors, setFormErrors] = useState<Partial<ILogin>>({});
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
   const remembered = useRef(false);
+  const navigate = useNavigate();
   const [alert, setAlert] = useState<ICoralyAlert>({
     color: undefined,
     message: "",
@@ -61,9 +63,10 @@ const Login: React.FC = () => {
         message: "User successfully authenticated",
       });
       setShowAlert(true);
-      const user = response as IUser;
+      const { user } = response;
       if (remembered) {
         localStorage.setItem("user", JSON.stringify(user));
+        navigate("/board");
       }
     }
 

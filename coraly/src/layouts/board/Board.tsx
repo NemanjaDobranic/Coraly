@@ -17,9 +17,12 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { theme } from "../../config/theme";
 import { drawerIcons } from "./DrawerIcons";
-import Logo from "../../assets/images/logo.svg";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import { PaletteColor } from "@mui/material";
+import Logo from "../../assets/images/logo.svg";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { IUser, IWorkSpace } from "../../redux/workspace/workSpaceReducer";
 
 const drawerWidth = 240;
 
@@ -43,14 +46,14 @@ const closedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth / 4,
 });
 
-const DrawerHeader = styled("div")(({ theme }) => ({
+const DrawerHeader = styled("div")({
   display: "flex",
   alignItems: "center",
   justifyContent: "flex-end",
   padding: theme.spacing(0, 1.25),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
-}));
+});
 
 interface AvatarProps {
   paint?: PaletteColor;
@@ -136,28 +139,50 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-const DrawerList = styled(List)({
-  color: theme.palette.grey[100],
-
-  "& .MuiListItem-root": {
+const DrawerList = styled(List)<{ open: boolean }>(({ open }) => {
+  return {
     color: theme.palette.grey[100],
-
-    "& .MuiListItemIcon-root": {
-      color: theme.palette.grey[100],
+    "& .MuiButtonBase-root": {
+      gap: open ? 10 : 0,
     },
+  };
+});
 
+interface DrawerListIcon {
+  activepage?: "true" | "false";
+  open?: boolean;
+}
+
+const DrawerListIcon = styled(ListItemIcon)<DrawerListIcon>(
+  ({ activepage = "false", open = false }) => ({
+    color:
+      activepage === "true"
+        ? theme.palette.primary.main
+        : theme.palette.grey[100],
+    minWidth: 0,
+    mr: open ? 3 : "auto",
+    justifyContent: "center",
     "& :hover": {
       color: theme.palette.primary.main,
       "& .MuiListItemIcon-root": {
         color: theme.palette.primary.main,
       },
     },
-  },
-});
+  })
+);
 
-export default function CoralyDrawer() {
+interface BoardProps {
+  user: IUser;
+  workspace: IWorkSpace;
+}
+
+const Board: React.FC<BoardProps> = ({ user, workspace }) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [activePage, setActivePage] = useState(
+    location.pathname.substring(location.pathname.lastIndexOf("/"))
+  );
+  const navigate = useNavigate();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -165,6 +190,11 @@ export default function CoralyDrawer() {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const displayView = (relativePath: string) => {
+    setActivePage(relativePath);
+    navigate("/board" + relativePath);
   };
 
   return (
@@ -179,7 +209,9 @@ export default function CoralyDrawer() {
             style={{ color: theme.palette.grey[700], marginLeft: "auto" }}
           />
           <Shortcut>A</Shortcut>
-          <Avatar paint={theme.palette.secondary}>FN</Avatar>
+          <Avatar paint={theme.palette.secondary}>
+            {user.name[0] + user.surname[0]}
+          </Avatar>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -198,10 +230,17 @@ export default function CoralyDrawer() {
             </IconButton>
           )}
         </DrawerHeader>
-        <Avatar margin="20px auto 0 auto">LD</Avatar>
-        <DrawerList>
+        <Avatar margin="20px auto 0 auto">
+          {workspace.name[0].toUpperCase() + workspace.name[1].toUpperCase()}
+        </Avatar>
+        <DrawerList open={open}>
           {drawerIcons.map(({ id, icon, text, relativePath }) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
+            <ListItem
+              key={text}
+              disablePadding
+              sx={{ display: "block" }}
+              onClick={() => displayView(relativePath)}
+            >
               <ListItemButton
                 sx={{
                   minHeight: 48,
@@ -210,15 +249,12 @@ export default function CoralyDrawer() {
                   px: 2.5,
                 }}
               >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                  }}
+                <DrawerListIcon
+                  open={open}
+                  activepage={activePage === relativePath ? "true" : "false"}
                 >
                   {icon}
-                </ListItemIcon>
+                </DrawerListIcon>
                 <ListItemText
                   color="white"
                   primary={text}
@@ -237,6 +273,12 @@ export default function CoralyDrawer() {
           src={Logo}
         ></Box>
       </Drawer>
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <DrawerHeader />
+        <Outlet />
+      </Box>
     </Box>
   );
-}
+};
+
+export default Board;

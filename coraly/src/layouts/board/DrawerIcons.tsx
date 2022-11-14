@@ -7,7 +7,6 @@ import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import StorageRounded from "@mui/icons-material/StorageRounded";
 import SchemaIcon from "@mui/icons-material/Schema";
-import Phase from "../../assets/images/phase.svg";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 export const drawerIcons = [

@@ -11,7 +11,15 @@ import SignupGuard, { SignupEnum } from "../components/guards/SignupGuard";
 import ResetPasswordGuard, {
   ResetPasswordEnum,
 } from "../components/guards/ResetPasswordGuard";
-import Board from "../layouts/Board";
+import BoardContainer from "../pages/board/BoardContainer";
+import Processes from "../pages/board/processes/Processes";
+import Models from "../pages/board/models/Models";
+import Team from "../pages/board/team/Team";
+import Database from "../pages/board/database/Database";
+import Support from "../pages/board/support/Support";
+import Sellers from "../pages/board/sellers/Sellers";
+import MacroPhases from "../pages/board/macroPhases/MacroPhases";
+import Automations from "../pages/board/automations/Automations";
 
 //login logiku implementirati za naviagte ako je korisnik ulogovan
 const routes = [
@@ -89,7 +97,49 @@ const routes = [
   },
   {
     path: "/board",
-    element: <Board />,
+    element: <BoardContainer />,
+    children: [
+      {
+        path: "",
+        element: <Navigate to={"/board/processes"} replace />,
+      },
+      {
+        path: "processes",
+        element: <Processes />,
+      },
+      {
+        path: "team",
+        element: <Team />,
+      },
+      {
+        path: "models",
+        element: <Models />,
+      },
+      {
+        path: "database",
+        element: <Database />,
+      },
+      {
+        path: "macro-phases",
+        element: <MacroPhases />,
+      },
+      {
+        path: "automations",
+        element: <Automations />,
+      },
+      {
+        path: "sellers",
+        element: <Sellers />,
+      },
+      {
+        path: "support",
+        element: <Support />,
+      },
+      {
+        path: "Logout",
+        element: <Processes />,
+      },
+    ],
   },
 ];
 

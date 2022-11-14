@@ -9,7 +9,7 @@ import useApi, { HttpMethods } from "../../hooks/useApi";
 import { useSelector } from "react-redux";
 import { IRootState } from "../../redux/rootReducer";
 import { useNavigate } from "react-router-dom";
-import { resetPasswordKey } from "../../config/localStorageKeys";
+import { resetPasswordKey, userKey } from "../../config/localStorageKeys";
 
 interface IConfirmPassword {
   password: string;
@@ -82,6 +82,7 @@ function ConfirmPassword() {
 
         setTimeout(() => {
           localStorage.removeItem(resetPasswordKey);
+          localStorage.removeItem(userKey);
           navigate("/login");
         }, 2500);
       }

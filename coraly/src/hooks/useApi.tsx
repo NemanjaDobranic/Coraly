@@ -15,18 +15,20 @@ export enum HttpMethods {
 }
 
 interface IApiArgs {
-  path: string;
-  options: {
-    method: HttpMethods;
-    headers?: {
-      "Content-Type"?: string;
-    };
-    body?: string;
-  };
+  path: string | undefined;
+  options:
+    | {
+        method: HttpMethods;
+        headers?: {
+          "Content-Type"?: string;
+        };
+        body?: string;
+      }
+    | undefined;
 }
 
 const useApi = (
-  { path, options }: IApiArgs,
+  { path, options }: IApiArgs = { path: undefined, options: undefined },
   executeOnMount = false
 ): [
   IApi,
@@ -82,7 +84,7 @@ const useApi = (
         throw new Error(typedErr.message);
       }
     },
-    [path, options.body]
+    [path, options]
   );
 
   useEffect(

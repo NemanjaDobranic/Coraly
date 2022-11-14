@@ -30,10 +30,17 @@
     },
     {
       "email": "dobranicnemanja2014@gmail.com",
-      "password": "$2a$10$bSpWv1cWsji1nydzzn0fNOn04qmU1oezayN2lrcrihmILQ5MgL7py",
+      "password": "$2a$10$qyDlUqvq06eMoJh5QXgBB.9M4qr3X.AITxxGaugNxbIHmycFAChfS",
       "name": "Nemanja",
-      "surname": "Dobranice",
+      "surname": "Dobranic",
       "id": 5
+    },
+    {
+      "email": "marc@gmail.com",
+      "password": "$2a$10$r/H8uMGrn.tnMQvFTrBlPO9yJvurCepSW2qryKIZQAGrpz.q02e0i",
+      "name": "Marc",
+      "surname": "Jones",
+      "id": 6
     }
   ],
   "workspaces": [
@@ -46,6 +53,11 @@
       "name": "Workspace1",
       "userId": 5,
       "id": 2
+    },
+    {
+      "name": "newSpace",
+      "userId": 6,
+      "id": 3
     }
   ],
   "processes": [
@@ -54,63 +66,72 @@
       "workspaceId": 1,
       "name": "Process 1",
       "color": "#47BDFF",
-      "isPrivate": false
+      "isPrivate": false,
+      "icon": "board"
     },
     {
       "id": 2,
       "workspaceId": 1,
       "name": "Process 2",
       "color": "#FF47B5",
-      "isPrivate": true
+      "isPrivate": true,
+      "icon": "board"
     },
     {
       "id": 3,
       "workspaceId": 1,
       "name": "Process 3",
       "color": "#FF9F47",
-      "isPrivate": true
+      "isPrivate": true,
+      "icon": "cart"
     },
     {
       "id": 4,
       "workspaceId": 1,
       "name": "Process 4",
       "color": "#6C47FF",
-      "isPrivate": false
+      "isPrivate": false,
+      "icon": "board"
     },
     {
       "id": 5,
       "workspaceId": 1,
       "name": "Process 5",
       "color": "#2EF1CE",
-      "isPrivate": false
+      "isPrivate": false,
+      "icon": "board"
     },
     {
       "id": 6,
       "workspaceId": 1,
       "name": "Process 6",
       "color": "#F7D524",
-      "isPrivate": false
+      "isPrivate": false,
+      "icon": "board"
     },
     {
       "id": 7,
       "workspaceId": 1,
       "name": "Process 7",
       "color": "#E547FF",
-      "isPrivate": false
+      "isPrivate": false,
+      "icon": "board"
     },
     {
       "id": 8,
       "workspaceId": 1,
       "name": "Process 8",
       "color": "#F7D524",
-      "isPrivate": false
+      "isPrivate": false,
+      "icon": "board"
     },
     {
       "id": 9,
       "workspaceId": 1,
       "name": "Process 9",
       "color": "#E547FF",
-      "isPrivate": false
+      "isPrivate": false,
+      "icon": "board"
     }
   ]
 }
