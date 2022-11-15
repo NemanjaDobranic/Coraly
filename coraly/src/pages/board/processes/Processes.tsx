@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, IconButton, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import CoralyProgress from "../../../components/CoralyProgress";
@@ -7,6 +7,10 @@ import useApi, { HttpMethods } from "../../../hooks/useApi";
 import { IRootState } from "../../../redux/rootReducer";
 import { IProcess } from "../../../redux/workspace/workSpaceReducer";
 import { styled } from "@mui/material/styles";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+
 import AddIcon from "@mui/icons-material/Add";
 import processesIcons from "./processesIcons";
 
@@ -16,11 +20,12 @@ const BaseProces = styled(Box)({
   display: "flex",
   flexDirection: "column",
   gap: "14px",
-  justifyContent: "center",
+  padding: "14px",
+  justifyContent: "flex-start",
   alignItems: "center",
   borderRadius: "8px",
   "& .MuiSvgIcon-root": {
-    transform: "scale(1.5)",
+    fontSize: "2.5rem",
   },
   "&.MuiBox-root:hover": {
     cursor: "pointer",
@@ -28,10 +33,10 @@ const BaseProces = styled(Box)({
 });
 
 const CreateProcess = styled(BaseProces)({
+  justifyContent: "center",
   border: "1px dashed " + theme.palette.grey[200],
   "& .MuiSvgIcon-root": {
     color: theme.palette.grey[700],
-    transform: "scale(1.5)",
   },
 });
 
@@ -44,9 +49,20 @@ const Process = styled(BaseProces)<ProcessProps>(({ background }) => {
     background: background,
     "& .MuiSvgIcon-root": {
       color: theme.palette.grey[700],
-      transform: "scale(1.5)",
     },
   };
+});
+
+const Private = styled("div")({
+  display: "flex",
+  height: "24px",
+  width: "100%",
+  justifyContent: "space-between",
+
+  "& .MuiSvgIcon-root": {
+    fontSize: "1.5rem !important",
+    fill: theme.palette.common.white,
+  },
 });
 
 export default function Processes() {
@@ -73,6 +89,15 @@ export default function Processes() {
   const getIcon = (icon: string) => {
     const index = processesIcons.findIndex((i) => i.name === icon);
     return processesIcons[index].icon;
+  };
+
+  const getIsPrivate = (isPrivate: boolean) => {
+    return (
+      <Private>
+        {!isPrivate ? <LockOutlinedIcon /> : <LockOpenOutlinedIcon />}
+        <MoreVertIcon />
+      </Private>
+    );
   };
 
   return !loading && user ? (
@@ -108,6 +133,11 @@ export default function Processes() {
           ? processes.map((process: IProcess) => (
               <Grid item key={process.id}>
                 <Process background={process.color}>
+                  {process.isPrivate !== undefined ? (
+                    getIsPrivate(process.isPrivate)
+                  ) : (
+                    <Private></Private>
+                  )}
                   {getIcon(process.icon)}
                   <Typography
                     variant="caption"

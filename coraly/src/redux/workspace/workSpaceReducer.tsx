@@ -16,7 +16,7 @@ export interface IProcess {
   id: number;
   name: string;
   color: string;
-  isPrivate: boolean;
+  isPrivate?: boolean | undefined;
   icon: string;
 }
 
