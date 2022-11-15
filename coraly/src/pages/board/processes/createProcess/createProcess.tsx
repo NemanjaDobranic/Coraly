@@ -22,8 +22,11 @@ import { useNavigate } from "react-router";
 import validate from "../../../../helpers/functions/validate";
 import ColorLensOutlinedIcon from "@mui/icons-material/ColorLensOutlined";
 import Compact from "@uiw/react-color-compact";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "../../../../redux/rootReducer";
+import useApi, { HttpMethods } from "../../../../hooks/useApi";
+import { setProcesses } from "../../../../redux";
+import CoralyAlert, { ICoralyAlert } from "../../../../components/CoralyAlert";
 
 const BootstrapDialog = styled(Dialog)({
   "& .MuiPaper-root": {
@@ -93,18 +96,50 @@ const createProcess = () => {
   const [pickerColor, setPickerColor] = useState("#7b64ff");
   const [showPicker, setShowPicker] = useState(false);
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
-  const { processes } = useSelector((state: IRootState) => state.workSpace);
+  const { processes, workspace } = useSelector(
+    (state: IRootState) => state.workSpace
+  );
   const initialValues = { process: "", color: pickerColor };
   const [formValues, setFormValues] = useState<IProcess>(initialValues);
   const [formErrors, setFormErrors] = useState<Partial<IProcess>>({});
   const navigate = useNavigate();
+  const [alert, setAlert] = useState<ICoralyAlert>({
+    color: undefined,
+    message: "",
+  });
+  const [showAlert, setShowAlert] = useState(false);
+
+  const [{ loading, response, error }, createProcess] = useApi();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && isSubmit && processes) {
-      console.log("form", formValues);
-      console.log(processes);
+    if (response && processes) {
+      const newProcesses = [...processes, response];
+      dispatch(setProcesses(newProcesses));
+      handleClose();
+      return;
+    }
 
-      //napraviti requst  kada prodje sve i dobije 200 dodoati proces preko dispatch action i zatvoriti
+    if (error) {
+      setAlert({ color: "error", message: "Could not create new process!" });
+      setShowAlert(true);
+    }
+  }, [response, error]);
+
+  useEffect(() => {
+    if (Object.keys(formErrors).length === 0 && isSubmit && workspace) {
+      createProcess(`/processes`, {
+        method: HttpMethods.POST,
+        body: JSON.stringify({
+          workspaceId: workspace.id,
+          name: formValues.process,
+          color: formValues.color,
+          icon: "board",
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
     }
   }, [formErrors]);
 
@@ -199,7 +234,14 @@ const createProcess = () => {
           </Box>
         )}
       </DialogContent>
+
       <DialogActions>
+        {showAlert && (
+          <CoralyAlert
+            {...alert}
+            changeVisibility={(isVisible) => setShowAlert(isVisible)}
+          />
+        )}
         <Button
           variant="outlined"
           color="actionSecondary"

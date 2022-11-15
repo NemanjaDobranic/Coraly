@@ -53,7 +53,7 @@ const workSpaceReducer: (
       };
     case SET_PROCESSES:
       const processes = action.payload as IProcess[];
-      return { ...state, processes };
+      return { ...state, processes:processes  };
     default:
       return state;
   }

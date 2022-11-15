@@ -1,6 +1,6 @@
 import { Box, Grid, IconButton, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import CoralyProgress from "../../../components/CoralyProgress";
 import { theme } from "../../../config/theme";
 import useApi, { HttpMethods } from "../../../hooks/useApi";
@@ -69,16 +69,14 @@ const Private = styled("div")({
 
 export default function Processes() {
   const [{ loading, response, error }, getProcesses] = useApi();
-  const [processes, setProcesses] = useState<IProcess[] | undefined>(undefined);
   const dispatch = useDispatch();
-  const { user, workspace } = useSelector(
+  const { user, workspace, processes } = useSelector(
     (state: IRootState) => state.workSpace
   );
   const navigate = useNavigate();
 
   useEffect(() => {
     if (response) {
-      setProcesses(response);
       dispatch(setProcessesRedux(response));
     }
   }, [response, error]);
