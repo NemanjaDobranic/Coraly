@@ -22,6 +22,8 @@ import { useNavigate } from "react-router";
 import validate from "../../../../helpers/functions/validate";
 import ColorLensOutlinedIcon from "@mui/icons-material/ColorLensOutlined";
 import Compact from "@uiw/react-color-compact";
+import { useSelector } from "react-redux";
+import { IRootState } from "../../../../redux/rootReducer";
 
 const BootstrapDialog = styled(Dialog)({
   "& .MuiPaper-root": {
@@ -91,14 +93,18 @@ const createProcess = () => {
   const [pickerColor, setPickerColor] = useState("#7b64ff");
   const [showPicker, setShowPicker] = useState(false);
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
+  const { processes } = useSelector((state: IRootState) => state.workSpace);
   const initialValues = { process: "", color: pickerColor };
   const [formValues, setFormValues] = useState<IProcess>(initialValues);
   const [formErrors, setFormErrors] = useState<Partial<IProcess>>({});
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
+    if (Object.keys(formErrors).length === 0 && isSubmit && processes) {
       console.log("form", formValues);
+      console.log(processes);
+
+      //napraviti requst  kada prodje sve i dobije 200 dodoati proces preko dispatch action i zatvoriti
     }
   }, [formErrors]);
 

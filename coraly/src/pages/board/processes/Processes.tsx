@@ -1,6 +1,6 @@
 import { Box, Grid, IconButton, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CoralyProgress from "../../../components/CoralyProgress";
 import { theme } from "../../../config/theme";
 import useApi, { HttpMethods } from "../../../hooks/useApi";
@@ -10,6 +10,7 @@ import { styled } from "@mui/material/styles";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { setProcesses as setProcessesRedux } from "../../../redux";
 
 import AddIcon from "@mui/icons-material/Add";
 import processesIcons from "./processesIcons";
@@ -69,6 +70,7 @@ const Private = styled("div")({
 export default function Processes() {
   const [{ loading, response, error }, getProcesses] = useApi();
   const [processes, setProcesses] = useState<IProcess[] | undefined>(undefined);
+  const dispatch = useDispatch();
   const { user, workspace } = useSelector(
     (state: IRootState) => state.workSpace
   );
@@ -77,6 +79,7 @@ export default function Processes() {
   useEffect(() => {
     if (response) {
       setProcesses(response);
+      dispatch(setProcessesRedux(response));
     }
   }, [response, error]);
 

@@ -1,1 +1,2 @@
 export const SET_WORKSPACE = "SET_WORKSPACE";
+export const SET_PROCESSES = "SET_PROCESSES";
