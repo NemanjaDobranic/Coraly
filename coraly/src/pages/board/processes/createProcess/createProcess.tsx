@@ -6,19 +6,26 @@ import {
   DialogContent,
   DialogTitle,
   Fade,
+  FormControl,
   IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
   TextField,
   Typography,
+  Box,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { theme } from "../../../../config/theme";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import validate from "../../../../helpers/functions/validate";
+import ColorLensOutlinedIcon from "@mui/icons-material/ColorLensOutlined";
+import Compact from "@uiw/react-color-compact";
 
 const BootstrapDialog = styled(Dialog)({
   "& .MuiPaper-root": {
-    borderRadius: "1.5rem 1.5rem 0 1.5rem !important",
+    borderRadius: "1.5rem !important",
     width: theme.breakpoints.values.md,
     maxWidth: theme.breakpoints.values.md,
   },
@@ -29,6 +36,19 @@ const BootstrapDialog = styled(Dialog)({
   "& .MuiDialogActions-root": {
     padding: "0 1.5rem 1.5rem 1.5rem !important",
   },
+});
+
+interface ColorProps {
+  hexcolor: string;
+}
+
+const Color = styled("div")<ColorProps>(({ hexcolor }) => {
+  return {
+    background: hexcolor,
+    width: "1.5rem",
+    height: "1.5rem",
+    borderRadius: "0.75rem",
+  };
 });
 
 export interface DialogTitleProps {
@@ -68,8 +88,10 @@ interface IProcess {
 
 const createProcess = () => {
   const [open, setOpen] = useState(true);
+  const [pickerColor, setPickerColor] = useState("#7b64ff");
+  const [showPicker, setShowPicker] = useState(false);
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
-  const initialValues = { process: "", color: "" };
+  const initialValues = { process: "", color: pickerColor };
   const [formValues, setFormValues] = useState<IProcess>(initialValues);
   const [formErrors, setFormErrors] = useState<Partial<IProcess>>({});
   const navigate = useNavigate();
@@ -89,6 +111,12 @@ const createProcess = () => {
     e.preventDefault();
     setFormErrors(validate(formValues));
     setIsSubmit(true);
+  };
+
+  const handleChangeComplete = (color: any) => {
+    setPickerColor(color.hex);
+    setFormValues({ ...formValues, color: color.hex });
+    setShowPicker(false);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -130,27 +158,51 @@ const createProcess = () => {
               </Fade>
             }
           />
-          <TextField
-            label="Color"
-            variant="outlined"
-            type="text"
-            name="color"
-            fullWidth
-            sx={{ marginBottom: "18px" }}
-            value={formValues.color}
-            onChange={handleChange}
-            error={!!formErrors.color}
-            helperText={
-              <Fade in={!!formErrors.color}>
-                {<span>{formErrors.color}</span>}
-              </Fade>
-            }
-          />
+          <FormControl sx={{ width: "100%" }} variant="outlined">
+            <InputLabel htmlFor="color">Color</InputLabel>
+            <OutlinedInput
+              id="color"
+              type="text"
+              name="color"
+              disabled={true}
+              value={formValues.color}
+              startAdornment={
+                <InputAdornment position="start">
+                  <Color hexcolor={formValues.color} />
+                </InputAdornment>
+              }
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="color lens"
+                    edge="end"
+                    onClick={() => setShowPicker(!showPicker)}
+                  >
+                    <ColorLensOutlinedIcon />
+                  </IconButton>
+                </InputAdornment>
+              }
+              label="Color"
+            />
+          </FormControl>
         </form>
+
+        {showPicker && (
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <Compact color={pickerColor} onChange={handleChangeComplete} />
+          </Box>
+        )}
       </DialogContent>
       <DialogActions>
-        <Button type="submit" form="form">
-          Save changes
+        <Button
+          variant="outlined"
+          color="actionSecondary"
+          onClick={handleClose}
+        >
+          Annulla
+        </Button>
+        <Button variant="contained" type="submit" color="secondary" form="form">
+          Crea
         </Button>
       </DialogActions>
     </BootstrapDialog>
