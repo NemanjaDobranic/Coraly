@@ -7,12 +7,15 @@ interface IValues {
   agreed?: boolean;
   authorized?: boolean;
   repeatPassword?: string;
+  color?: string;
+  process?: string;
 }
 
 const regExps = {
   email: new RegExp("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$"),
   workspace: new RegExp("^[a-zA-Z][a-zA-Z0-9-_.]+$"),
   naming: new RegExp("^[A-Z][a-z]+$"),
+  process: new RegExp("^[A-Z][A-Z|a-z|\\d ]+$"),
 };
 
 const validate = (values: any) => {
@@ -92,6 +95,20 @@ const validate = (values: any) => {
     errors.authorized = true;
   } else {
     delete errors.authorized;
+  }
+
+  if (values.color !== undefined) {
+    if (!values.color) {
+      errors.color = "Color is required!";
+    }
+  }
+
+  if (values.process !== undefined) {
+    if (!values.process) {
+      errors.process = "Process is required!";
+    } else if (!regExps.process.test(values.process)) {
+      errors.process = "Process name must contain only capitalized words!";
+    }
   }
 
   return errors;
