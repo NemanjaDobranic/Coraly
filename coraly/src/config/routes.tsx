@@ -20,6 +20,7 @@ import Support from "../pages/board/support/Support";
 import Sellers from "../pages/board/sellers/Sellers";
 import MacroPhases from "../pages/board/macroPhases/MacroPhases";
 import Automations from "../pages/board/automations/Automations";
+import CreateProcess from "../pages/board/processes/createProcess/createProcess";
 
 //login logiku implementirati za naviagte ako je korisnik ulogovan
 const routes = [
@@ -106,6 +107,12 @@ const routes = [
       {
         path: "processes",
         element: <Processes />,
+        children: [
+          {
+            path: "create-process",
+            element: <CreateProcess />,
+          },
+        ],
       },
       {
         path: "team",

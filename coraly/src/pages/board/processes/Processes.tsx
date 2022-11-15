@@ -13,6 +13,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 import AddIcon from "@mui/icons-material/Add";
 import processesIcons from "./processesIcons";
+import { Outlet, useNavigate } from "react-router";
 
 const BaseProces = styled(Box)({
   width: "10.5vw",
@@ -71,6 +72,7 @@ export default function Processes() {
   const { user, workspace } = useSelector(
     (state: IRootState) => state.workSpace
   );
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (response) {
@@ -117,7 +119,7 @@ export default function Processes() {
 
       <Grid container spacing={3}>
         <Grid item>
-          <CreateProcess>
+          <CreateProcess onClick={() => navigate("./create-process")}>
             <AddIcon />
             <Typography
               variant="caption"
@@ -151,6 +153,7 @@ export default function Processes() {
             ))
           : null}
       </Grid>
+      <Outlet />
     </Box>
   ) : (
     <CoralyProgress />
