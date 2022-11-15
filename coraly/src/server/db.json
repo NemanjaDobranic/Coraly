@@ -30,7 +30,7 @@
     },
     {
       "email": "dobranicnemanja2014@gmail.com",
-      "password": "$2a$10$qyDlUqvq06eMoJh5QXgBB.9M4qr3X.AITxxGaugNxbIHmycFAChfS",
+      "password": "$2a$10$lYlPKc63uqRNgHPj4BtNBexh7d5XJXcBZ94JD6wf.3Z/vr4CCAVn2",
       "name": "Nemanja",
       "surname": "Dobranic",
       "id": 5
@@ -41,6 +41,13 @@
       "name": "Marc",
       "surname": "Jones",
       "id": 6
+    },
+    {
+      "email": "james@mail.com",
+      "password": "$2a$10$W.i18GhrsvH4YULeIbFahu0LwGS2j7OzDoQlmT2NU1awwNkgJzWDy",
+      "name": "James",
+      "surname": "Bond",
+      "id": 7
     }
   ],
   "workspaces": [
@@ -58,6 +65,11 @@
       "name": "newSpace",
       "userId": 6,
       "id": 3
+    },
+    {
+      "name": "WMSpace",
+      "userId": 7,
+      "id": 4
     }
   ],
   "processes": [
@@ -125,6 +137,20 @@
       "name": "Process 9",
       "color": "#E547FF",
       "icon": "board"
+    },
+    {
+      "workspaceId": 2,
+      "name": "Process 10",
+      "color": "#7b64ff",
+      "icon": "board",
+      "id": 10
+    },
+    {
+      "workspaceId": 2,
+      "name": "Process 15",
+      "color": "#9f0500",
+      "icon": "board",
+      "id": 11
     }
   ]
 }

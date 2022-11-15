@@ -21,6 +21,7 @@ import Sellers from "../pages/board/sellers/Sellers";
 import MacroPhases from "../pages/board/macroPhases/MacroPhases";
 import Automations from "../pages/board/automations/Automations";
 import CreateProcess from "../pages/board/processes/createProcess/createProcess";
+import Logout from "../pages/board/logout/Logout";
 
 //login logiku implementirati za naviagte ako je korisnik ulogovan
 const routes = [
@@ -144,7 +145,7 @@ const routes = [
       },
       {
         path: "Logout",
-        element: <Processes />,
+        element: <Logout />,
       },
     ],
   },

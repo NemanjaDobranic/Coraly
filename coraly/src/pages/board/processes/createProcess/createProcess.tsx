@@ -91,7 +91,7 @@ interface IProcess {
   color: string;
 }
 
-const createProcess = () => {
+const CreateProcess = () => {
   const [open, setOpen] = useState(true);
   const [pickerColor, setPickerColor] = useState("#7b64ff");
   const [showPicker, setShowPicker] = useState(false);
@@ -257,4 +257,4 @@ const createProcess = () => {
   );
 };
 
-export default createProcess;
+export default CreateProcess;
