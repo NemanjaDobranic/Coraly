@@ -11,6 +11,8 @@ import FileImportIcon from "./file_import.svg";
 import FileExportIcon from "./file_export.svg";
 import BagIcon from "./bag.svg";
 import ColorPalette from "./color_palette.svg";
+import ArrowDownRoundedIcon from "./arrow-down.svg";
+import PhaseIcon from "./phase.svg";
 
 export {
   WebLayoutLeftIcon,
@@ -25,5 +27,7 @@ export {
   SettingIcon,
   VerticalResizeIcon,
   WebLayoutCenterIcon,
-  ColorPalette
+  ColorPalette,
+  ArrowDownRoundedIcon,
+  PhaseIcon,
 };

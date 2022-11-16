@@ -57,7 +57,7 @@ const theme = createTheme({
 
     grey: {
       "100": "#EAEAEC",
-      "200":"#D6D5D9",
+      "200": "#D6D5D9",
       "300": "#C1C0C7",
       "500": "#9897A1",
       "600": "#83828E",
@@ -65,6 +65,7 @@ const theme = createTheme({
       "800": "#5A5869",
       "900": "#464356",
       A100: "#312E43",
+      A200: "#F6F8FA",
     },
 
     actionSecondary: palette.augmentColor({

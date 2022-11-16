@@ -22,7 +22,7 @@ import MacroPhases from "../pages/board/macroPhases/MacroPhases";
 import Automations from "../pages/board/automations/Automations";
 import CreateProcess from "../pages/board/processes/createProcess/createProcess";
 import Logout from "../pages/board/logout/Logout";
-import Process from "../pages/board/processes/process/Process";
+import ProcessContainer from "../pages/board/processes/process/ProcessContainer";
 
 //login logiku implementirati za naviagte ako je korisnik ulogovan
 const routes = [
@@ -119,7 +119,7 @@ const routes = [
 
       {
         path: ":processName",
-        element: <Process />,
+        element: <ProcessContainer />,
       },
       {
         path: "team",

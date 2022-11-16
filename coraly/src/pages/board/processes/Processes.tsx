@@ -104,7 +104,7 @@ export default function Processes() {
   };
 
   return !loading && user ? (
-    <Box>
+    <Box sx={{ padding: `${theme.spacing(6.25)} ${theme.spacing(3)}` }}>
       <Typography variant="h2" color={theme.palette.grey[900]} marginBottom={3}>
         Welcome, {user.name}&nbsp;{user.surname}
       </Typography>

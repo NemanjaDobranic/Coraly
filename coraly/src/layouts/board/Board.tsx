@@ -273,7 +273,14 @@ const Board: React.FC<BoardProps> = ({ user, workspace }) => {
           src={Logo}
         ></Box>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          minHeight: "100vh",
+          background: theme.palette.grey.A200,
+        }}
+      >
         <DrawerHeader />
         <Outlet />
       </Box>
