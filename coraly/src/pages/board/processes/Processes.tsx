@@ -135,7 +135,14 @@ export default function Processes() {
         {processes && processes.length
           ? processes.map((process: IProcess) => (
               <Grid item key={process.id}>
-                <Process background={process.color}>
+                <Process
+                  background={process.color}
+                  onClick={() =>
+                    navigate(`../${process.name}`, {
+                      state: { process },
+                    })
+                  }
+                >
                   {process.isPrivate !== undefined ? (
                     getIsPrivate(process.isPrivate)
                   ) : (

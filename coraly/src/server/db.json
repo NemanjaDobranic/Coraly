@@ -151,6 +151,13 @@
       "color": "#9f0500",
       "icon": "board",
       "id": 11
+    },
+    {
+      "workspaceId": 2,
+      "name": "Process 4",
+      "color": "#fb9e00",
+      "icon": "board",
+      "id": 12
     }
   ]
 }
