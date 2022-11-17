@@ -10,7 +10,10 @@ import { styled } from "@mui/material/styles";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { setProcesses as setProcessesRedux } from "../../../redux";
+import {
+  setActiveProcess,
+  setProcesses as setProcessesRedux,
+} from "../../../redux";
 
 import AddIcon from "@mui/icons-material/Add";
 import processesIcons from "./processesIcons";
@@ -86,6 +89,7 @@ export default function Processes() {
       getProcesses("/processes?workspaceId=" + workspace.id, {
         method: HttpMethods.GET,
       });
+
     }
   }, [user, workspace]);
 
@@ -137,11 +141,10 @@ export default function Processes() {
               <Grid item key={process.id}>
                 <Process
                   background={process.color}
-                  onClick={() =>
-                    navigate(`../${process.name}`, {
-                      state: { process },
-                    })
-                  }
+                  onClick={() => {
+                    dispatch(setActiveProcess(process));
+                    navigate(`./${process.id.toString()}`);
+                  }}
                 >
                   {process.isPrivate !== undefined ? (
                     getIsPrivate(process.isPrivate)

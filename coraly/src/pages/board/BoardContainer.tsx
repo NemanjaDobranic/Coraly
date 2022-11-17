@@ -10,7 +10,7 @@ import CoralyProgress from "../../components/CoralyProgress";
 
 const BoardContainer = () => {
   const [user] = useLocalStorage(userKey);
-  const [{ loading, response, error }, getWorkspace] = useApi();
+  const [{ response, error }, getWorkspace] = useApi();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

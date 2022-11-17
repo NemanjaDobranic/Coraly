@@ -13,6 +13,7 @@ import BagIcon from "./bag.svg";
 import ColorPalette from "./color_palette.svg";
 import ArrowDownRoundedIcon from "./arrow-down.svg";
 import PhaseIcon from "./phase.svg";
+import RightArrowIcon from "./right_arrow.svg";
 
 export {
   WebLayoutLeftIcon,
@@ -30,4 +31,5 @@ export {
   ColorPalette,
   ArrowDownRoundedIcon,
   PhaseIcon,
+  RightArrowIcon,
 };

@@ -34,7 +34,7 @@ const Bubble = styled(Box)<{ color: string; background: string }>(
   }
 );
 
-function ProcessHeader() {
+const ProcessHeader: React.FC<{ openInfo: () => void }> = ({ openInfo }) => {
   return (
     <Root>
       <Box component="img" src={ArrowDownRoundedIcon}></Box>
@@ -67,10 +67,16 @@ function ProcessHeader() {
         </Bubble>
       ))}
 
-      <AddCircleOutlineRoundedIcon sx={{ color: theme.palette.primary.main }} />
+      <AddCircleOutlineRoundedIcon
+        sx={{
+          color: theme.palette.primary.main,
+          cursor: "pointer",
+        }}
+        onClick={() => openInfo()}
+      />
       <MoreHorizIcon sx={{ color: theme.palette.grey[500] }} />
     </Root>
   );
-}
+};
 
 export default ProcessHeader;

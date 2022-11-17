@@ -6,6 +6,7 @@ import ProcessToolbar from "./ProcessToolbar";
 import { ICard } from "./ProcessTable";
 import CoralyProgress from "../../../../components/CoralyProgress";
 import CoralyAlert, { ICoralyAlert } from "../../../../components/CoralyAlert";
+import { Outlet, useNavigate } from "react-router-dom";
 
 function Process() {
   const [{ loading, response, error }] = useApi(
@@ -23,6 +24,7 @@ function Process() {
     message: "",
   });
   const [showAlert, setShowAlert] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (error) {
@@ -36,13 +38,18 @@ function Process() {
     }
   }, [response, error]);
 
+  const openInfoForm = () => {
+    navigate("./info");
+  };
+
   return loading ? (
     <CoralyProgress />
   ) : !showAlert && cards ? (
     <>
-      <ProcessToolbar />
-      <ProcessHeader />
+      <ProcessToolbar openInfo={openInfoForm} />
+      <ProcessHeader openInfo={openInfoForm} />
       <ProcessTable cards={cards} />
+      <Outlet />
     </>
   ) : (
     <CoralyAlert

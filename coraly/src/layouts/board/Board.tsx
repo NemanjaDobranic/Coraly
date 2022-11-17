@@ -1,6 +1,6 @@
 import * as React from "react";
 import { styled, useTheme, Theme, CSSObject } from "@mui/material/styles";
-import Box, { BoxProps } from "@mui/material/Box";
+import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -23,6 +23,7 @@ import Logo from "../../assets/images/logo.svg";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { IUser, IWorkSpace } from "../../redux/workspace/workSpaceReducer";
+import { RightArrowIcon } from "../../assets/images";
 
 const drawerWidth = 240;
 
@@ -182,7 +183,16 @@ const Board: React.FC<BoardProps> = ({ user, workspace }) => {
   const [activePage, setActivePage] = useState(
     location.pathname.substring(location.pathname.lastIndexOf("/"))
   );
+  const [boardPath, setBoardPath] = useState<string[]>([]);
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (location.pathname.includes("/board")) {
+      setBoardPath(() =>
+        location.pathname.split("/board")[1].split("/").splice(1, 2)
+      );
+    }
+  }, [location.pathname]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -197,14 +207,44 @@ const Board: React.FC<BoardProps> = ({ user, workspace }) => {
     navigate("/board" + relativePath);
   };
 
+  const getBoardPath = () => {
+    const length = boardPath.length;
+    return boardPath.map((value, index) => (
+      <Typography
+        variant="h2"
+        noWrap
+        key={index}
+        display="flex"
+        alignItems="center"
+        gap={theme.spacing(1)}
+        fontSize={`${theme.spacing(2.5)} !important`}
+        color={
+          index !== length - 1
+            ? theme.palette.grey[600]
+            : theme.palette.grey.A100
+        }
+      >
+        {value[0].toUpperCase() + value.substring(1)}
+        {index !== length - 1 && (
+          <Box component="img" src={RightArrowIcon}></Box>
+        )}
+      </Typography>
+    ));
+  };
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
-          <Typography variant="h6" noWrap component="div">
-            Process
-          </Typography>
+          <Box
+            component="div"
+            display="flex"
+            gap={theme.spacing(1)}
+            alignItems="center"
+          >
+            {getBoardPath()}
+          </Box>
           <NotificationsNoneOutlinedIcon
             style={{ color: theme.palette.grey[700], marginLeft: "auto" }}
           />

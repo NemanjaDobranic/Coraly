@@ -87,7 +87,7 @@ const Wrapper = styled(Toolbar)({
   },
 });
 
-const ProcessToolbar: React.FC = () => {
+const ProcessToolbar: React.FC<{ openInfo: () => void }> = ({ openInfo }) => {
   return (
     <Wrapper>
       <Group>
@@ -180,6 +180,7 @@ const ProcessToolbar: React.FC = () => {
         <Button
           variant="contained"
           sx={{ padding: `${theme.spacing(0.75)} ${theme.spacing(1.5)}` }}
+          onClick={() => openInfo()}
         >
           <AddCircleOutlineRoundedIcon />
           &nbsp;Add
