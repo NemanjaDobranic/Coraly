@@ -1,5 +1,6 @@
 import React from "react";
 import ProcessHeader from "./ProcessHeader";
+import ProcessTable from "./ProcessTable";
 import ProcessToolbar from "./ProcessToolbar";
 
 function Process() {
@@ -7,7 +8,7 @@ function Process() {
     <div>
       <ProcessToolbar />
       <ProcessHeader />
-      Table
+      <ProcessTable />
     </div>
   );
 }
