@@ -2,53 +2,24 @@ import React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import { theme } from "../../../../config/theme";
-import GeometricShape from "../../../../components/GeometricShape";
-import { type } from "os";
 import { Box } from "@mui/material";
 
-function createData(
-  name: string,
-  calories: string,
-  fat: string,
-  carbs: string,
-  protein: string,
-  date: string
-) {
-  return { name, calories, fat, carbs, protein, date };
+export interface ICard {
+  id: string;
+  user: string;
+  phone: string;
+  contractId: string;
+  seller: string;
+  date: string;
 }
 
-const rows = [
-  createData(
-    "VOD-153",
-    "Theresa Webb",
-    "+39  065262123",
-    "IT069823456",
-    "Alessandro Durni",
-    "3/25/2021"
-  ),
-  createData(
-    "VOD-153",
-    "Theresa Webb",
-    "+39  065262123",
-    "IT069823456",
-    "Alessandro Durni",
-    "3/25/2021"
-  ),
-  createData(
-    "VOD-153",
-    "Theresa Webb",
-    "+39  065262123",
-    "IT069823456",
-    "Alessandro Durni",
-    "3/25/2021"
-  ),
-];
+interface Props {
+  cards: ICard[];
+}
 
 const ProcessContainer = styled(Paper)({
   height: "100vh",
@@ -59,6 +30,19 @@ const ProcessContainer = styled(Paper)({
 
 const ProcessCell = styled(TableCell)({
   borderLeft: "1px solid " + theme.palette.grey[100],
+
+  [theme.breakpoints.down("md")]: {
+    fontSize: theme.spacing(1),
+  },
+
+  [theme.breakpoints.up("md")]: {
+    fontSize: theme.spacing(1.25),
+  },
+
+  [theme.breakpoints.up("xl")]: {
+    fontSize: theme.spacing(1.75),
+  },
+
   ":nth-of-type(1)": {
     width: "5%",
   },
@@ -89,29 +73,29 @@ const ProcessCell = styled(TableCell)({
   },
 });
 
-function ProcessTable() {
+const ProcessTable: React.FC<Props> = ({ cards }) => {
   return (
     <ProcessContainer>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableBody>
-          {rows.map((row, index) => (
+          {cards.map((card, index) => (
             <TableRow key={index}>
               <ProcessCell></ProcessCell>
-              <ProcessCell>{row.name}</ProcessCell>
-              <ProcessCell>{row.calories}</ProcessCell>
-              <ProcessCell>{row.fat}</ProcessCell>
-              <ProcessCell>{row.carbs}</ProcessCell>
+              <ProcessCell>{card.id}</ProcessCell>
+              <ProcessCell>{card.user}</ProcessCell>
+              <ProcessCell>{card.phone}</ProcessCell>
+              <ProcessCell>{card.contractId}</ProcessCell>
               <ProcessCell>
                 <Box component="span">PL</Box>
-                {row.protein}
+                {card.seller}
               </ProcessCell>
-              <ProcessCell>{row.date}</ProcessCell>
+              <ProcessCell>{card.date}</ProcessCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </ProcessContainer>
   );
-}
+};
 
 export default ProcessTable;
