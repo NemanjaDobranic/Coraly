@@ -22,7 +22,8 @@ interface Props {
 }
 
 const ProcessContainer = styled(Paper)({
-  height: "100vh",
+  height: "calc(100% - 56px)",
+  overflow: "auto",
   "& .MuiTable-root": {
     width: "98%",
   },

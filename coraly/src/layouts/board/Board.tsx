@@ -233,7 +233,7 @@ const Board: React.FC<BoardProps> = ({ user, workspace }) => {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box display="flex" height="100%">
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
