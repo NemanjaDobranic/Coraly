@@ -319,6 +319,7 @@ const Board: React.FC<BoardProps> = ({ user, workspace }) => {
           flexGrow: 1,
           minHeight: "100vh",
           background: theme.palette.grey.A200,
+          overflowX: "hidden",
         }}
       >
         <DrawerHeader />
