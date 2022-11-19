@@ -140,7 +140,12 @@ const ProcessInfo = () => {
   return (
     <ClickAwayListener onClickAway={handleDrawerClose}>
       <InfoDrawer variant="persistent" anchor="right" open={open}>
-        <form id="form">
+        <form
+          id="form"
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
           {Object.keys(formValues).map((key: string) => getFormControl(key))}
           {["TIM", "Disney Plus"].map((value, index) => (
             <AccordionRoot key={index}>
@@ -175,6 +180,7 @@ const ProcessInfo = () => {
             type="submit"
             color="actionSecondary"
             sx={{ marginLeft: "auto" }}
+            onClick={handleDrawerClose}
           >
             Annulla
           </Button>

@@ -4,7 +4,6 @@ import { useLocation, useNavigate } from "react-router";
 import useApi from "../../hooks/useApi";
 import Process from "../../pages/board/processes/process/Process";
 import { IRootState } from "../../redux/rootReducer";
-import { Navigate } from "react-router";
 import CoralyProgress from "../CoralyProgress";
 import { setActiveProcess } from "../../redux";
 
@@ -23,7 +22,7 @@ function ProcessGuard() {
 
     if (error) {
       dispatch(setActiveProcess(undefined));
-      navigate(-1);
+      navigate('../');
     }
   }, [response, error]);
 

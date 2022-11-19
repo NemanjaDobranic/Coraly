@@ -167,6 +167,7 @@
       "phone": "+39  065262123",
       "contractId": "IT069823456",
       "seller": "Alessandro Durni",
+      "email": "theresa@mail.com",
       "date": "3/25/2021"
     },
     {
@@ -175,6 +176,7 @@
       "phone": "+39  065262123",
       "contractId": "IT064592024",
       "seller": "Giuseppe Avagliano",
+      "email": "marvin@mail.com",
       "date": "7/11/2021"
     },
     {
@@ -183,6 +185,7 @@
       "phone": "+39  065262123",
       "contractId": "IT062235336",
       "seller": "Marina Accardo",
+      "email": "wade@email.com",
       "date": "9/29/2021"
     },
     {
@@ -191,6 +194,8 @@
       "phone": "+39  065262123",
       "contractId": "IT063098443",
       "seller": "Antonio Silvestre",
+      "email": "guy@mail.com",
+
       "date": "8/29/2019"
     },
     {
@@ -199,6 +204,7 @@
       "phone": "+39  065262123",
       "contractId": "IT061256521",
       "seller": "Marino Panariello",
+      "email": "esther@mail.com",
       "date": "10/18/2021"
     },
     {
@@ -207,6 +213,7 @@
       "phone": "+39  065262123",
       "contractId": "IT069372455",
       "seller": "Alessandro Durni",
+      "email": "annette@mail.com",
       "date": "10/18/2021"
     },
     {
@@ -215,6 +222,7 @@
       "phone": "+39  065262123",
       "contractId": "IT067733304",
       "seller": "Michele Cimmino",
+      "email": "ralph@mail.com",
       "date": "10/18/2020"
     },
     {
@@ -223,6 +231,7 @@
       "phone": "+39  065262123",
       "contractId": "IT069483406",
       "seller": "Dragos Busuioc",
+      "email": "bessie@mail.com",
       "date": "1/9/2019"
     },
     {
@@ -231,6 +240,7 @@
       "phone": "+39  065262123",
       "contractId": "IT068544853",
       "seller": "Giovanni Esposito",
+      "email": "courtney@mail.com",
       "date": "12/10/2020"
     },
     {
@@ -239,6 +249,7 @@
       "phone": "+39  065262123",
       "contractId": "IT063098443",
       "seller": "Marina Accardo",
+      "email": "jerome@mail.com",
       "date": "10/20/2020"
     },
     {
@@ -247,6 +258,7 @@
       "phone": "+39  065262123",
       "contractId": "IT069823456",
       "seller": "Antonio Langella",
+      "email": "savannah@mail.com",
       "date": "7/9/2021"
     },
     {
@@ -255,6 +267,7 @@
       "phone": "+39  065262123",
       "contractId": "IT061256521",
       "seller": "Tommaso Verola",
+      "email": "eleanor@mail.com",
       "date": "1/28/2021"
     },
     {
@@ -263,6 +276,7 @@
       "phone": "+39  065262123",
       "contractId": "IT069372455",
       "seller": "Vincenzo Lavorante",
+      "email": "kristin@mail.com",
       "date": "12/1/2019"
     },
     {
@@ -271,6 +285,7 @@
       "phone": "+39  065262123",
       "contractId": "IT069347232",
       "seller": "Raffaele Di Gennaro",
+      "email": "darrell@mail.com",
       "date": "10/11/2020"
     }
   ]

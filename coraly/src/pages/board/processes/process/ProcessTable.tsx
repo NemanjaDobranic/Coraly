@@ -7,6 +7,7 @@ import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import { theme } from "../../../../config/theme";
 import { Box } from "@mui/material";
+import { useNavigate } from "react-router";
 
 export interface ICard {
   id: string;
@@ -14,6 +15,7 @@ export interface ICard {
   phone: string;
   contractId: string;
   seller: string;
+  email: string;
   date: string;
 }
 
@@ -75,12 +77,22 @@ const ProcessCell = styled(TableCell)({
 });
 
 const ProcessTable: React.FC<Props> = ({ cards }) => {
+  const navigate = useNavigate();
+
+  const showDialog = (card: ICard) => {
+    navigate("./dialog", { state: card });
+  };
+
   return (
     <ProcessContainer>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableBody>
           {cards.map((card, index) => (
-            <TableRow key={index}>
+            <TableRow
+              key={index}
+              sx={{ cursor: "pointer" }}
+              onClick={() => showDialog(card)}
+            >
               <ProcessCell></ProcessCell>
               <ProcessCell>{card.id}</ProcessCell>
               <ProcessCell>{card.user}</ProcessCell>

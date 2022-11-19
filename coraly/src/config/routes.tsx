@@ -25,6 +25,7 @@ import Logout from "../pages/board/logout/Logout";
 import Process from "../pages/board/processes/process/Process";
 import ProcessInfo from "../pages/board/processes/process/info/ProcessInfo";
 import ProcessGuard from "../components/guards/ProcessGuard";
+import ProcessDialog from "../pages/board/processes/process/dialog/ProcessDialog";
 
 //login logiku implementirati za naviagte ako je korisnik ulogovan
 const routes = [
@@ -126,6 +127,10 @@ const routes = [
           {
             path: "info",
             element: <ProcessInfo />,
+          },
+          {
+            path: "dialog",
+            element: <ProcessDialog />,
           },
         ],
       },
