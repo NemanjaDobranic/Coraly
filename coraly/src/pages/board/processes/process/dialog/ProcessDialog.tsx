@@ -13,6 +13,11 @@ import {
   FormControlLabel,
   Radio,
   RadioGroup,
+  AccordionDetails,
+  AccordionSummary,
+  Accordion,
+  Icon,
+  SvgIcon,
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
@@ -35,14 +40,30 @@ import {
   PhaseStandardIcon,
   ArrowDownRoundedIcon,
   DocumentIcon,
+  PhaseIcon,
+  BagIcon,
+  LineSpacingIcon,
 } from "../../../../../assets/images/index";
-import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
+import {
+  AddCircleOutlineRounded,
+  ShoppingBagOutlined,
+  FormatLineSpacingOutlined,
+  ModeCommentOutlined,
+  AttachFileOutlined,
+  InsertLinkOutlined,
+  SegmentOutlined,
+} from "@mui/icons-material";
 import getDateTime from "../../../../../helpers/functions/getDateTime";
 import { blue, orange, purple } from "@mui/material/colors";
 
 const Info = () => {
   return (
-    <Box display="flex" flexDirection="column" gap={2}>
+    <Box
+      display="flex"
+      flexDirection="column"
+      gap={2}
+      paddingRight={theme.spacing(2)}
+    >
       <Box component="header" display="flex" flexDirection="column" gap={2}>
         <Box display="flex" gap={5}>
           <Box display="flex" gap={0.5} alignItems="center">
@@ -64,7 +85,7 @@ const Info = () => {
               +5
             </Typography>
 
-            <AddCircleOutlineRoundedIcon
+            <AddCircleOutlineRounded
               sx={{
                 color: theme.palette.primary.main,
                 cursor: "pointer",
@@ -105,7 +126,7 @@ const Info = () => {
               {value}
             </Box>
           ))}
-          <AddCircleOutlineRoundedIcon
+          <AddCircleOutlineRounded
             sx={{
               color: theme.palette.primary.main,
               cursor: "pointer",
@@ -156,7 +177,12 @@ const Info = () => {
             ))}
           </Box>
         </Box>
-        <Divider flexItem sx={{ borderWidth: theme.spacing(0.1) }} />
+        <Divider
+          flexItem
+          sx={{
+            borderWidth: theme.spacing(0.1),
+          }}
+        />
       </Box>
 
       <Box component="form" display="flex" flexDirection="column" gap={2}>
@@ -206,7 +232,7 @@ const Info = () => {
               gap={1}
             >
               <Box component="img" src={DocumentIcon}></Box>
-              <Divider orientation="vertical" />
+              <Divider orientation="vertical" sx={{ height: "80%" }} />
             </Box>
             <Box display="flex" flexDirection="column" gap={2}>
               <TextField
@@ -225,31 +251,261 @@ const Info = () => {
                 sx={{ marginBottom: "0" }}
               />
 
-              <RadioGroup defaultValue="person" name="radio-buttons-group">
+              <RadioGroup defaultValue="person">
                 <FormControlLabel
                   value="company"
-                  control={<Radio />}
+                  control={
+                    <Radio
+                      sx={{ p: `${theme.spacing(0.5)}  ${theme.spacing(1)}` }}
+                    />
+                  }
                   label="Company"
                 />
                 <FormControlLabel
                   value="person"
-                  control={<Radio />}
+                  control={
+                    <Radio
+                      sx={{ p: `${theme.spacing(0.5)}  ${theme.spacing(1)}` }}
+                    />
+                  }
                   label="Person"
                 />
               </RadioGroup>
             </Box>
           </Box>
         </Box>
+        <Box component="section" display="flex" flexDirection="column" gap={2}>
+          <Typography variant="caption">Gender</Typography>
+          <RadioGroup defaultValue="female">
+            <FormControlLabel
+              value="male"
+              control={
+                <Radio
+                  sx={{ p: `${theme.spacing(0.5)}  ${theme.spacing(1)}` }}
+                />
+              }
+              label="Male"
+            />
+            <FormControlLabel
+              value="female"
+              control={
+                <Radio
+                  sx={{ p: `${theme.spacing(0.5)}  ${theme.spacing(1)}` }}
+                />
+              }
+              label="Female"
+            />
+            <FormControlLabel
+              value="other"
+              control={
+                <Radio
+                  sx={{ p: `${theme.spacing(0.5)}  ${theme.spacing(1)}` }}
+                />
+              }
+              label="Not declared"
+            />
+          </RadioGroup>
+        </Box>
       </Box>
     </Box>
   );
 };
 
+const AccordionRoot = styled(Accordion)({
+  boxShadow: "none",
+
+  "&.MuiPaper-root": {
+    width: "100%",
+  },
+
+  "&.Mui-expanded": {
+    margin: 0,
+  },
+
+  "&:before": {
+    display: "none",
+  },
+
+  "& .MuiAccordionSummary-root": {
+    minHeight: theme.spacing(0),
+    padding: theme.spacing(1.5),
+    background: theme.palette.grey.A200,
+    borderRadius: theme.spacing(1),
+    display: "flex",
+    marginBottom: theme.spacing(2),
+    "&.Mui-expanded": {
+      minHeight: theme.spacing(0),
+    },
+    "& .MuiAccordionSummary-content": {
+      alignItems: "center",
+      margin: 0,
+      gap: theme.spacing(2.5),
+    },
+  },
+});
+
 const Phase = () => {
+  const phases = [
+    {
+      icon: PhaseStandardIcon,
+      label: "Phase 2",
+      ready: true,
+      controls: [
+        {
+          type: "text",
+          label: "Contract number",
+        },
+        {
+          type: "text",
+          label: "Contract number 2",
+        },
+      ],
+    },
+    {
+      icon: PhaseStandardIcon,
+      label: "New Contract",
+      ready: false,
+      controls: [
+        {
+          type: "date",
+          label: "Start date",
+        },
+      ],
+    },
+    {
+      icon: PhaseIcon,
+      label: "Start",
+      ready: false,
+      controls: [
+        {
+          type: "date",
+          label: "Start date",
+        },
+      ],
+    },
+  ];
+
+  const getFormControl = (type: string, label: string) => (
+    <TextField
+      key={label}
+      label={label}
+      variant="outlined"
+      type={type}
+      fullWidth
+      sx={{ marginBottom: "24px" }}
+    />
+  );
+
   return (
-    <Box>
-      <header>Header 2</header>
-      <main></main>
+    <Box
+      display="flex"
+      flexDirection="column"
+      gap={3}
+      paddingRight={theme.spacing(2)}
+    >
+      <Typography variant="h6" component="header">
+        Fields' Phase
+      </Typography>
+      <Box component="form" position="relative">
+        {phases.map(({ icon, label, ready, controls }) => (
+          <AccordionRoot key={label}>
+            <AccordionSummary
+              expandIcon={
+                <Box component="img" src={ArrowDownRoundedIcon}></Box>
+              }
+            >
+              <Box component="img" src={icon}></Box>
+              <Typography
+                variant="h6"
+                marginRight="auto"
+                color={theme.palette.grey[800]}
+                fontWeight={600}
+              >
+                {label}
+              </Typography>
+              {ready && (
+                <Box
+                  sx={{
+                    background: theme.palette.primary.main,
+                    padding: `${theme.spacing(0.25)} ${theme.spacing(2)}`,
+                    fontWeight: 600,
+                    fontSize: theme.spacing(1.75),
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                  color="white"
+                  borderRadius="15%/50%"
+                  marginRight={theme.spacing(2)}
+                >
+                  Ready
+                </Box>
+              )}
+            </AccordionSummary>
+            <AccordionDetails sx={{ padding: 0 }}>
+              {controls.map(({ type, label }) => getFormControl(type, label))}
+            </AccordionDetails>
+          </AccordionRoot>
+        ))}
+      </Box>
+    </Box>
+  );
+};
+
+const SideBar = () => {
+  const icons = [
+    {
+      id: 1,
+      icon: ShoppingBagOutlined,
+    },
+    {
+      id: 2,
+      icon: FormatLineSpacingOutlined,
+    },
+    {
+      id: 3,
+      icon: ModeCommentOutlined,
+    },
+    {
+      id: 4,
+      icon: AttachFileOutlined,
+    },
+    {
+      id: 5,
+      icon: InsertLinkOutlined,
+    },
+    {
+      id: 6,
+      icon: SegmentOutlined,
+    },
+  ];
+
+  const [active, setActive] = useState<number>(2);
+
+  return (
+    <Box display="flex" flexDirection="row">
+      <Divider orientation="vertical" />
+      <Box display="flex" flexDirection="column">
+        <Box paddingTop={theme.spacing(4)}></Box>
+        {icons.map(({ id, icon }) => (
+          <SvgIcon
+            component={icon}
+            key={id}
+            sx={{
+              width: theme.spacing(2),
+              height: theme.spacing(2),
+              p: theme.spacing(2),
+              boxSizing: "content-box",
+              cursor: "pointer",
+              fill: active === id ? theme.palette.primary.main : "inherit",
+              borderLeft:
+                active === id
+                  ? `1px solid ${theme.palette.primary.main}`
+                  : "none",
+            }}
+            onClick={() => setActive(id)}
+          />
+        ))}
+      </Box>
     </Box>
   );
 };
@@ -259,17 +515,17 @@ const BootstrapDialog = styled(Dialog)({
     borderRadius: "1.5rem !important",
     width: theme.spacing(148.5),
     maxWidth: theme.spacing(148.5),
-    position: "absolute",
-    top: theme.spacing(2),
-    right: theme.spacing(2),
+
     margin: 0,
   },
 
   "& .MuiDialogContent-root": {
-    padding: "1.5rem !important",
+    padding: `${theme.spacing(1)}  ${theme.spacing(3)} !important`,
   },
   "& .MuiDialogActions-root": {
-    padding: "0 1.5rem 1.5rem 1.5rem !important",
+    padding: `0 ${theme.spacing(3)} ${theme.spacing(3)}  ${theme.spacing(
+      3
+    )} !important`,
   },
 });
 
@@ -291,7 +547,11 @@ const ProcessDialog = () => {
       <DialogTitle
         display="flex"
         gap={theme.spacing(2)}
-        sx={{ m: 0, p: 3, color: theme.palette.grey[900] }}
+        sx={{
+          m: 0,
+          p: `${theme.spacing(3)}  ${theme.spacing(3)} 0 ${theme.spacing(3)}`,
+          color: theme.palette.grey[900],
+        }}
       >
         {children}
         <Box
@@ -314,15 +574,22 @@ const ProcessDialog = () => {
             )
           )}
         </Box>
-        {onClose ? (
+
+        <Box display="flex">
+          <Divider
+            orientation="vertical"
+            sx={{
+              marginRight: theme.spacing(1.5),
+            }}
+          />
           <IconButton
             aria-label="close"
             onClick={onClose}
-            sx={{ color: theme.palette.grey[500] }}
+            sx={{ color: theme.palette.grey[500], p: 0 }}
           >
             <CloseIcon />
           </IconButton>
-        ) : null}
+        </Box>
       </DialogTitle>
     );
   }
@@ -348,12 +615,20 @@ const ProcessDialog = () => {
         >
           {card.email}
         </BootstrapDialogTitle>
-        <DialogContent sx={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+        <DialogContent
+          sx={{
+            display: "grid",
+            gridTemplateColumns: `1fr 1fr ${theme.spacing(2.57)}`,
+          }}
+        >
           <Info />
           <Phase />
+          <SideBar />
         </DialogContent>
 
         <DialogActions>
+          <Typography variant="caption">Fase ID:&nbsp;</Typography>
+          <Typography marginRight="auto">61571535e7058c00143322b8</Typography>
           <Button
             variant="outlined"
             color="actionSecondary"

@@ -28,6 +28,7 @@ import MinusPathIcon from "./minus_path.svg";
 import TrashIcon from "./trash.svg";
 import PhaseStandardIcon from "./phase_standard.svg";
 import DocumentIcon from "./document.svg";
+import LineSpacingIcon from "./line_spacing.svg";
 
 export {
   WebLayoutLeftIcon,
@@ -60,4 +61,5 @@ export {
   TrashIcon,
   PhaseStandardIcon,
   DocumentIcon,
+  LineSpacingIcon,
 };
