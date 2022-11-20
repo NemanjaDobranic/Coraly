@@ -195,7 +195,7 @@ const ProcessToolbar: React.FC<{ openInfo: () => void }> = ({ openInfo }) => {
             <Box
               component="img"
               src={icon}
-              onClick={id === 5 ? () => navigate("./settings") : () => {}}
+              onClick={id === 5 ? () => navigate("./settings/members") : () => {}}
             ></Box>
           </Tool>
         ))}

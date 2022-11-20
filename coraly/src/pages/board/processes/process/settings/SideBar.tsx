@@ -87,7 +87,7 @@ const ItemWrapper = styled(Box)<{ active: "yes" | "no" }>(({ active }) => {
 });
 
 function SideBar() {
-  const [activeId, setActiveId] = useState<number>(2);
+  const [activeId, setActiveId] = useState<number>(9);
 
   return (
     <Box display="flex" flexDirection="row">

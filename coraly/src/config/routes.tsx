@@ -26,6 +26,7 @@ import Process from "../pages/board/processes/process/Process";
 import ProcessInfo from "../pages/board/processes/process/info/ProcessInfo";
 import ProcessGuard from "../components/guards/ProcessGuard";
 import ProcessDialog from "../pages/board/processes/process/dialog/ProcessDialog";
+import Settings from "../pages/board/processes/process/settings/Settings";
 import Members from "../pages/board/processes/process/settings/Members";
 
 //login logiku implementirati za naviagte ako je korisnik ulogovan
@@ -135,7 +136,13 @@ const routes = [
           },
           {
             path: "settings",
-            element: <Members />,
+            element: <Settings />,
+            children: [
+              {
+                path: "members",
+                element: <Members />,
+              },
+            ],
           },
         ],
       },
