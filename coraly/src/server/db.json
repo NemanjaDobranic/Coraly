@@ -195,7 +195,6 @@
       "contractId": "IT063098443",
       "seller": "Antonio Silvestre",
       "email": "guy@mail.com",
-
       "date": "8/29/2019"
     },
     {
@@ -287,6 +286,50 @@
       "seller": "Raffaele Di Gennaro",
       "email": "darrell@mail.com",
       "date": "10/11/2020"
+    }
+  ],
+  "members": [
+    {
+      "id": 1,
+      "user": "Michele Cimmino",
+      "email": "michele.cimmino@lastingdynamics.com",
+      "permission": "admin"
+    },
+    {
+      "id": 2,
+      "user": "Marino Panariello",
+      "email": "marino.panariello@lastingdynamics.com",
+      "permission": "user"
+    },
+    {
+      "id": 3,
+      "user": "Vincenzo Lavorante",
+      "email": "vincenzo.lavorante@lastingdynamics.com",
+      "permission": "vendor"
+    },
+    {
+      "id": 4,
+      "user": "Antonio Langella",
+      "email": "antonio.langella@lastingdynamics.com",
+      "permission": "readOnly"
+    },
+    {
+      "id": 5,
+      "user": "Alessandro Durni",
+      "email": "a.durni@lastingdynamics.com",
+      "permission": "vendor"
+    },
+    {
+      "id": 6,
+      "user": "Andrea",
+      "email": "andrea@coraly.com",
+      "permission": "vendor"
+    },
+    {
+      "id": 7,
+      "user": "Francesco",
+      "email": "francesco@coraly.com",
+      "permission": "user"
     }
   ]
 }

@@ -20,6 +20,8 @@ import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 
 import React, { useEffect, useState } from "react";
 import { theme } from "../../../../../config/theme";
+import useApi, { HttpMethods } from "../../../../../hooks/useApi";
+import CoralyProgress from "../../../../../components/CoralyProgress";
 
 const Root = styled(Box)({
   flex: 1,
@@ -36,18 +38,6 @@ const InviteButton = styled(Button)({
   height: "fit-content",
   marginLeft: "auto",
 });
-
-const rows = [
-  { id: 1, user: "Snow", email: "Jon", permission: "admin" },
-  { id: 2, user: "Lannister", email: "Cersei", permission: "admin" },
-  { id: 3, user: "Lannister", email: "Jaime", permission: "admin" },
-  { id: 4, user: "Stark", email: "Arya", permission: "admin" },
-  { id: 5, user: "Targaryen", email: "Daenerys", permission: "admin" },
-  { id: 6, user: "Melisandre", email: null, permission: "admin" },
-  { id: 7, user: "Clifford", email: "Ferrara", permission: "admin" },
-  { id: 8, user: "Frances", email: "Rossini", permission: "admin" },
-  { id: 9, user: "Roxie", email: "Harvey", permission: "admin" },
-];
 
 const MembersGrid = styled(DataGrid)({
   border: 0,
@@ -128,8 +118,25 @@ function getBackground(value: string | undefined): string {
   }
 }
 
+interface Member {
+  id: string;
+  user: string;
+  email: string;
+  permission: string;
+}
+
 function Members() {
-  const [data, setData] = useState(rows);
+  const [{ loading, response, error }, executeApiCall] = useApi(
+    {
+      path: `/members`,
+      options: {
+        method: HttpMethods.GET,
+      },
+    },
+    true
+  );
+
+  const [data, setData] = useState<Member[]>([]);
   const [search, setSearch] = useState("");
 
   const columns: GridColDef[] = [
@@ -183,26 +190,56 @@ function Members() {
     },
   ];
 
-  useEffect(() => {}, [data]);
+  useEffect(() => {}, [data, search]);
 
-  const changePremission = (e: any, row: any) => {
+  useEffect(() => {
+    if (response && !data.length) {
+      setData(response);
+    }
+  }, [response]);
+
+  const changePremission = (e: any, row: Member) => {
     row.permission = e.target.value;
+
     const index = data.findIndex((el) => el.id === row.id);
     let newData = [...data];
     newData[index] = row;
 
     setData(newData);
+
+    executeApiCall(`/members/${row.id}`, {
+      method: HttpMethods.PATCH,
+      body: JSON.stringify({
+        permission: row.permission,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   };
 
-  const deleteRow = (row: any) => {
+  const deleteRow = (row: Member) => {
     const newData = data.filter((el) => el.id !== row.id);
     setData(newData);
+
+    executeApiCall(`/members/${row.id}`, {
+      method: HttpMethods.DELETE,
+    });
   };
 
   const searchForUsers = (e: any) => {
     const search = e.target.value;
-    console.log(search);
     setSearch(search);
+  };
+
+  const filterData = () => {
+    if (!search.length) {
+      return data;
+    }
+
+    return data.filter((data) =>
+      data.user.toLowerCase().includes(search.toLowerCase())
+    );
   };
 
   return (
@@ -234,15 +271,19 @@ function Members() {
         </InviteButton>
       </Header>
       <Box sx={{ height: theme.spacing(60), width: "100%" }}>
-        <MembersGrid
-          rows={data}
-          columns={columns}
-          getRowId={(row) => row.id}
-          checkboxSelection
-          pageSize={7}
-          disableSelectionOnClick
-          experimentalFeatures={{ newEditingApi: true }}
-        />
+        {data.length ? (
+          <MembersGrid
+            rows={filterData()}
+            columns={columns}
+            getRowId={(row) => row.id}
+            checkboxSelection
+            pageSize={25}
+            disableSelectionOnClick
+            experimentalFeatures={{ newEditingApi: true }}
+          />
+        ) : (
+          <CoralyProgress />
+        )}
       </Box>
     </Root>
   );
