@@ -390,9 +390,12 @@ const Phase = () => {
       key={label}
       label={label}
       variant="outlined"
-      type={type}
+      type="text"
       fullWidth
-      sx={{ marginBottom: "24px" }}
+      onFocus={(e: any) => (e.target.type = type)}
+      sx={{
+        marginBottom: "24px",
+      }}
     />
   );
 
@@ -493,10 +496,15 @@ const SideBar = () => {
             sx={{
               width: theme.spacing(2),
               height: theme.spacing(2),
-              p: theme.spacing(2),
+              p: `${theme.spacing(2)} 0 ${theme.spacing(2)} ${theme.spacing(
+                2
+              )}`,
               boxSizing: "content-box",
               cursor: "pointer",
-              fill: active === id ? theme.palette.primary.main : "inherit",
+              fill:
+                active === id
+                  ? theme.palette.primary.main
+                  : theme.palette.grey[600],
               borderLeft:
                 active === id
                   ? `1px solid ${theme.palette.primary.main}`
