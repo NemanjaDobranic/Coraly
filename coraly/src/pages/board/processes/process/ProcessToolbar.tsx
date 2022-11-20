@@ -26,6 +26,7 @@ import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRou
 import { theme } from "../../../../config/theme";
 import { deepPurple, green } from "@mui/material/colors";
 import React from "react";
+import { useNavigate } from "react-router";
 
 const Group = styled("div")({
   display: "flex",
@@ -88,6 +89,30 @@ const Wrapper = styled(Toolbar)({
 });
 
 const ProcessToolbar: React.FC<{ openInfo: () => void }> = ({ openInfo }) => {
+  const icons = [
+    {
+      id: 1,
+      icon: BagIcon,
+    },
+    {
+      id: 2,
+      icon: ResearchIcon,
+    },
+    {
+      id: 3,
+      icon: FileImportIcon,
+    },
+    {
+      id: 4,
+      icon: FileExportIcon,
+    },
+    {
+      id: 5,
+      icon: SettingIcon,
+    },
+  ];
+  const navigate = useNavigate();
+
   return (
     <Wrapper>
       <Group>
@@ -165,15 +190,13 @@ const ProcessToolbar: React.FC<{ openInfo: () => void }> = ({ openInfo }) => {
       </Group>
 
       <Group>
-        {[
-          BagIcon,
-          ResearchIcon,
-          FileImportIcon,
-          FileExportIcon,
-          SettingIcon,
-        ].map((icon, index) => (
-          <Tool key={index}>
-            <Box component="img" src={icon}></Box>
+        {icons.map(({ icon, id }) => (
+          <Tool key={id}>
+            <Box
+              component="img"
+              src={icon}
+              onClick={id === 5 ? () => navigate("./settings") : () => {}}
+            ></Box>
           </Tool>
         ))}
 
