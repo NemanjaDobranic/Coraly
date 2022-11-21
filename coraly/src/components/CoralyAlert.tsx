@@ -24,6 +24,7 @@ const CoralyAlert: React.FC<ICoralyAlertProps> = ({
   return (
     <Zoom in timeout={500}>
       <Alert
+        data-testid="alert-1"
         severity={color}
         iconMapping={{
           success: <CheckCircleOutlineIcon color={color} />,
