@@ -1,9 +1,8 @@
 import { render, fireEvent, cleanup } from "@testing-library/react";
 import React from "react";
 import "@testing-library/jest-dom";
-import CoralyLink from "../CoralyLink";
+import CoralyLink from "../../components/CoralyLink";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Board from "../../layouts/board/Board";
 
 afterEach(() => {
   cleanup();

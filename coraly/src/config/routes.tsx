@@ -29,7 +29,6 @@ import ProcessDialog from "../pages/board/processes/process/dialog/ProcessDialog
 import Settings from "../pages/board/processes/process/settings/Settings";
 import Members from "../pages/board/processes/process/settings/Members";
 
-//login logiku implementirati za naviagte ako je korisnik ulogovan
 const routes = [
   { path: "*", element: <NotFound /> },
   { path: "/", element: <Navigate to="/login" /> },
