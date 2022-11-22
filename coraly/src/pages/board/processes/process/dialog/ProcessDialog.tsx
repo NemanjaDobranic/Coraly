@@ -65,8 +65,8 @@ const Info = () => {
       paddingRight={theme.spacing(2)}
     >
       <Box component="header" display="flex" flexDirection="column" gap={2}>
-        <Box display="flex" gap={5}>
-          <Box display="flex" gap={0.5} alignItems="center">
+        <Box display="flex" gap={5} justifyContent="space-between">
+          <Box display="flex" gap={0.35} alignItems="center">
             {["PL", "CM", "FN", "LM", "ST"].map((value) => (
               <Box
                 component="span"
@@ -75,13 +75,14 @@ const Info = () => {
                   background: theme.palette.actionSecondary.main,
                   color: theme.palette.common.white,
                   borderRadius: "50%",
-                  padding: theme.spacing(0.75),
+                  padding: `${theme.spacing(0.5)} ${theme.spacing(0.75)}`,
+                  fontSize: theme.spacing(1.25),
                 }}
               >
                 {value}
               </Box>
             ))}
-            <Typography variant="h6" color={theme.palette.actionSecondary.main}>
+            <Typography color={theme.palette.actionSecondary.main}>
               +5
             </Typography>
 
@@ -393,6 +394,7 @@ const Phase = () => {
       type="text"
       fullWidth
       onFocus={(e: any) => (e.target.type = type)}
+      onBlur={(e: any) => (e.target.type = "text")}
       sx={{
         marginBottom: "24px",
       }}
@@ -403,10 +405,10 @@ const Phase = () => {
     <Box
       display="flex"
       flexDirection="column"
-      gap={3}
+      gap={6}
       paddingRight={theme.spacing(2)}
     >
-      <Typography variant="h6" component="header">
+      <Typography component="header" variant="h6">
         Fields' Phase
       </Typography>
       <Box component="form" position="relative">
@@ -419,7 +421,6 @@ const Phase = () => {
             >
               <Box component="img" src={icon}></Box>
               <Typography
-                variant="h6"
                 marginRight="auto"
                 color={theme.palette.grey[800]}
                 fontWeight={600}

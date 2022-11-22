@@ -63,20 +63,18 @@ const AccordionRoot = styled(Accordion)({
   },
 
   "& .MuiAccordionSummary-root": {
-    minHeight: theme.spacing(6),
+    minHeight: theme.spacing(0),
     padding: theme.spacing(0.35),
     display: "flex",
+    marginTop: theme.spacing(1.5),
+    marginBottom: theme.spacing(1.5),
     "&.Mui-expanded": {
-      minHeight: 0,
+      minHeight: theme.spacing(0),
     },
     "& .MuiAccordionSummary-content": {
       alignItems: "center",
       margin: 0,
       gap: theme.spacing(2.5),
-      "&.Mui-expanded": {
-        minHeight: theme.spacing(6),
-        margin: 0,
-      },
     },
   },
 });
