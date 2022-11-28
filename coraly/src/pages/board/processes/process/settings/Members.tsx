@@ -16,7 +16,7 @@ import {
   InfoOutlined,
   DeleteOutlined,
 } from "@mui/icons-material";
-import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 import React, { useEffect, useState } from "react";
 import { theme } from "../../../../../config/theme";
@@ -45,7 +45,6 @@ const MembersGrid = styled(DataGrid)({
   border: 0,
   "&>.MuiDataGrid-main": {
     "&>.MuiDataGrid-columnHeaders": {
-      border: "none none auto none",
       background: theme.palette.grey.A200,
       fontWeight: 600,
       color: theme.palette.grey.A100,
@@ -53,10 +52,15 @@ const MembersGrid = styled(DataGrid)({
       "& .MuiDataGrid-columnSeparator": {
         visibility: "hidden",
       },
+
+      "& .MuiDataGrid-withBorder": {
+        border: "none",
+      },
     },
 
     "& div div div div >.MuiDataGrid-cell": {
       borderLeft: "none",
+      borderRight: "none",
     },
   },
 
@@ -158,19 +162,19 @@ function Members() {
     {
       field: "user",
       headerName: "Utente",
-      width: 186,
+      width: 192,
       editable: true,
     },
     {
       field: "email",
       headerName: "Email",
-      width: 457,
+      width: 480,
       editable: true,
     },
     {
       field: "permission",
       headerName: "Permessi",
-      width: 255,
+      width: 272,
       editable: true,
       renderHeader: (params) => (
         <Box display="flex" alignItems="center" gap={1}>
@@ -291,6 +295,7 @@ function Members() {
             checkboxSelection
             pageSize={25}
             disableSelectionOnClick
+            disableExtendRowFullWidth
             experimentalFeatures={{ newEditingApi: true }}
           />
         ) : (

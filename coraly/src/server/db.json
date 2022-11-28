@@ -296,22 +296,10 @@
       "permission": "admin"
     },
     {
-      "id": 2,
-      "user": "Marino Panariello",
-      "email": "marino.panariello@lastingdynamics.com",
-      "permission": "user"
-    },
-    {
       "id": 3,
       "user": "Vincenzo Lavorante",
       "email": "vincenzo.lavorante@lastingdynamics.com",
-      "permission": "vendor"
-    },
-    {
-      "id": 4,
-      "user": "Antonio Langella",
-      "email": "antonio.langella@lastingdynamics.com",
-      "permission": "readOnly"
+      "permission": "admin"
     },
     {
       "id": 5,

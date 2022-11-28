@@ -1,7 +1,5 @@
 import {
   DialogContent,
-  DialogActions,
-  Button,
   DialogTitle,
   IconButton,
   Dialog,
@@ -12,7 +10,20 @@ import React from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { theme } from "../../../../../config/theme";
 import CloseIcon from "@mui/icons-material/Close";
-import SideBar from "./SideBar";
+import DialogSideBar from "../../../../../components/DialogSideBar";
+import {
+  FormatListBulleted,
+  SubdirectoryArrowRightRounded,
+  ViewColumnOutlined,
+  ViewKanbanOutlined,
+  LabelOutlined,
+  DescriptionOutlined,
+  SmartToyOutlined,
+  SyncAltOutlined,
+  PeopleAltOutlined,
+  FileUploadOutlined,
+  SettingsOutlined,
+} from "@mui/icons-material";
 
 interface DialogTitleProps {
   id: string;
@@ -50,6 +61,64 @@ const ContentWrapper = styled(DialogContent)({
   display: "flex",
   flexDirection: "row",
 });
+
+const sideBarIcons = [
+  {
+    id: 1,
+    icon: FormatListBulleted,
+    label: "Startform",
+  },
+  {
+    id: 2,
+    icon: SubdirectoryArrowRightRounded,
+    label: "Fasi",
+  },
+  {
+    id: 3,
+    icon: ViewColumnOutlined,
+    label: "Tabella",
+  },
+  {
+    id: 4,
+    icon: ViewKanbanOutlined,
+    label: "Card",
+  },
+  {
+    id: 5,
+    icon: LabelOutlined,
+    label: "Labels",
+  },
+  {
+    id: 6,
+    icon: DescriptionOutlined,
+    label: "Campi condizionali",
+  },
+  {
+    id: 7,
+    icon: SmartToyOutlined,
+    label: "Automazioni",
+  },
+  {
+    id: 8,
+    icon: SyncAltOutlined,
+    label: "Connessioni",
+  },
+  {
+    id: 9,
+    icon: PeopleAltOutlined,
+    label: "Membri",
+  },
+  {
+    id: 10,
+    icon: FileUploadOutlined,
+    label: "Esportazione",
+  },
+  {
+    id: 11,
+    icon: SettingsOutlined,
+    label: "Generali",
+  },
+];
 
 function Settings() {
   const navigate = useNavigate();
@@ -95,7 +164,7 @@ function Settings() {
         Impostazioni
       </BootstrapDialogTitle>
       <ContentWrapper>
-        <SideBar />
+        <DialogSideBar activeIconId={9} icons={sideBarIcons} />
         <Divider orientation="vertical" flexItem />
         <Outlet />
       </ContentWrapper>

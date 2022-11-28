@@ -50,6 +50,7 @@ import {
 } from "@mui/icons-material";
 import getDateTime from "../../../../../helpers/functions/getDateTime";
 import { blue, orange, purple } from "@mui/material/colors";
+import DialogSideBar from "../../../../../components/DialogSideBar";
 
 const TrailingBox = styled(Box)({
   background: theme.palette.actionSecondary.main,
@@ -376,8 +377,12 @@ const Phase = () => {
       variant="outlined"
       type="text"
       fullWidth
-      onFocus={(e: any) => (e.target.type = type)}
-      onBlur={(e: any) => (e.target.type = "text")}
+      onFocus={(e: React.FocusEvent<HTMLInputElement>) =>
+        (e.target.type = type)
+      }
+      onBlur={(e: React.FocusEvent<HTMLInputElement>) =>
+        (e.target.type = "text")
+      }
       marginbottom="24px"
     />
   );
@@ -431,69 +436,32 @@ const Phase = () => {
   );
 };
 
-const SideBar = () => {
-  const icons = [
-    {
-      id: 1,
-      icon: ShoppingBagOutlined,
-    },
-    {
-      id: 2,
-      icon: FormatLineSpacingOutlined,
-    },
-    {
-      id: 3,
-      icon: ModeCommentOutlined,
-    },
-    {
-      id: 4,
-      icon: AttachFileOutlined,
-    },
-    {
-      id: 5,
-      icon: InsertLinkOutlined,
-    },
-    {
-      id: 6,
-      icon: SegmentOutlined,
-    },
-  ];
-
-  const [active, setActive] = useState<number>(2);
-
-  return (
-    <Box display="flex" flexDirection="row">
-      <Divider orientation="vertical" />
-      <Box display="flex" flexDirection="column">
-        <Box paddingTop={theme.spacing(4)}></Box>
-        {icons.map(({ id, icon }) => (
-          <SvgIcon
-            component={icon}
-            key={id}
-            sx={{
-              width: theme.spacing(2),
-              height: theme.spacing(2),
-              p: `${theme.spacing(2)} 0 ${theme.spacing(2)} ${theme.spacing(
-                2
-              )}`,
-              boxSizing: "content-box",
-              cursor: "pointer",
-              fill:
-                active === id
-                  ? theme.palette.primary.main
-                  : theme.palette.grey[600],
-              borderLeft:
-                active === id
-                  ? `1px solid ${theme.palette.primary.main}`
-                  : "none",
-            }}
-            onClick={() => setActive(id)}
-          />
-        ))}
-      </Box>
-    </Box>
-  );
-};
+const sideBarIcons = [
+  {
+    id: 1,
+    icon: ShoppingBagOutlined,
+  },
+  {
+    id: 2,
+    icon: FormatLineSpacingOutlined,
+  },
+  {
+    id: 3,
+    icon: ModeCommentOutlined,
+  },
+  {
+    id: 4,
+    icon: AttachFileOutlined,
+  },
+  {
+    id: 5,
+    icon: InsertLinkOutlined,
+  },
+  {
+    id: 6,
+    icon: SegmentOutlined,
+  },
+];
 
 const BootstrapDialog = styled(Dialog)({
   "& .MuiDialog-container": {
@@ -543,7 +511,7 @@ const DialogTitleStyled = styled(DialogTitle)({
 const DialogContentStyled = styled(DialogContent)({
   display: "flex",
   justifyContent: "stretch",
-  overflow: "auto",
+  overflow: "overlay",
   gap: theme.spacing(2),
 });
 
@@ -622,7 +590,11 @@ const ProcessDialog = () => {
         <DialogContentStyled>
           <Info />
           <Phase />
-          <SideBar />
+          <DialogSideBar
+            activeIconId={2}
+            icons={sideBarIcons}
+            padding={`${theme.spacing(2)} ${theme.spacing(1)}`}
+          />
         </DialogContentStyled>
 
         <DialogActions>
