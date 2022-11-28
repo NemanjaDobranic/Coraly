@@ -88,6 +88,14 @@ const Wrapper = styled(Toolbar)({
   },
 });
 
+const DividerStyled = styled(Divider)({
+  borderWidth: theme.spacing(0.1),
+});
+
+const AddButton = styled(Button)({
+  padding: `${theme.spacing(0.75)} ${theme.spacing(1.5)}`,
+});
+
 const ProcessToolbar: React.FC<{ openInfo: () => void }> = ({ openInfo }) => {
   const icons = [
     {
@@ -124,11 +132,7 @@ const ProcessToolbar: React.FC<{ openInfo: () => void }> = ({ openInfo }) => {
           <Typography>Views</Typography>
         </Tool>
 
-        <Divider
-          orientation="vertical"
-          flexItem
-          sx={{ borderWidth: theme.spacing(0.1) }}
-        />
+        <DividerStyled orientation="vertical" flexItem />
 
         <Tool
           iconBackground={theme.palette.grey.A200}
@@ -139,11 +143,7 @@ const ProcessToolbar: React.FC<{ openInfo: () => void }> = ({ openInfo }) => {
           <Box component="img" src={ArrowDownRoundedIcon}></Box>
         </Tool>
 
-        <Divider
-          orientation="vertical"
-          flexItem
-          sx={{ borderWidth: theme.spacing(0.1) }}
-        />
+        <DividerStyled orientation="vertical" flexItem />
 
         <Tool
           background={green[50]}
@@ -195,19 +195,17 @@ const ProcessToolbar: React.FC<{ openInfo: () => void }> = ({ openInfo }) => {
             <Box
               component="img"
               src={icon}
-              onClick={id === 5 ? () => navigate("./settings/members") : () => {}}
+              onClick={
+                id === 5 ? () => navigate("./settings/members") : () => {}
+              }
             ></Box>
           </Tool>
         ))}
 
-        <Button
-          variant="contained"
-          sx={{ padding: `${theme.spacing(0.75)} ${theme.spacing(1.5)}` }}
-          onClick={() => openInfo()}
-        >
+        <AddButton variant="contained" onClick={() => openInfo()}>
           <AddCircleOutlineRoundedIcon />
           &nbsp;Add
-        </Button>
+        </AddButton>
       </Group>
     </Wrapper>
   );

@@ -125,6 +125,15 @@ interface Member {
   permission: string;
 }
 
+const InfoIcon = styled(InfoOutlined)({
+  fill: theme.palette.grey[500],
+});
+
+const DeleteIcon = styled(DeleteOutlined)({
+  fill: theme.palette.grey[500],
+  cursor: "pointer",
+});
+
 function Members() {
   const [{ loading, response, error }, executeApiCall] = useApi(
     {
@@ -160,7 +169,7 @@ function Members() {
       renderHeader: (params) => (
         <Box display="flex" alignItems="center" gap={1}>
           {params.colDef.headerName}
-          <InfoOutlined sx={{ fill: theme.palette.grey[500] }} />
+          <InfoIcon />
         </Box>
       ),
       renderCell: ({ row }) => (
@@ -182,10 +191,7 @@ function Members() {
       sortable: false,
       width: 36,
       renderCell: (params) => (
-        <DeleteOutlined
-          sx={{ fill: theme.palette.grey[500], cursor: "pointer" }}
-          onClick={() => deleteRow(params.row)}
-        />
+        <DeleteIcon onClick={() => deleteRow(params.row)} />
       ),
     },
   ];
@@ -198,8 +204,8 @@ function Members() {
     }
   }, [response]);
 
-  const changePremission = (e: any, row: Member) => {
-    row.permission = e.target.value;
+  const changePremission = (e: SelectChangeEvent<unknown>, row: Member) => {
+    row.permission = e.target.value as string;
 
     const index = data.findIndex((el) => el.id === row.id);
     let newData = [...data];
@@ -227,7 +233,7 @@ function Members() {
     });
   };
 
-  const searchForUsers = (e: any) => {
+  const searchForUsers = (e: React.ChangeEvent<HTMLInputElement>) => {
     const search = e.target.value;
     setSearch(search);
   };
@@ -245,7 +251,7 @@ function Members() {
   return (
     <Root>
       <Header>
-        <FormControl sx={{ width: "100%" }} variant="outlined">
+        <FormControl fullWidth variant="outlined">
           <OutlinedInput
             id="color"
             type="text"
@@ -270,7 +276,7 @@ function Members() {
           </Typography>
         </InviteButton>
       </Header>
-      <Box sx={{ height: theme.spacing(60), width: "100%" }}>
+      <Box height="90%" width="100%">
         {data.length ? (
           <MembersGrid
             rows={filterData()}

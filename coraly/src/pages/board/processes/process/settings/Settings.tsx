@@ -35,6 +35,11 @@ const BootstrapDialog = styled(Dialog)({
   },
 });
 
+const ContentWrapper = styled(DialogContent)({
+  display: "flex",
+  flexDirection: "row",
+});
+
 function Settings() {
   const navigate = useNavigate();
 
@@ -78,11 +83,11 @@ function Settings() {
       <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
         Impostazioni
       </BootstrapDialogTitle>
-      <DialogContent sx={{ display: "flex", flexDirection: "rows" }}>
+      <ContentWrapper>
         <SideBar />
         <Divider orientation="vertical" flexItem />
         <Outlet />
-      </DialogContent>
+      </ContentWrapper>
     </BootstrapDialog>
   );
 }

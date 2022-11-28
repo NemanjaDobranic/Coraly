@@ -79,6 +79,14 @@ const AccordionRoot = styled(Accordion)({
   },
 });
 
+const AccDetails = styled(AccordionDetails)({
+  padding: 0,
+});
+
+const TextFieldStyled = styled(TextField)({
+  marginBottom: "24px",
+});
+
 const ProcessInfo = () => {
   const [open, setOpen] = React.useState(false);
   const [formValues, setFormValues] =
@@ -109,14 +117,13 @@ const ProcessInfo = () => {
 
   const getFormControl = (key: string) =>
     key !== "contractType" ? (
-      <TextField
+      <TextFieldStyled
         key={key}
         label={getLabelText(key)}
         variant="outlined"
         type="text"
         name={key}
         fullWidth
-        sx={{ marginBottom: "24px" }}
         value={formValues[key as keyof typeof formValues]}
         onChange={handleChange}
       />
@@ -140,9 +147,7 @@ const ProcessInfo = () => {
       <InfoDrawer variant="persistent" anchor="right" open={open}>
         <form
           id="form"
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
+          onSubmit={(e: React.FormEvent<HTMLFormElement>) => e.preventDefault()}
         >
           {Object.keys(formValues).map((key: string) => getFormControl(key))}
           {["TIM", "Disney Plus"].map((value, index) => (
@@ -157,11 +162,11 @@ const ProcessInfo = () => {
                   {value}
                 </Typography>
               </AccordionSummary>
-              <AccordionDetails sx={{ padding: 0 }}>
+              <AccDetails>
                 {["email", "contractType", "discount"].map((key) =>
                   getFormControl(key)
                 )}
-              </AccordionDetails>
+              </AccDetails>
             </AccordionRoot>
           ))}
         </form>
@@ -171,8 +176,8 @@ const ProcessInfo = () => {
             component="img"
             src={RightArrowIcon}
             sx={{ transform: "rotate(180deg)" }}
-          ></Box>
-          <Box component="img" src={RightArrowIcon}></Box>
+          />
+          <Box component="img" src={RightArrowIcon} />
           <Button
             variant="outlined"
             type="submit"

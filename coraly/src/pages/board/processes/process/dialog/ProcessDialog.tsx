@@ -26,23 +26,18 @@ import { ICard } from "../ProcessTable";
 import CloseIcon from "@mui/icons-material/Close";
 import {
   AccountIcon,
-  AttachIcon,
-  CommentIcon,
   DataStorageIcon,
   DateIcon,
   EyeIcon,
   FocusIcon,
   FolderIcon,
   LinkIcon,
-  ListIcon,
   MinusPathIcon,
   TrashIcon,
   PhaseStandardIcon,
   ArrowDownRoundedIcon,
   DocumentIcon,
   PhaseIcon,
-  BagIcon,
-  LineSpacingIcon,
 } from "../../../../../assets/images/index";
 import {
   AddCircleOutlineRounded,
@@ -56,6 +51,65 @@ import {
 import getDateTime from "../../../../../helpers/functions/getDateTime";
 import { blue, orange, purple } from "@mui/material/colors";
 
+const TrailingBox = styled(Box)({
+  background: theme.palette.actionSecondary.main,
+  color: theme.palette.common.white,
+  borderRadius: "50%",
+  padding: `${theme.spacing(0.5)} ${theme.spacing(0.75)}`,
+  fontSize: theme.spacing(1.25),
+});
+
+const AddIcon = styled(AddCircleOutlineRounded)({
+  color: theme.palette.primary.main,
+  cursor: "pointer",
+});
+
+const Chip = styled(Box)<{ background: string; padding: string | number }>(
+  ({ background, padding }) => {
+    return {
+      background: background,
+      padding: padding,
+      fontWeight: 600,
+      fontSize: theme.spacing(1.75),
+      display: "flex",
+      alignItems: "center",
+    };
+  }
+);
+
+const DividerStyled = styled(Divider)<{
+  height?: string;
+  marginright?: string;
+}>(({ height = "100%", marginright = "0" }) => {
+  return {
+    borderWidth: theme.spacing(0.1),
+    height: height,
+    marginRight: marginright,
+  };
+});
+
+const TextFieldStyled = styled(TextField)<{ marginbottom?: string }>(
+  ({ marginbottom = "0" }) => {
+    return {
+      marginBottom: marginbottom,
+    };
+  }
+);
+
+const TextAreaStyled = styled(TextFieldStyled)({
+  "& .MuiOutlinedInput-root .MuiInputBase-input": {
+    padding: 0,
+  },
+  "& .MuiFormHelperText-root": {
+    color: theme.palette.grey[700],
+    fontWeight: 400,
+  },
+});
+
+const RadioStyled = styled(Radio)({
+  padding: `${theme.spacing(0.5)}  ${theme.spacing(1)}`,
+});
+
 const Info = () => {
   return (
     <Box
@@ -68,30 +122,15 @@ const Info = () => {
         <Box display="flex" gap={5} justifyContent="space-between">
           <Box display="flex" gap={0.35} alignItems="center">
             {["PL", "CM", "FN", "LM", "ST"].map((value) => (
-              <Box
-                component="span"
-                key={value}
-                sx={{
-                  background: theme.palette.actionSecondary.main,
-                  color: theme.palette.common.white,
-                  borderRadius: "50%",
-                  padding: `${theme.spacing(0.5)} ${theme.spacing(0.75)}`,
-                  fontSize: theme.spacing(1.25),
-                }}
-              >
+              <TrailingBox component="span" key={value}>
                 {value}
-              </Box>
+              </TrailingBox>
             ))}
             <Typography color={theme.palette.actionSecondary.main}>
               +5
             </Typography>
 
-            <AddCircleOutlineRounded
-              sx={{
-                color: theme.palette.primary.main,
-                cursor: "pointer",
-              }}
-            />
+            <AddIcon />
           </Box>
           <Box display="flex" gap={0.5} alignItems="center">
             <Box component="img" src={PhaseStandardIcon}></Box>
@@ -111,28 +150,17 @@ const Info = () => {
             { background: purple[500], value: "Label 2" },
             { background: orange[500], value: "Label 2" },
           ].map(({ background, value }, index) => (
-            <Box
+            <Chip
+              padding={`${theme.spacing(0.25)} ${theme.spacing(2)}`}
               key={index}
-              sx={{
-                background: background,
-                padding: `${theme.spacing(0.25)} ${theme.spacing(2)}`,
-                fontWeight: 600,
-                fontSize: theme.spacing(1.75),
-                display: "flex",
-                alignItems: "center",
-              }}
+              background={background}
               color="white"
               borderRadius="20.5%/50%"
             >
               {value}
-            </Box>
+            </Chip>
           ))}
-          <AddCircleOutlineRounded
-            sx={{
-              color: theme.palette.primary.main,
-              cursor: "pointer",
-            }}
-          />
+          <AddIcon />
         </Box>
         <Box display="flex" alignItems="center" gap={4}>
           <Box display="flex" gap={0.5} alignItems="center">
@@ -143,23 +171,14 @@ const Info = () => {
             <Box component="img" src={ArrowDownRoundedIcon}></Box>
           </Box>
 
-          <Divider
-            orientation="vertical"
-            flexItem
-            sx={{ borderWidth: theme.spacing(0.1) }}
-          />
+          <DividerStyled orientation="vertical" flexItem />
 
           <Box display="flex" gap={1.5}>
             {["#database_object_1", "#db-oject1"].map((value, index) => (
-              <Box
+              <Chip
+                background={theme.palette.grey[200]}
+                padding={0}
                 key={index}
-                sx={{
-                  background: theme.palette.grey[200],
-                  fontWeight: 600,
-                  fontSize: theme.spacing(1.75),
-                  display: "flex",
-                  alignItems: "center",
-                }}
                 color="white"
                 borderRadius="8%/50%"
               >
@@ -174,31 +193,26 @@ const Info = () => {
                   <Box component="img" src={DataStorageIcon}></Box>
                   {value}
                 </Typography>
-              </Box>
+              </Chip>
             ))}
           </Box>
         </Box>
-        <Divider
-          flexItem
-          sx={{
-            borderWidth: theme.spacing(0.1),
-          }}
-        />
+        <DividerStyled />
       </Box>
 
       <Box component="form" display="flex" flexDirection="column" gap={2}>
         <Box component="section" display="flex" flexDirection="column" gap={2}>
           <Typography variant="caption">Startform Name</Typography>
 
-          <TextField
+          <TextFieldStyled
             label="Email"
             variant="outlined"
             type="email"
             fullWidth
-            sx={{ marginBottom: "0" }}
+            margin="none"
           />
 
-          <TextField
+          <TextAreaStyled
             label="Description"
             variant="outlined"
             type="text"
@@ -206,16 +220,6 @@ const Info = () => {
             fullWidth
             minRows={2}
             helperText="This is a description"
-            sx={{
-              marginBottom: "0",
-              "& .MuiOutlinedInput-root .MuiInputBase-input": {
-                padding: 0,
-              },
-              "& .MuiFormHelperText-root": {
-                color: theme.palette.grey[700],
-                fontWeight: 400,
-              },
-            }}
           />
         </Box>
         <Box component="section" display="flex" flexDirection="column" gap={2}>
@@ -233,42 +237,32 @@ const Info = () => {
               gap={1}
             >
               <Box component="img" src={DocumentIcon}></Box>
-              <Divider orientation="vertical" sx={{ height: "80%" }} />
+              <DividerStyled orientation="vertical" height="80%" />
             </Box>
             <Box display="flex" flexDirection="column" gap={2}>
-              <TextField
+              <TextFieldStyled
                 label="Company name"
                 variant="outlined"
                 type="text"
                 fullWidth
-                sx={{ marginBottom: "0" }}
               />
 
-              <TextField
+              <TextFieldStyled
                 label="Surname"
                 variant="outlined"
                 type="text"
                 fullWidth
-                sx={{ marginBottom: "0" }}
               />
 
               <RadioGroup defaultValue="person">
                 <FormControlLabel
                   value="company"
-                  control={
-                    <Radio
-                      sx={{ p: `${theme.spacing(0.5)}  ${theme.spacing(1)}` }}
-                    />
-                  }
+                  control={<RadioStyled />}
                   label="Company"
                 />
                 <FormControlLabel
                   value="person"
-                  control={
-                    <Radio
-                      sx={{ p: `${theme.spacing(0.5)}  ${theme.spacing(1)}` }}
-                    />
-                  }
+                  control={<RadioStyled />}
                   label="Person"
                 />
               </RadioGroup>
@@ -280,29 +274,17 @@ const Info = () => {
           <RadioGroup defaultValue="female">
             <FormControlLabel
               value="male"
-              control={
-                <Radio
-                  sx={{ p: `${theme.spacing(0.5)}  ${theme.spacing(1)}` }}
-                />
-              }
+              control={<RadioStyled />}
               label="Male"
             />
             <FormControlLabel
               value="female"
-              control={
-                <Radio
-                  sx={{ p: `${theme.spacing(0.5)}  ${theme.spacing(1)}` }}
-                />
-              }
+              control={<RadioStyled />}
               label="Female"
             />
             <FormControlLabel
               value="other"
-              control={
-                <Radio
-                  sx={{ p: `${theme.spacing(0.5)}  ${theme.spacing(1)}` }}
-                />
-              }
+              control={<RadioStyled />}
               label="Not declared"
             />
           </RadioGroup>
@@ -387,7 +369,7 @@ const Phase = () => {
   ];
 
   const getFormControl = (type: string, label: string) => (
-    <TextField
+    <TextFieldStyled
       key={label}
       label={label}
       variant="outlined"
@@ -395,9 +377,7 @@ const Phase = () => {
       fullWidth
       onFocus={(e: any) => (e.target.type = type)}
       onBlur={(e: any) => (e.target.type = "text")}
-      sx={{
-        marginBottom: "24px",
-      }}
+      marginbottom="24px"
     />
   );
 
@@ -428,26 +408,20 @@ const Phase = () => {
                 {label}
               </Typography>
               {ready && (
-                <Box
-                  sx={{
-                    background: theme.palette.primary.main,
-                    padding: `${theme.spacing(0.25)} ${theme.spacing(2)}`,
-                    fontWeight: 600,
-                    fontSize: theme.spacing(1.75),
-                    display: "flex",
-                    alignItems: "center",
-                  }}
+                <Chip
+                  background={theme.palette.primary.main}
+                  padding={`${theme.spacing(0.25)} ${theme.spacing(2)}`}
                   color="white"
                   borderRadius="15%/50%"
                   marginRight={theme.spacing(2)}
                 >
                   Ready
-                </Box>
+                </Chip>
               )}
             </AccordionSummary>
-            <AccordionDetails sx={{ padding: 0 }}>
+            <AccordionDetailsStyled>
               {controls.map(({ type, label }) => getFormControl(type, label))}
-            </AccordionDetails>
+            </AccordionDetailsStyled>
           </AccordionRoot>
         ))}
       </Box>
@@ -538,11 +512,35 @@ const BootstrapDialog = styled(Dialog)({
   },
 });
 
+const UnderlinedText = styled(Typography)({
+  textDecoration: "underline",
+});
+
 export interface DialogTitleProps {
   id: string;
   children?: React.ReactNode;
   onClose: () => void;
 }
+
+const DialogTitleStyled = styled(DialogTitle)({
+  margin: 0,
+  padding: `${theme.spacing(3)}  ${theme.spacing(3)} 0 ${theme.spacing(3)}`,
+  color: theme.palette.grey[900],
+});
+
+const DialogContentStyled = styled(DialogContent)({
+  display: "grid",
+  gridTemplateColumns: `1fr 1fr ${theme.spacing(2.57)}`,
+});
+
+const AccordionDetailsStyled = styled(AccordionDetails)({
+  padding: 0,
+});
+
+const CloseButton = styled(Button)({
+  color: theme.palette.grey[500],
+  padding: 0,
+});
 
 const ProcessDialog = () => {
   const navigate = useNavigate();
@@ -553,30 +551,18 @@ const ProcessDialog = () => {
     const { children, onClose } = props;
 
     return (
-      <DialogTitle
-        display="flex"
-        gap={theme.spacing(2)}
-        sx={{
-          m: 0,
-          p: `${theme.spacing(3)}  ${theme.spacing(3)} 0 ${theme.spacing(3)}`,
-          color: theme.palette.grey[900],
-        }}
-      >
+      <DialogTitleStyled display="flex" gap={theme.spacing(2)}>
         {children}
         <Box
           display="flex"
           gap={theme.spacing(2)}
           alignItems="center"
-          sx={{ marginLeft: "auto" }}
+          marginLeft="auto"
         >
           <Box component="img" src={EyeIcon}></Box>
-          <Typography
-            color="primary"
-            fontWeight={600}
-            sx={{ textDecoration: "underline" }}
-          >
+          <UnderlinedText color="primary" fontWeight={600}>
             KO Motivation
-          </Typography>
+          </UnderlinedText>
           {[FolderIcon, FocusIcon, LinkIcon, MinusPathIcon, TrashIcon].map(
             (icon) => (
               <Box component="img" src={icon} key={icon}></Box>
@@ -585,21 +571,15 @@ const ProcessDialog = () => {
         </Box>
 
         <Box display="flex">
-          <Divider
+          <DividerStyled
             orientation="vertical"
-            sx={{
-              marginRight: theme.spacing(1.5),
-            }}
+            marginright={theme.spacing(1.5)}
           />
-          <IconButton
-            aria-label="close"
-            onClick={onClose}
-            sx={{ color: theme.palette.grey[500], p: 0 }}
-          >
+          <CloseButton aria-label="close" onClick={onClose}>
             <CloseIcon />
-          </IconButton>
+          </CloseButton>
         </Box>
-      </DialogTitle>
+      </DialogTitleStyled>
     );
   }
 
@@ -624,16 +604,11 @@ const ProcessDialog = () => {
         >
           {card.email}
         </BootstrapDialogTitle>
-        <DialogContent
-          sx={{
-            display: "grid",
-            gridTemplateColumns: `1fr 1fr ${theme.spacing(2.57)}`,
-          }}
-        >
+        <DialogContentStyled>
           <Info />
           <Phase />
           <SideBar />
-        </DialogContent>
+        </DialogContentStyled>
 
         <DialogActions>
           <Typography variant="caption">Fase ID:&nbsp;</Typography>

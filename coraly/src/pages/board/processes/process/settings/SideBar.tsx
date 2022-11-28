@@ -105,11 +105,8 @@ function SideBar() {
           >
             <SvgIcon
               component={icon}
-              sx={{
-                width: theme.spacing(2),
-                height: theme.spacing(2),
-              }}
               fill="inherit"
+              sx={{ width: theme.spacing(2), height: theme.spacing(2) }}
             />
             <Typography variant="caption">{label}</Typography>
           </ItemWrapper>
@@ -118,5 +115,4 @@ function SideBar() {
     </Box>
   );
 }
-
 export default SideBar;

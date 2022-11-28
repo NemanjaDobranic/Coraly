@@ -70,6 +70,10 @@ const Private = styled("div")({
   },
 });
 
+const ProcessesWrapper = styled(Box)({
+  padding: `${theme.spacing(6.25)} ${theme.spacing(3)}`,
+});
+
 export default function Processes() {
   const [{ loading, response, error }, getProcesses] = useApi();
   const dispatch = useDispatch();
@@ -89,7 +93,6 @@ export default function Processes() {
       getProcesses("/processes?workspaceId=" + workspace.id, {
         method: HttpMethods.GET,
       });
-
     }
   }, [user, workspace]);
 
@@ -108,7 +111,7 @@ export default function Processes() {
   };
 
   return !loading && user ? (
-    <Box sx={{ padding: `${theme.spacing(6.25)} ${theme.spacing(3)}` }}>
+    <ProcessesWrapper>
       <Typography variant="h2" color={theme.palette.grey[900]} marginBottom={3}>
         Welcome, {user.name}&nbsp;{user.surname}
       </Typography>
@@ -165,7 +168,7 @@ export default function Processes() {
           : null}
       </Grid>
       <Outlet />
-    </Box>
+    </ProcessesWrapper>
   ) : (
     <CoralyProgress />
   );

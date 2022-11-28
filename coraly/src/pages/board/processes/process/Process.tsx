@@ -7,7 +7,12 @@ import { ICard } from "./ProcessTable";
 import CoralyProgress from "../../../../components/CoralyProgress";
 import CoralyAlert, { ICoralyAlert } from "../../../../components/CoralyAlert";
 import { Outlet, useNavigate } from "react-router-dom";
-import { Box } from "@mui/material";
+import { Box, styled } from "@mui/material";
+
+const ProcessWrapper = styled(Box)({
+  position: "relative",
+  height: "calc(100% - 150px)",
+});
 
 function Process() {
   const [{ loading, response, error }] = useApi(
@@ -48,13 +53,13 @@ function Process() {
   ) : !showAlert && cards ? (
     <>
       <ProcessToolbar openInfo={openInfoForm} />
-      <Box sx={{ position: "relative", height: "calc(100% - 150px)" }}>
+      <ProcessWrapper>
         <>
           <ProcessHeader openInfo={openInfoForm} />
           <ProcessTable cards={cards} />
         </>
         <Outlet />
-      </Box>
+      </ProcessWrapper>
     </>
   ) : (
     <CoralyAlert

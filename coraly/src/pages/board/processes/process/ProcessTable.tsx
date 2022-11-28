@@ -76,6 +76,14 @@ const ProcessCell = styled(TableCell)({
   },
 });
 
+const TableStyled = styled(Table)({
+  minWidth: 650,
+});
+
+const TableRowStyled = styled(TableRow)({
+  cursor: "pointer",
+});
+
 const ProcessTable: React.FC<Props> = ({ cards }) => {
   const navigate = useNavigate();
 
@@ -85,10 +93,10 @@ const ProcessTable: React.FC<Props> = ({ cards }) => {
 
   return (
     <ProcessContainer>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <TableStyled aria-label="simple table">
         <TableBody>
           {cards.map((card, index) => (
-            <TableRow
+            <TableRowStyled
               key={index}
               sx={{ cursor: "pointer" }}
               onClick={() => showDialog(card)}
@@ -103,10 +111,10 @@ const ProcessTable: React.FC<Props> = ({ cards }) => {
                 {card.seller}
               </ProcessCell>
               <ProcessCell>{card.date}</ProcessCell>
-            </TableRow>
+            </TableRowStyled>
           ))}
         </TableBody>
-      </Table>
+      </TableStyled>
     </ProcessContainer>
   );
 };
