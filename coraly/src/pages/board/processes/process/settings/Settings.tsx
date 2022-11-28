@@ -21,10 +21,21 @@ interface DialogTitleProps {
 }
 
 const BootstrapDialog = styled(Dialog)({
+  "& .MuiDialog-container": {
+    alignItems: "stretch",
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    left: theme.spacing(2),
+    transform: `translate(${theme.spacing(3)},${theme.spacing(2)})`,
+  },
+
   "& .MuiPaper-root": {
     borderRadius: "1.5rem !important",
-    width: theme.spacing(164),
-    maxWidth: theme.spacing(164),
+    width: `calc(100% - ${theme.spacing(14)})`,
+    maxWidth: "100%",
+    maxHeight: `calc(100% - ${theme.spacing(4)})`,
+    margin: 0,
   },
 
   "& .MuiDialogContent-root": {

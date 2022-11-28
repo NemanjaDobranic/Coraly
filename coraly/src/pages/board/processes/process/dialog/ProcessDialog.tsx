@@ -115,6 +115,7 @@ const Info = () => {
     <Box
       display="flex"
       flexDirection="column"
+      flexGrow={1}
       gap={2}
       paddingRight={theme.spacing(2)}
     >
@@ -197,7 +198,7 @@ const Info = () => {
             ))}
           </Box>
         </Box>
-        <DividerStyled />
+        <DividerStyled height="0" />
       </Box>
 
       <Box component="form" display="flex" flexDirection="column" gap={2}>
@@ -386,6 +387,7 @@ const Phase = () => {
       display="flex"
       flexDirection="column"
       gap={6}
+      flexGrow={1}
       paddingRight={theme.spacing(2)}
     >
       <Typography component="header" variant="h6">
@@ -494,17 +496,27 @@ const SideBar = () => {
 };
 
 const BootstrapDialog = styled(Dialog)({
+  "& .MuiDialog-container": {
+    alignItems: "stretch",
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    left: theme.spacing(2),
+    transform: `translate(${theme.spacing(3)},${theme.spacing(2)})`,
+  },
+
   "& .MuiPaper-root": {
     borderRadius: "1.5rem !important",
-    width: theme.spacing(148.5),
-    maxWidth: theme.spacing(148.5),
-
+    width: `calc(100% - ${theme.spacing(14)})`,
+    maxWidth: "100%",
+    maxHeight: `calc(100% - ${theme.spacing(4)})`,
     margin: 0,
   },
 
   "& .MuiDialogContent-root": {
     padding: `${theme.spacing(1)}  ${theme.spacing(3)} !important`,
   },
+
   "& .MuiDialogActions-root": {
     padding: `0 ${theme.spacing(3)} ${theme.spacing(3)}  ${theme.spacing(
       3
@@ -529,15 +541,17 @@ const DialogTitleStyled = styled(DialogTitle)({
 });
 
 const DialogContentStyled = styled(DialogContent)({
-  display: "grid",
-  gridTemplateColumns: `1fr 1fr ${theme.spacing(2.57)}`,
+  display: "flex",
+  justifyContent: "stretch",
+  overflow: "auto",
+  gap: theme.spacing(2),
 });
 
 const AccordionDetailsStyled = styled(AccordionDetails)({
   padding: 0,
 });
 
-const CloseButton = styled(Button)({
+const CloseButton = styled(IconButton)({
   color: theme.palette.grey[500],
   padding: 0,
 });
@@ -573,7 +587,7 @@ const ProcessDialog = () => {
         <Box display="flex">
           <DividerStyled
             orientation="vertical"
-            marginright={theme.spacing(1.5)}
+            marginright={theme.spacing(1)}
           />
           <CloseButton aria-label="close" onClick={onClose}>
             <CloseIcon />
@@ -586,6 +600,7 @@ const ProcessDialog = () => {
   useEffect(() => {
     !state ? navigate("../") : setCard(state);
   }, []);
+  Info;
 
   const handleClose = () => {
     navigate("../");

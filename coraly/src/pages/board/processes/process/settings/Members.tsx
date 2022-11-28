@@ -31,6 +31,8 @@ const Root = styled(Box)({
 const Header = styled(Box)({
   display: "grid",
   gridTemplateColumns: "1fr 1fr 1fr",
+  alignItems: "center",
+  marginBottom: theme.spacing(3),
 });
 
 const InviteButton = styled(Button)({
@@ -132,6 +134,10 @@ const InfoIcon = styled(InfoOutlined)({
 const DeleteIcon = styled(DeleteOutlined)({
   fill: theme.palette.grey[500],
   cursor: "pointer",
+});
+
+const FormControlStyled = styled(FormControl)({
+  marginBottom: 0,
 });
 
 function Members() {
@@ -251,7 +257,7 @@ function Members() {
   return (
     <Root>
       <Header>
-        <FormControl fullWidth variant="outlined">
+        <FormControlStyled fullWidth variant="outlined">
           <OutlinedInput
             id="color"
             type="text"
@@ -265,7 +271,7 @@ function Members() {
               </InputAdornment>
             }
           />
-        </FormControl>
+        </FormControlStyled>
         <Typography variant="caption" textAlign="center">
           Membri
         </Typography>
