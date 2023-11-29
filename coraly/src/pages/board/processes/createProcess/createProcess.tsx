@@ -12,7 +12,6 @@ import {
   InputLabel,
   OutlinedInput,
   TextField,
-  Typography,
   Box,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
@@ -109,7 +108,7 @@ const CreateProcess = () => {
   });
   const [showAlert, setShowAlert] = useState(false);
 
-  const [{ loading, response, error }, createProcess] = useApi();
+  const [{ response, error }, createProcess] = useApi();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -124,6 +123,7 @@ const CreateProcess = () => {
       setAlert({ color: "error", message: "Could not create new process!" });
       setShowAlert(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response, error]);
 
   useEffect(() => {
@@ -141,6 +141,7 @@ const CreateProcess = () => {
         },
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formErrors]);
 
   const handleClose = () => {

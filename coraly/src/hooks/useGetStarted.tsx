@@ -1,9 +1,39 @@
 import useTheme from "@mui/material/styles/useTheme";
 
+interface GeometricShape {
+  type: string;
+  data: {
+    width?: string;
+    aspectRatio?: string;
+    inset: string | string[];
+    color?: string;
+    radius?: string;
+    height?: string;
+    fill?: string;
+    angle?: string;
+    circleWidth?: string;
+    total?: number;
+    columns?: number;
+    spacing?: string;
+  };
+}
+
+interface Heading {
+  color: string;
+  inset: string;
+}
+
+export interface PageConfig {
+  path: string;
+  backgroundColor: string;
+  width: string;
+  heading: Heading;
+  geometricShapes: GeometricShape[];
+}
+
 const useGetStarted = () => {
   const theme = useTheme();
-
-  return [
+  const pages: PageConfig[] = [
     {
       path: "/login",
       backgroundColor: "#F6F8FA",
@@ -200,6 +230,8 @@ const useGetStarted = () => {
       ],
     },
   ];
+
+  return pages;
 };
 
 export default useGetStarted;

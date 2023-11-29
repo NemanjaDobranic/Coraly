@@ -145,7 +145,7 @@ const FormControlStyled = styled(FormControl)({
 });
 
 function Members() {
-  const [{ loading, response, error }, executeApiCall] = useApi(
+  const [{ response }, executeApiCall] = useApi(
     {
       path: `/members`,
       options: {
@@ -212,6 +212,7 @@ function Members() {
     if (response && !data.length) {
       setData(response);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
   const changePremission = (e: SelectChangeEvent<unknown>, row: Member) => {
@@ -293,10 +294,7 @@ function Members() {
             columns={columns}
             getRowId={(row) => row.id}
             checkboxSelection
-            pageSize={25}
-            disableSelectionOnClick
-            disableExtendRowFullWidth
-            experimentalFeatures={{ newEditingApi: true }}
+            paginationModel={{ page: 0, pageSize: 25 }}
           />
         ) : (
           <CoralyProgress />

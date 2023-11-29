@@ -2,7 +2,7 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import GeometricShape from "../components/GeometricShape";
-import useGetStarted from "../hooks/useGetStarted";
+import useGetStarted, { PageConfig } from "../hooks/useGetStarted";
 import { theme } from "../config/theme";
 import { useLocation } from "react-router-dom";
 import Logo from "../assets/images/logo.svg";
@@ -33,8 +33,7 @@ const Root = styled("div")({
   },
 });
 
-const Panel = styled("div")<Panel>(({ backgroundColor, width }) => ({
-
+const PanelDiv = styled("div")<Panel>(({ backgroundColor, width }) => ({
   marginLeft: "auto",
   overflow: "hidden",
   position: "relative",
@@ -52,13 +51,14 @@ const Panel = styled("div")<Panel>(({ backgroundColor, width }) => ({
 
 const GetStarted: React.FC<Props> = ({ children }) => {
   const location = useLocation();
-  const variant = useGetStarted().find((variant) =>
+  const variants: PageConfig[] = useGetStarted();
+
+  const index = variants.findIndex((variant) =>
     location.pathname.includes(variant.path)
   );
 
-  const { geometricShapes, backgroundColor, width, heading } = variant
-    ? variant
-    : useGetStarted()[0];
+  const { geometricShapes, backgroundColor, width, heading } =
+    index < 0 ? variants[0] : variants[index];
 
   return (
     <Root>
@@ -70,7 +70,7 @@ const GetStarted: React.FC<Props> = ({ children }) => {
           {children}
         </Grid>
       </Grid>
-      <Panel backgroundColor={backgroundColor} width={width}>
+      <PanelDiv backgroundColor={backgroundColor} width={width}>
         {geometricShapes.map((shape, index) => (
           <GeometricShape key={index} {...shape} />
         ))}
@@ -84,7 +84,7 @@ const GetStarted: React.FC<Props> = ({ children }) => {
           now and improve your
           <br /> workflow
         </Typography>
-      </Panel>
+      </PanelDiv>
     </Root>
   );
 };

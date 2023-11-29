@@ -16,8 +16,6 @@ import {
   AccordionDetails,
   AccordionSummary,
   Accordion,
-  Icon,
-  SvgIcon,
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
@@ -567,8 +565,8 @@ const ProcessDialog = () => {
 
   useEffect(() => {
     !state ? navigate("../") : setCard(state);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  Info;
 
   const handleClose = () => {
     navigate("../");

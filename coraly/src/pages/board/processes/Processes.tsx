@@ -1,6 +1,7 @@
-import { Box, Grid, IconButton, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Box, Grid, Typography } from "@mui/material";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import CoralyProgress from "../../../components/CoralyProgress";
 import { theme } from "../../../config/theme";
 import useApi, { HttpMethods } from "../../../hooks/useApi";
@@ -86,6 +87,7 @@ export default function Processes() {
     if (response) {
       dispatch(setProcessesRedux(response));
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response, error]);
 
   useEffect(() => {

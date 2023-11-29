@@ -20,7 +20,7 @@ import { drawerIcons } from "./DrawerIcons";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import { PaletteColor } from "@mui/material";
 import Logo from "../../assets/images/logo.svg";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { IUser, IWorkSpace } from "../../redux/workspace/workSpaceReducer";
 import { RightArrowIcon } from "../../assets/images";
@@ -154,7 +154,7 @@ interface DrawerListIcon {
   open?: boolean;
 }
 
-const DrawerListIcon = styled(ListItemIcon)<DrawerListIcon>(
+const DrawerIcon = styled(ListItemIcon)<DrawerListIcon>(
   ({ activepage = "false", open = false }) => ({
     color:
       activepage === "true"
@@ -180,6 +180,7 @@ interface BoardProps {
 const Board: React.FC<BoardProps> = ({ user, workspace }) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const location = useLocation();
   const [activePage, setActivePage] = useState(
     location.pathname.substring(location.pathname.lastIndexOf("/"))
   );
@@ -188,8 +189,12 @@ const Board: React.FC<BoardProps> = ({ user, workspace }) => {
 
   React.useEffect(() => {
     if (location.pathname.includes("/board")) {
-      setBoardPath(() =>
-        location.pathname.split("/board")[1].split("/").splice(1, 2)
+      setBoardPath(
+        location.pathname
+          .split("/board")[1]
+          .split("/")
+          .splice(1, 2)
+          .filter((v) => v.length)
       );
     }
   }, [location.pathname]);
@@ -224,7 +229,7 @@ const Board: React.FC<BoardProps> = ({ user, workspace }) => {
             : theme.palette.grey.A100
         }
       >
-        {value[0].toUpperCase() + value.substring(1)}
+        {value[0].toUpperCase() + value.substring(1)})
         {index !== length - 1 && (
           <Box component="img" src={RightArrowIcon}></Box>
         )}
@@ -289,12 +294,12 @@ const Board: React.FC<BoardProps> = ({ user, workspace }) => {
                   px: 2.5,
                 }}
               >
-                <DrawerListIcon
+                <DrawerIcon
                   open={open}
                   activepage={activePage === relativePath ? "true" : "false"}
                 >
                   {icon}
-                </DrawerListIcon>
+                </DrawerIcon>
                 <ListItemText
                   color="white"
                   primary={text}

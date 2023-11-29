@@ -39,6 +39,7 @@ const WorkspaceForm: React.FC = () => {
       dispatch(createWorkspace(formValues));
       navigate("/signup/email-sent");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formErrors]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
