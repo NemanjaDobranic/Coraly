@@ -1,46 +1,101 @@
-# Getting Started with Create React App
+# Coraly Management App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Coraly Management App is a workspace and process management application designed to streamline work processes and enhance collaboration. The application features a user-friendly interface with a focus on frontend technologies like React and Material UI. The backend is powered by JSON Server to efficiently manage data.
 
-## Available Scripts
+### Table of Contents
 
-In the project directory, you can run:
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Screenshots](#screenshots)
+- [Contributing](#contributing)
+- [License](#license)
 
-### `npm start`
+### Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. **User Authentication:**
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Login: Users can securely log in to their accounts.
+- Sign Up: New users can create accounts and workspace with a simple registration process.
+- Reset Password: Users can reset their passwords if forgotten.
 
-### `npm test`
+2. **Workspace and Process Management:**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Workspaces: Users can create and manage different workspaces.
+- Processes: Each workspace can have multiple processes.
+- User Assignment: Processes can be assigned to specific users for efficient task management.
 
-### `npm run build`
+3. **Frontend Technology:**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Built with React: The frontend is developed using the React library for a dynamic and responsive user interface.
+- Material UI: The application utilizes Material UI components for a sleek and consistent design.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. **Backend Data Management:**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- JSON Server: The backend is implemented using JSON Server to handle data storage and retrieval.
 
-### `npm run eject`
+### Installation
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+To install Coraly Management App, follow these steps:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Clone the repository to your local machine:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```bash
+git clone https://github.com/yourusername/coraly-management-app.git`
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+2. Change into the project directory:
 
-## Learn More
+bash
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+cd coraly-management-app
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. Install dependencies using npm with the **--force** flag:
+
+```bash
+npm install --force
+```
+
+### Usage
+
+1. Start the frontend on **`localhost:3000`**:
+
+```bash
+npm start
+```
+
+2. Run the JSON Server:
+
+```bash
+npm run server
+```
+
+3. Access the application by opening your web browser and navigating to **`http://localhost:3000`**.
+
+### Screenshots
+
+![_Login Page_](./public/screenshots/login.png)
+
+![_Sign Up Page_](./public/screenshots/signup.png)
+
+![_Reset Password Page_](./public/screenshots/reset_password.png)
+
+![_Processes Page_](./public/screenshots/processes.png)
+
+![_Create Process Dialog_](./public/screenshots/create_process.png)
+
+![_Process Members Page_](./public/screenshots/process_members.png)
+
+![_Member Form Dialog_](./public/screenshots/member_form_dialog.png)
+
+![_Member Form Sidebar_](./public/screenshots/member_form_sidebar.png)
+
+### Contributing
+
+Contributions are welcome! Please fork the repository and create a pull request.
+
+### License
+
+This project is licensed under the [MIT License](https://opensource.org/license/mit/).
