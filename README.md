@@ -76,29 +76,29 @@ npm run server
 
 ### Screenshots
 
-![_Login Page_](./public/screenshots/login.png)
-*Caption: Login Page*
+![_Login Page_](./coraly/public/screenshots/login.png)
+_Caption: Login Page_
 
-![_Sign Up Page_](./public/screenshots/signup.png)
-*Caption: Sign Up Page*
+![_Sign Up Page_](./coraly/public/screenshots/signup.png)
+_Caption: Sign Up Page_
 
-![_Reset Password Page_](./public/screenshots/reset_password.png)
-*Caption: Reset Password Page*
+![_Reset Password Page_](./coraly/public/screenshots/reset_password.png)
+_Caption: Reset Password Page_
 
-![_Processes Page_](./public/screenshots/processes.png)
-*Caption: Processes Page*
+![_Processes Page_](./coraly/public/screenshots/processes.png)
+_Caption: Processes Page_
 
-![_Create Process Dialog_](./public/screenshots/create_process.png)
-*Caption: Create Process Dialog*
+![_Create Process Dialog_](./coraly/public/screenshots/create_process.png)
+_Caption: Create Process Dialog_
 
-![_Process Members Page_](./public/screenshots/process_members.png)
-*Caption: Process Members Page*
+![_Process Members Page_](./coraly/public/screenshots/process_members.png)
+_Caption: Process Members Page_
 
-![_Member Form Dialog_](./public/screenshots/member_form_dialog.png)
-*Caption: Member Form Dialog*
+![_Member Form Dialog_](./coraly/public/screenshots/member_form_dialog.png)
+_Caption: Member Form Dialog_
 
-![_Member Form Sidebar_](./public/screenshots/member_form_sidebar.png)
-*Caption: Member Form Sidebar*
+![_Member Form Sidebar_](./coraly/public/screenshots/member_form_sidebar.png)
+_Caption: Member Form Sidebar_
 
 ### Contributing
 
